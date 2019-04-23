@@ -1,9 +1,17 @@
 # depslib dependency file v1.0
-1555514762 source:c:\users\hp\desktop\universidade\projeto-ppp-2019\planeamento de viagens\main.c
+1556046514 source:c:\users\hp\desktop\universidade\projeto-ppp-2019\planeamento de viagens\main.c
 	<stdio.h>
 	<stdlib.h>
+	"user.h"
 
 1556027406 source:c:\users\user\desktop\projeto-ppp-2019\planeamento de viagens\main.c
 	<stdio.h>
 	<stdlib.h>
+
+1556046476 source:c:\users\hp\desktop\universidade\projeto-ppp-2019\planeamento de viagens\user.c
+	<stdio.h>
+	<stdlib.h>
+	"user.h"
+
+1556045679 c:\users\hp\desktop\universidade\projeto-ppp-2019\planeamento de viagens\user.h
 
