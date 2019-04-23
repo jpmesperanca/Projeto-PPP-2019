@@ -6,21 +6,22 @@ void regist(){printf("regist");}
 
 
 void menu(){
-    char num='0';
+    int num=0;
     printf(".......................");
     printf("\n\t -Menu-");
     printf("\n1 - Login");
     printf("\n2 - Register");
     printf("\n.......................");
     printf("\nEscolha: ");
-    scanf("%c",&num);   /* SCANF IS A PAIN IN THE ASS - THANK YOU */
+    if (scanf("%d",&num) == 0 || (num < 1 || num > 2)) {
+        fflush(stdin);
+        menu();
+    }
     switch (num){
-        case '1':
-            login();break;
-        case '2':
-            regist();break;
-        default:
-            menu();break;
+            case 1:
+                printf("login()");break;
+            case 2:
+                printf("regist()");break;
     }
 }
 
