@@ -1,4 +1,0 @@
-local1 4 pdi1 pdi2 pdi3 pdi4
-local2 5 pdi1 pdi2 pdi3 pdi4 pdi5
-local3 3 pdi1 pdi2 pdi3
-local4 4 pdi1 pdi2 pdi3 pdi4

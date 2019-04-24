@@ -14,5 +14,6 @@ typedef struct lnode{
 nodeptr cria_user(void);
 void print(nodeptr);
 nodeptr insere(nodeptr ,char *,char *,char *,char *);
+void openfile(char *,nodeptr);
 
 #endif

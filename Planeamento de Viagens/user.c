@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "user.h"
 #define cinq 50
 #define cem 100
@@ -39,3 +40,34 @@ void print(nodeptr user){
     }
 }
 
+void openfile(char *file,nodeptr ptr){
+    nodeptr aux=ptr;
+    FILE *f=fopen(file,"r");
+    char *nome,*adereco,*data,*telefone;
+
+    char etc;
+
+    while(fscanf(f, "%c\n", &etc) == 1){  /* SALTAR \N */
+        fflush(stdin);
+        nome=malloc(cinq*sizeof(char));
+        adereco=malloc(cem*sizeof(char));
+        data=malloc(cinq*sizeof(char));
+        telefone=malloc(cinq*sizeof(char));
+
+        fgets(nome,cinq,f);
+        nome=strtok(nome,"\n");
+
+        fgets(adereco,cem,f);
+        adereco=strtok(adereco,"\n");
+
+        fgets(data,cinq,f);
+        data=strtok(data,"\n");
+
+        fgets(telefone,cinq,f);
+        telefone=strtok(telefone,"\n");
+
+        aux=insere(aux,nome,adereco,data,telefone);
+        printf("%s %s %s %s\n",nome,adereco,data,telefone);
+    }
+
+}

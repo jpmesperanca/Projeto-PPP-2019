@@ -1,0 +1,45 @@
+local1 4 pdi1 pdi2 pdi3 pdi4
+local2 5 pdi1 pdi2 pdi3 pdi4 pdi5
+local3 3 pdi1 pdi2 pdi3
+local4 4 pdi1 pdi2 pdi3 pdi4
+
+void login(){
+    char *nome= malloc(cinq*sizeof(char));
+    printf("Nome de Utilizador: ");
+    fgets(nome,cinq,stdin);
+    fflush(stdin);
+    while(aux->next != NULL){        /* FALTA PUXAR O AUXILIAR DOS FICHEIROS*/
+        if (nome!=aux->name){
+            system("cls");
+            printf("Nome de Utilizador Não Encontrado...\n");
+            login();
+        }
+        mainmenu();                     /* FASE 2 */
+    }
+
+}
+
+void regist(){
+    char *name= malloc(cinq*sizeof(char));
+    char *adress= malloc(cem*sizeof(char));
+    char *date= malloc(cinq*sizeof(char));
+    char *phone= malloc(cinq*sizeof(char));
+
+    printf("Nome de Utilizador: ");
+    fgets(name,cinq,stdin);
+    fflush(stdin);
+
+    printf("Morada: ");
+    fgets(adress,cem,stdin);
+    fflush(stdin);
+
+    printf("Data de Nascimento: ");
+    fgets(date,cinq,stdin);
+    fflush(stdin);
+
+    printf("Telefone: ");
+    fgets(phone,cinq,stdin);
+    fflush(stdin);
+                                             /* IF CLAUSE PARA ACEITAR O NOME DE UTILIZADOR */
+    insere(user,name,adress,date,phone);     /* PRECISA DE NOME QUE SAI DO FICHEIRO DOS USERS */
+}
