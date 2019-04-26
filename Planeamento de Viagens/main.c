@@ -5,11 +5,35 @@
 #define cem 100
 #define cinq 50
 
+nodeptr login(nodeptr first){
+    char *nome= malloc(cinq*sizeof(char));
+    int check=0;
+    nodeptr aux=first;
+
+    printf("Nome de Utilizador: ");
+    fgets(nome,cinq,stdin);
+    fflush(stdin);
+    nome=strtok(nome,"\n");
+    while(aux->next != NULL){
+        if (strcmp(nome,aux->name)==0){
+            return aux;
+
+        }
+        aux=aux->next;
+    }
+    system("cls");
+    printf("Nome de Utilizador Nao Encontrado...\n");
+    aux=login(first);
+    return aux;
+}
 
 
-
-void menulogin(){
+nodeptr menulogin(nodeptr first){
     int num=0;
+    nodeptr userptr;
+
+    openfile("users.txt",first);
+    print(first);
 
     printf(".......................");
     printf("\n\t -Menu-");
@@ -21,23 +45,23 @@ void menulogin(){
     if (scanf("%d",&num) == 0 || (num < 1 || num > 2)) {   /* Caso o Utilizador nao Escolha uma das 2 opcoes */
         fflush(stdin);
         system("cls");
-        menulogin();
+        menulogin(first);
     }
-
+    fflush(stdin);
     switch (num){
             case 1:
-                printf("login()");break;
+                userptr=login(first);break;
             case 2:
-                printf("regist()");break;
+                printf("userptr=regist(first)");break;
     }
+    return userptr;
 }
 
 int main()
 {
-
-    nodeptr wow=cria_user();
-    openfile("users.txt",wow);
-
+    nodeptr first=cria_user();
+    nodeptr userptr=menulogin(first);
+    printf("\nResultou! %s",userptr->name);
     return 0;
 }
 

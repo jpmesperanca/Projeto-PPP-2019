@@ -35,12 +35,12 @@ void print(nodeptr user){
         printf("%s ", pessoa->name);
         printf("%s ", pessoa->adress);
         printf("%s ", pessoa->date);
-        printf("%s ", pessoa->phone);
+        printf("%s \n", pessoa->phone);
         pessoa=pessoa->next;
     }
 }
 
-void openfile(char *file,nodeptr ptr){
+nodeptr openfile(char *file,nodeptr ptr){
     nodeptr aux=ptr;
     FILE *f=fopen(file,"r");
     char *nome,*adereco,*data,*telefone;
@@ -67,7 +67,18 @@ void openfile(char *file,nodeptr ptr){
         telefone=strtok(telefone,"\n");
 
         aux=insere(aux,nome,adereco,data,telefone);
-        printf("%s %s %s %s\n",nome,adereco,data,telefone);
     }
+    fclose(f);
+    return aux;
+}
 
+void inserefile(char *file,nodeptr ptr){
+    nodeptr aux=ptr;
+    FILE *f=fopen(file,"a");
+    fprintf(f,"\n\n");
+    fprintf(f,"%s\n",aux->name);
+    fprintf(f,"%s\n",aux->adress);
+    fprintf(f,"%s\n",aux->date);
+    fprintf(f,"%s",aux->phone);
+    fclose(f);
 }
