@@ -27,10 +27,51 @@ nodeptr login(nodeptr first){
     return aux;
 }
 
+nodeptr regist(nodeptr first){
+    char *name= malloc(cinq*sizeof(char));
+    char *adress= malloc(cem*sizeof(char));
+    char *date= malloc(cinq*sizeof(char));
+    char *phone= malloc(cinq*sizeof(char));
+    nodeptr aux=first;
+
+    printf("Inscricao de Novo utilizador");
+
+    printf("Nome de Utilizador: ");
+    fgets(name,cinq,stdin);
+    fflush(stdin);
+    name=strtok(name,"\n");
+
+    printf("Morada: ");
+    fgets(adress,cem,stdin);
+    fflush(stdin);
+    adress=strtok(adress,"\n");
+
+    printf("Data de Nascimento: ");
+    fgets(date,cinq,stdin);
+    fflush(stdin);
+    date=strtok(date,"\n");
+
+    printf("Telefone: ");
+    fgets(phone,cinq,stdin);
+    fflush(stdin);
+    phone=strtok(phone,"\n");
+
+    while(aux->next != NULL){
+        if (strcmp(name,aux->name)==0){
+        /* FAZEMOS UM IF AQUI OU NAO? */
+        }
+        aux=aux->next;
+    }
+    while(aux->next != NULL){ aux=aux->next;}
+    insere(aux,name,adress,date,phone);
+    inserefile("users.txt",aux);
+    return aux;
+}
 
 nodeptr menulogin(nodeptr first){
     int num=0;
     nodeptr userptr;
+
 
     openfile("users.txt",first);
     print(first);
@@ -52,7 +93,7 @@ nodeptr menulogin(nodeptr first){
             case 1:
                 userptr=login(first);break;
             case 2:
-                printf("userptr=regist(first)");break;
+                userptr=regist(first);break;
     }
     return userptr;
 }
