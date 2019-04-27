@@ -7,10 +7,9 @@
 
 nodeptr login(nodeptr first){
     char *nome= malloc(cinq*sizeof(char));
-    int check=0;
     nodeptr aux=first;
 
-    printf("Nome de Utilizador: ");
+    printf("\nNome de Utilizador: ");
     fgets(nome,cinq,stdin);
     fflush(stdin);
     nome=strtok(nome,"\n");
@@ -22,8 +21,8 @@ nodeptr login(nodeptr first){
         aux=aux->next;
     }
     system("cls");
-    printf("Nome de Utilizador Nao Encontrado...\n");
-    aux=login(first);
+    printf("\nNome de Utilizador Nao Encontrado...\n");
+    aux = login(first);
     return aux;
 }
 
@@ -34,12 +33,22 @@ nodeptr regist(nodeptr first){
     char *phone= malloc(cinq*sizeof(char));
     nodeptr aux=first;
 
-    printf("Inscricao de Novo utilizador");
+
+    printf("\n.......... Inscricao de Novo utilizador ..........\n\n");
 
     printf("Nome de Utilizador: ");
     fgets(name,cinq,stdin);
     fflush(stdin);
     name=strtok(name,"\n");
+
+    while(aux->next != NULL){
+        if (strcmp(name,aux->name)==0){                               /* Ve se o nome de utilizador ja existe*/
+            system("cls");
+            printf("\n\t  ###### Utilizador em uso ######\n\n");
+            regist(first);
+        }
+        aux=aux->next;
+    }
 
     printf("Morada: ");
     fgets(adress,cem,stdin);
@@ -56,31 +65,25 @@ nodeptr regist(nodeptr first){
     fflush(stdin);
     phone=strtok(phone,"\n");
 
-    while(aux->next != NULL){
-        if (strcmp(name,aux->name)==0){
-        /* FAZEMOS UM IF AQUI OU NAO? */
-        }
-        aux=aux->next;
-    }
     while(aux->next != NULL){ aux=aux->next;}
     insere(aux,name,adress,date,phone);
     inserefile("users.txt",aux);
+
     return aux;
 }
 
 nodeptr menulogin(nodeptr first){
+
     int num=0;
     nodeptr userptr;
 
-
     openfile("users.txt",first);
-    print(first);
 
-    printf(".......................");
+    printf("\n.......................");
     printf("\n\t -Menu-");
     printf("\n1 - Login");
     printf("\n2 - Register");
-    printf("\n.......................");
+    printf("\n.......................\n");
     printf("\nEscolha: ");
 
     if (scanf("%d",&num) == 0 || (num < 1 || num > 2)) {   /* Caso o Utilizador nao Escolha uma das 2 opcoes */
@@ -88,21 +91,96 @@ nodeptr menulogin(nodeptr first){
         system("cls");
         menulogin(first);
     }
+
     fflush(stdin);
+    system("cls");
+
     switch (num){
             case 1:
                 userptr=login(first);break;
             case 2:
                 userptr=regist(first);break;
     }
+
     return userptr;
 }
+
+void mainmenu(nodeptr user, nodeptr first){
+
+    int num=0;
+
+    printf("\n..................................");
+    printf("\n\t -Menu Principal-\n");
+    printf("\n1 - Perfil");
+    printf("\n2 - Preferencias");
+    printf("\n3 - Gerar Viagem");
+    printf("\n..................................\n");
+    printf("\nEscolha: ");
+
+    if (scanf("%d",&num) == 0 || (num < 1 || num > 3)) {   /* Caso o Utilizador nao Escolha uma das 2 opcoes */
+        fflush(stdin);
+        system("cls");
+        menulogin(first);
+    }
+
+    fflush(stdin);
+    system("cls");
+
+    switch (num){
+            case 1:
+                perfil();break;
+            case 2:
+                printf("preferencias()");break;
+            case 3:
+                printf("viagem()");break;
+    }
+}
+
+void menualtera(){
+}
+
+void perfil(nodeptr userptr, nodeptr first){
+
+    int num=0;
+
+    printf("\n.........................");
+    printf("\n\t -Perfil-\n");
+    printf("\n1 - Logout");
+    printf("\n2 - Alterar dados");
+    printf("\n3 - Back");
+    printf("\n.........................\n");
+    printf("\nEscolha: ");
+
+    if (scanf("%d",&num) == 0 || (num < 1 || num > 3)) {   /* Caso o Utilizador nao Escolha uma das 2 opcoes */
+        fflush(stdin);
+        system("cls");
+        menulogin(first);
+    }
+
+    fflush(stdin);
+    system("cls");
+
+    switch (num){
+            case 1:
+                userptr=menulogin(first);break; /*logout*/
+            case 2:
+                menualtera();break;                   /*alterar prefs*/
+            case 3:
+                mainmenu(userptr,first);break;             /*back*/
+    }
+}
+
 
 int main()
 {
     nodeptr first=cria_user();
+
     nodeptr userptr=menulogin(first);
-    printf("\nResultou! %s",userptr->name);
+
+    system("cls");
+    printf("\n     -Logged in com sucesso-\n");
+    mainmenu(userptr,first);
+
     return 0;
 }
 

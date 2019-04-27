@@ -15,6 +15,7 @@ nodeptr cria_user(void);
 void print(nodeptr);
 nodeptr insere(nodeptr ,char *,char *,char *,char *);
 nodeptr openfile(char *,nodeptr );
+void alteradados(nodeptr, char*);
 void inserefile(char *,nodeptr );
 
 #endif

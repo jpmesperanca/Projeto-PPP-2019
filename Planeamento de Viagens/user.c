@@ -5,6 +5,8 @@
 #define cinq 50
 #define cem 100
 
+
+
 nodeptr cria_user(){
     nodeptr aux;
     aux=(nodeptr)malloc(sizeof(utilizador_node));
@@ -19,6 +21,8 @@ nodeptr cria_user(){
     return aux;
 }
 
+
+
 nodeptr insere(nodeptr fnl,char *nome,char *morada,char *data,char *telefone){
     nodeptr aux=fnl;
     aux->name=nome;
@@ -28,6 +32,14 @@ nodeptr insere(nodeptr fnl,char *nome,char *morada,char *data,char *telefone){
     aux->next=cria_user();
     return aux->next;
 }
+
+
+
+void alteradados(nodeptr dado, char *valor){
+    dado = valor;
+}
+
+
 
 void print(nodeptr user){
     nodeptr pessoa = user;
@@ -40,14 +52,18 @@ void print(nodeptr user){
     }
 }
 
+
+
 nodeptr openfile(char *file,nodeptr ptr){
+
     nodeptr aux=ptr;
     FILE *f=fopen(file,"r");
     char *nome,*adereco,*data,*telefone;
-
     char etc;
 
+
     while(fscanf(f, "%c\n", &etc) == 1){  /* SALTAR \N */
+
         fflush(stdin);
         nome=malloc(cinq*sizeof(char));
         adereco=malloc(cem*sizeof(char));
@@ -71,6 +87,8 @@ nodeptr openfile(char *file,nodeptr ptr){
     fclose(f);
     return aux;
 }
+
+
 
 void inserefile(char *file,nodeptr ptr){
     nodeptr aux=ptr;
