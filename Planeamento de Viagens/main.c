@@ -4,6 +4,7 @@
 #include "user.h"
 #define cem 100
 #define cinq 50
+#define tele 9
 
 nodeptr login(nodeptr first){
     char *nome= malloc(cinq*sizeof(char));
@@ -30,7 +31,7 @@ nodeptr regist(nodeptr first){
     char *name= malloc(cinq*sizeof(char));
     char *adress= malloc(cem*sizeof(char));
     char *date= malloc(cinq*sizeof(char));
-    char *phone= malloc(cinq*sizeof(char));
+    char *phone= malloc(tele*sizeof(char));
     nodeptr aux=first;
 
 
@@ -61,7 +62,7 @@ nodeptr regist(nodeptr first){
     date=strtok(date,"\n");
 
     printf("Telefone: ");
-    fgets(phone,cinq,stdin);
+    fgets(phone,tele,stdin);
     fflush(stdin);
     phone=strtok(phone,"\n");
 
@@ -105,38 +106,67 @@ nodeptr menulogin(nodeptr first){
     return userptr;
 }
 
-void mainmenu(nodeptr user, nodeptr first){
+void logout(nodeptr first){
+    nodeptr aux=first;
+    int counter=1;
+    FILE *f=fopen("users.txt","w");
+    while (aux->next!=NULL){
+        if (counter==1){
+            fprintf(f,"\n");
+            fprintf(f,"%s\n",aux->name);
+            fprintf(f,"%s\n",aux->adress);
+            fprintf(f,"%s\n",aux->date);
+            fprintf(f,"%s",aux->phone);
+        }
+        else{
+            fprintf(f,"\n\n");
+            fprintf(f,"%s\n",aux->name);
+            fprintf(f,"%s\n",aux->adress);
+            fprintf(f,"%s\n",aux->date);
+            fprintf(f,"%s",aux->phone);
+        }
+        counter=0;
+        aux=aux->next;
+    }
+    fclose(f);
+    printf("\n     -Logged out com sucesso-\n");
+}
+
+void menualtera(nodeptr userptr,nodeptr first){
 
     int num=0;
 
-    printf("\n..................................");
-    printf("\n\t -Menu Principal-\n");
-    printf("\n1 - Perfil");
-    printf("\n2 - Preferencias");
-    printf("\n3 - Gerar Viagem");
-    printf("\n..................................\n");
+    printf("\n.........................");
+    printf("\n     -Alterar Dados-\n");
+    printf("\n1 - Utilizador");
+    printf("\n2 - Morada");
+    printf("\n3 - Data de Nascimento");
+    printf("\n4 - Telefone");
+    printf("\n5 - Bach");
+    printf("\n.........................\n");
     printf("\nEscolha: ");
 
-    if (scanf("%d",&num) == 0 || (num < 1 || num > 3)) {   /* Caso o Utilizador nao Escolha uma das 2 opcoes */
+    if (scanf("%d",&num) == 0 || (num < 1 || num > 5)) {   /* Caso o Utilizador nao Escolha uma das 5 opcoes */
         fflush(stdin);
         system("cls");
         menulogin(first);
     }
-
     fflush(stdin);
     system("cls");
 
     switch (num){
             case 1:
-                perfil();break;
+                alterauser(userptr,first);break;
             case 2:
-                printf("preferencias()");break;
+                alteramorada(userptr,first);break;
             case 3:
-                printf("viagem()");break;
-    }
-}
+                alteradata(userptr,first);break;
+            case 4:
+                alteraphone(userptr,first);break;
+            case 5:
+                perfil(userptr,first);break;
 
-void menualtera(){
+    }
 }
 
 void perfil(nodeptr userptr, nodeptr first){
@@ -151,7 +181,39 @@ void perfil(nodeptr userptr, nodeptr first){
     printf("\n.........................\n");
     printf("\nEscolha: ");
 
-    if (scanf("%d",&num) == 0 || (num < 1 || num > 3)) {   /* Caso o Utilizador nao Escolha uma das 2 opcoes */
+    if (scanf("%d",&num) == 0 || (num < 1 || num > 3)) {   /* Caso o Utilizador nao Escolha uma das 3 opcoes */
+        fflush(stdin);
+        system("cls");
+        menulogin(first);
+    }
+
+    fflush(stdin);
+    system("cls");
+
+
+    switch (num){
+            case 1:
+                logout(first);break;       /*logout*/
+            case 2:
+                menualtera(userptr,first);break;                     /*alterar prefs*/
+            case 3:
+                mainmenu(userptr,first);break;          /*back*/
+    }
+}
+
+void mainmenu(nodeptr user, nodeptr first){
+
+    int num=0;
+
+    printf("\n..................................");
+    printf("\n\t -Menu Principal-\n");
+    printf("\n1 - Perfil");
+    printf("\n2 - Preferencias");
+    printf("\n3 - Gerar Viagem");
+    printf("\n..................................\n");
+    printf("\nEscolha: ");
+
+    if (scanf("%d",&num) == 0 || (num < 1 || num > 3)) {   /* Caso o Utilizador nao Escolha uma das 3 opcoes */
         fflush(stdin);
         system("cls");
         menulogin(first);
@@ -162,14 +224,13 @@ void perfil(nodeptr userptr, nodeptr first){
 
     switch (num){
             case 1:
-                userptr=menulogin(first);break; /*logout*/
+                perfil(user,first);break;
             case 2:
-                menualtera();break;                   /*alterar prefs*/
+                printf("preferencias()");break;
             case 3:
-                mainmenu(userptr,first);break;             /*back*/
+                printf("viagem()");break;
     }
 }
-
 
 int main()
 {

@@ -14,8 +14,12 @@ typedef struct lnode{
 nodeptr cria_user(void);
 void print(nodeptr);
 nodeptr insere(nodeptr ,char *,char *,char *,char *);
-nodeptr openfile(char *,nodeptr );
+nodeptr openfile(char *,nodeptr);
 void alteradados(nodeptr, char*);
-void inserefile(char *,nodeptr );
+void inserefile(char *,nodeptr);
+void alterauser(nodeptr ,nodeptr);
+void alteramorada(nodeptr ,nodeptr);
+void alteradata(nodeptr ,nodeptr);
+void alteraphone(nodeptr ,nodeptr);
 
 #endif

@@ -4,6 +4,7 @@
 #include "user.h"
 #define cinq 50
 #define cem 100
+#define tele 9
 
 
 
@@ -15,7 +16,7 @@ nodeptr cria_user(){
         aux->name=malloc(cinq*sizeof(char));
         aux->adress=malloc(cem*sizeof(char));
         aux->date=malloc(cinq*sizeof(char));
-        aux->phone=malloc(cinq*sizeof(char));
+        aux->phone=malloc(tele*sizeof(char));
         aux->next=NULL;
     }
     return aux;
@@ -32,13 +33,6 @@ nodeptr insere(nodeptr fnl,char *nome,char *morada,char *data,char *telefone){
     aux->next=cria_user();
     return aux->next;
 }
-
-
-
-void alteradados(nodeptr dado, char *valor){
-    dado = valor;
-}
-
 
 
 void print(nodeptr user){
@@ -68,7 +62,7 @@ nodeptr openfile(char *file,nodeptr ptr){
         nome=malloc(cinq*sizeof(char));
         adereco=malloc(cem*sizeof(char));
         data=malloc(cinq*sizeof(char));
-        telefone=malloc(cinq*sizeof(char));
+        telefone=malloc(tele*sizeof(char));
 
         fgets(nome,cinq,f);
         nome=strtok(nome,"\n");
@@ -79,7 +73,7 @@ nodeptr openfile(char *file,nodeptr ptr){
         fgets(data,cinq,f);
         data=strtok(data,"\n");
 
-        fgets(telefone,cinq,f);
+        fgets(telefone,tele,f);
         telefone=strtok(telefone,"\n");
 
         aux=insere(aux,nome,adereco,data,telefone);
@@ -99,4 +93,53 @@ void inserefile(char *file,nodeptr ptr){
     fprintf(f,"%s\n",aux->date);
     fprintf(f,"%s",aux->phone);
     fclose(f);
+}
+
+void alterauser(nodeptr userptr,nodeptr first){
+    nodeptr aux=first;
+    char *input=malloc(cinq*sizeof(char));
+    printf("\nNome de Utilizador: ");
+    fgets(input,cinq,stdin);
+    fflush(stdin);
+    system("cls");
+    input=strtok(input,"\n");
+
+    while(aux->next!=NULL){
+        if (strcmp(input,aux->name)==0){                              /* Ve se o nome de utilizador ja existe*/
+            system("cls");
+            printf("\n\t  ###### Utilizador em uso ######\n\n");
+            alterauser(userptr,first);
+        }
+        aux=aux->next;
+        }
+
+    userptr->name=input;
+    menualtera(userptr,first);
+}
+
+void alteramorada(nodeptr userptr,nodeptr first){
+    printf("\nMorada: ");
+    fgets(userptr->adress,cem,stdin);
+    fflush(stdin);
+    system("cls");
+    userptr->adress=strtok(userptr->adress,"\n");
+    menualtera(userptr,first);
+}
+
+void alteradata(nodeptr userptr,nodeptr first){
+    printf("\nData de Nascimento: ");
+    fgets(userptr->date,cinq,stdin);
+    fflush(stdin);
+    system("cls");
+    userptr->date=strtok(userptr->date,"\n");
+    menualtera(userptr,first);
+}
+
+void alteraphone(nodeptr userptr,nodeptr first){
+    printf("\nNumero de Telefone: ");
+    fgets(userptr->phone,tele,stdin);
+    fflush(stdin);
+    system("cls");
+    userptr->phone=strtok(userptr->phone,"\n");
+    menualtera(userptr,first);
 }
