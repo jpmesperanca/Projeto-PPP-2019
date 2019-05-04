@@ -15,11 +15,10 @@ nodeptr cria_user(void);
 void print(nodeptr);
 nodeptr insere(nodeptr ,char *,char *,char *,char *);
 nodeptr openfile(char *,nodeptr);
-void alteradados(nodeptr, char*);
 void inserefile(char *,nodeptr);
-void alterauser(nodeptr ,nodeptr);
-void alteramorada(nodeptr ,nodeptr);
-void alteradata(nodeptr ,nodeptr);
-void alteraphone(nodeptr ,nodeptr);
+int alterauser(nodeptr ,nodeptr);
+int alteramorada(nodeptr ,nodeptr);
+int alteradata(nodeptr ,nodeptr);
+int alteraphone(nodeptr ,nodeptr);
 
 #endif

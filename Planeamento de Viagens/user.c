@@ -38,10 +38,10 @@ nodeptr insere(nodeptr fnl,char *nome,char *morada,char *data,char *telefone){
 void print(nodeptr user){
     nodeptr pessoa = user;
     while (pessoa->next!=NULL){
-        printf("%s ", pessoa->name);
-        printf("%s ", pessoa->adress);
-        printf("%s ", pessoa->date);
-        printf("%s \n", pessoa->phone);
+        printf("%s\n", pessoa->name);
+        printf("%s\n", pessoa->adress);
+        printf("%s\n", pessoa->date);
+        printf("%s \n\n", pessoa->phone);
         pessoa=pessoa->next;
     }
 }
@@ -95,7 +95,7 @@ void inserefile(char *file,nodeptr ptr){
     fclose(f);
 }
 
-void alterauser(nodeptr userptr,nodeptr first){
+int alterauser(nodeptr userptr,nodeptr first){
     nodeptr aux=first;
     char *input=malloc(cinq*sizeof(char));
     printf("\nNome de Utilizador: ");
@@ -107,39 +107,39 @@ void alterauser(nodeptr userptr,nodeptr first){
     while(aux->next!=NULL){
         if (strcmp(input,aux->name)==0){                              /* Ve se o nome de utilizador ja existe*/
             system("cls");
-            printf("\n\t  ###### Utilizador em uso ######\n\n");
-            alterauser(userptr,first);
+            printf("\n\t  ###### Utilizador em uso ######\n");
+            return 6;
         }
         aux=aux->next;
         }
 
     userptr->name=input;
-    menualtera(userptr,first);
+    return 5;
 }
 
-void alteramorada(nodeptr userptr,nodeptr first){
+int alteramorada(nodeptr userptr,nodeptr first){
     printf("\nMorada: ");
     fgets(userptr->adress,cem,stdin);
     fflush(stdin);
     system("cls");
     userptr->adress=strtok(userptr->adress,"\n");
-    menualtera(userptr,first);
+    return 5;
 }
 
-void alteradata(nodeptr userptr,nodeptr first){
+int alteradata(nodeptr userptr,nodeptr first){
     printf("\nData de Nascimento: ");
     fgets(userptr->date,cinq,stdin);
     fflush(stdin);
     system("cls");
     userptr->date=strtok(userptr->date,"\n");
-    menualtera(userptr,first);
+    return 5;
 }
 
-void alteraphone(nodeptr userptr,nodeptr first){
+int alteraphone(nodeptr userptr,nodeptr first){
     printf("\nNumero de Telefone: ");
     fgets(userptr->phone,tele,stdin);
     fflush(stdin);
     system("cls");
     userptr->phone=strtok(userptr->phone,"\n");
-    menualtera(userptr,first);
+    return 5;
 }
