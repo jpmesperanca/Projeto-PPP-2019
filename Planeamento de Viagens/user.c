@@ -34,16 +34,15 @@ nodeptr insere(nodeptr fnl,char *nome,char *morada,char *data,char *telefone){
 }
 
 
-void print(nodeptr user){
+int print(nodeptr user){
     nodeptr pessoa = user;
-    while (pessoa->next!=NULL){
-        printf("%s\n", pessoa->name);
-        printf("%s\n", pessoa->adress);
-        printf("%s\n", pessoa->date);
-        printf("%s \n\n", pessoa->phone);
-        pessoa=pessoa->next;
-    }
+    printf("%s\n", pessoa->name);
+    printf("%s\n", pessoa->adress);
+    printf("%s\n", pessoa->date);
+    printf("%s \n", pessoa->phone);
+    return 2;
 }
+
 
 
 nodeptr openfile(char *file,nodeptr ptr){

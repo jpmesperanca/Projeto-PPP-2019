@@ -194,8 +194,9 @@ int perfil(nodeptr userptr, nodeptr first){
 
     printf("\n.........................");
     printf("\n\t -Perfil-\n");
-    printf("\n1 - Logout");
-    printf("\n2 - Alterar dados");
+    printf("\n1 - Dados");
+    printf("\n2 - Logout");
+    printf("\n3 - Alterar dados");
     printf("\n3 - Back");
     printf("\n.........................\n");
     printf("\nEscolha: ");
@@ -211,10 +212,12 @@ int perfil(nodeptr userptr, nodeptr first){
 
     switch (num){
             case 1:
-                return 0; /*logout*/
+                return 10;
             case 2:
-                return 5; /*alterar dados*/
+                return 0; /*logout*/
             case 3:
+                return 5; /*alterar dados*/
+            case 4:
                 return 1; /*Back to main menu*/
     }
     return 100;
@@ -254,8 +257,7 @@ int mainmenu(nodeptr user, nodeptr first){
     return 100;
 }
 
-int main()
-{
+int main(){
     int num = 1;
     nodeptr first=cria_user();
 
@@ -280,7 +282,8 @@ int main()
                             num = alteradata(userptr,first);break;
                         case 9:
                             num = alteraphone(userptr,first);break;
-
+                    case 10:
+                        num = print(userptr);break;
 
                 case 3:
                     num = 0;break;
