@@ -23,7 +23,6 @@ nodeptr cria_user(){
 }
 
 
-
 nodeptr insere(nodeptr fnl,char *nome,char *morada,char *data,char *telefone){
     nodeptr aux=fnl;
     aux->name=nome;
@@ -45,7 +44,6 @@ void print(nodeptr user){
         pessoa=pessoa->next;
     }
 }
-
 
 
 nodeptr openfile(char *file,nodeptr ptr){
@@ -83,7 +81,6 @@ nodeptr openfile(char *file,nodeptr ptr){
 }
 
 
-
 void inserefile(char *file,nodeptr ptr){
     nodeptr aux=ptr;
     FILE *f=fopen(file,"a");
@@ -94,6 +91,7 @@ void inserefile(char *file,nodeptr ptr){
     fprintf(f,"%s",aux->phone);
     fclose(f);
 }
+
 
 int alterauser(nodeptr userptr,nodeptr first){
     nodeptr aux=first;
@@ -117,6 +115,7 @@ int alterauser(nodeptr userptr,nodeptr first){
     return 5;
 }
 
+
 int alteramorada(nodeptr userptr,nodeptr first){
     printf("\nMorada: ");
     fgets(userptr->adress,cem,stdin);
@@ -126,6 +125,7 @@ int alteramorada(nodeptr userptr,nodeptr first){
     return 5;
 }
 
+
 int alteradata(nodeptr userptr,nodeptr first){
     printf("\nData de Nascimento: ");
     fgets(userptr->date,cinq,stdin);
@@ -134,6 +134,7 @@ int alteradata(nodeptr userptr,nodeptr first){
     userptr->date=strtok(userptr->date,"\n");
     return 5;
 }
+
 
 int alteraphone(nodeptr userptr,nodeptr first){
     printf("\nNumero de Telefone: ");

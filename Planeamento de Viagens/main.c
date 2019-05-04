@@ -93,7 +93,6 @@ nodeptr menulogin(nodeptr first){
     openfile("users.txt",first);
 
     while (num == 0){
-        /*system("cls");*/
         printf("\n.......................");
         printf("\n\t -Menu-");
         printf("\n1 - Login");
@@ -117,6 +116,9 @@ nodeptr menulogin(nodeptr first){
             case 2:
                 userptr=regist(first);break;
     }
+
+    system("cls");
+    printf("\n     -Logged in com sucesso-\n");
 
     return userptr;
 }
@@ -258,12 +260,8 @@ int main()
     nodeptr first=cria_user();
 
     openfile("users.txt",first);
-    print(first);
 
     nodeptr userptr=menulogin(first);
-
-    system("cls");
-    printf("\n     -Logged in com sucesso-\n");
 
     while (num!=0){
         switch (num){

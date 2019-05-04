@@ -12,13 +12,21 @@ typedef struct lnode{
 }utilizador_node;
 
 nodeptr cria_user(void);
+
 void print(nodeptr);
+
 nodeptr insere(nodeptr ,char *,char *,char *,char *);
+
 nodeptr openfile(char *,nodeptr);
+
 void inserefile(char *,nodeptr);
+
 int alterauser(nodeptr ,nodeptr);
+
 int alteramorada(nodeptr ,nodeptr);
+
 int alteradata(nodeptr ,nodeptr);
+
 int alteraphone(nodeptr ,nodeptr);
 
 #endif
