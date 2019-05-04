@@ -15,6 +15,7 @@ nodeptr login(nodeptr first){
 
         printf("\nNome de Utilizador: ");
         fgets(nome,cinq,stdin);
+
         fflush(stdin);
         nome=strtok(nome,"\n");
 
