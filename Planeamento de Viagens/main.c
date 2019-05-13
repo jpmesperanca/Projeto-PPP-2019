@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "user.h"
+#include "locais.h"
 #define cem 100
 #define cinq 50
 #define tele 9
@@ -267,6 +268,7 @@ int mainmenu(nodeptr user, nodeptr first){
 }
 
 int main(){
+    /*
     int num = 1;
     nodeptr first=cria_user();
 
@@ -307,5 +309,8 @@ int main(){
     logout(first);
 
     return 0;
+    */
+
+    openlocal("locais.txt");
 }
 

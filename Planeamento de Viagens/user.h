@@ -8,6 +8,7 @@ typedef struct lnode{
     char *adress;
     char *date;
     char *phone;
+
     nodeptr next;
 }utilizador_node;
 
