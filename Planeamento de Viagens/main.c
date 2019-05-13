@@ -123,6 +123,15 @@ nodeptr menulogin(nodeptr first){
     return userptr;
 }
 
+void printadados(nodeptr userptr){
+    printf("\n*************************\n");
+    printf("Nome de Utilizador: %s\n",userptr->name);
+    printf("Morada: %s\n",userptr->adress);
+    printf("Data de Nascimento: %s\n",userptr->date);
+    printf("Telefone: %s\n",userptr->phone);
+    printf("*************************\n");
+}
+
 void logout(nodeptr first){
     nodeptr aux=first;
     int counter=1;
@@ -194,14 +203,14 @@ int perfil(nodeptr userptr, nodeptr first){
 
     printf("\n.........................");
     printf("\n\t -Perfil-\n");
-    printf("\n1 - Dados");
-    printf("\n2 - Logout");
-    printf("\n3 - Alterar dados");
-    printf("\n3 - Back");
+    printf("\n1 - Mostrar dados");
+    printf("\n2 - Alterar dados");
+    printf("\n3 - Logout");
+    printf("\n4 - Back");
     printf("\n.........................\n");
     printf("\nEscolha: ");
 
-    if (scanf("%d",&num) == 0 || (num < 1 || num > 3)){   /* Caso o Utilizador nao Escolha uma das 3 opcoes */
+    if (scanf("%d",&num) == 0 || (num < 1 || num > 4)){   /* Caso o Utilizador nao Escolha uma das 4 opcoes */
         fflush(stdin);
         system("cls");
         return 2;
@@ -212,11 +221,11 @@ int perfil(nodeptr userptr, nodeptr first){
 
     switch (num){
             case 1:
-                return 10;
+                return 10; /* Mostrar os dados */
             case 2:
-                return 0; /*logout*/
+                return 5; /*logout*/
             case 3:
-                return 5; /*alterar dados*/
+                return 0; /*alterar dados*/
             case 4:
                 return 1; /*Back to main menu*/
     }
@@ -261,8 +270,6 @@ int main(){
     int num = 1;
     nodeptr first=cria_user();
 
-    openfile("users.txt",first);
-
     nodeptr userptr=menulogin(first);
 
     while (num!=0){
@@ -283,7 +290,7 @@ int main(){
                         case 9:
                             num = alteraphone(userptr,first);break;
                     case 10:
-                        num = print(userptr);break;
+                        printadados(userptr);num = 2;break;
 
                 case 3:
                     num = 0;break;
