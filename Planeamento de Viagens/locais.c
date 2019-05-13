@@ -4,32 +4,88 @@
 #include "locais.h"
 #define vinte5 25
 
-void openlocal(char *file){
+/*char *local;
+    pdi pontos;
+    local popnext;
+    local abcnext;
 
+    char *nome;
+    int prefered;
+    local sitio;
+    pdi next;
+    */
+
+Pdi cria_pdi(Local loc){
+    Pdi aux;
+    Local aux2 = loc;
+    aux = (Pdi)malloc(sizeof(pdi_node));
+
+    if (aux!=NULL){
+        aux->nome=malloc(vinte5*sizeof(char));
+        aux->descricao=malloc(vinte5*sizeof(char));
+        aux->horario=malloc(vinte5*sizeof(char));
+        aux->prefered=0;
+        aux->sitio=aux2;
+        aux->popnext=NULL;
+        aux->abcnext=NULL;
+    }
+    return aux;
+}
+
+Local cria_local(){
+    Local aux;
+    aux=(Local)malloc(sizeof(local_node));
+
+    if (aux!=NULL){
+        aux->local=malloc(vinte5*sizeof(char));
+        aux->pontos=NULL;
+        aux->popnext=NULL;
+        aux->abcnext=NULL;
+    }
+    return aux;
+}
+
+
+
+Local openlocal(char *file,Local ptr){
+    Local aux=ptr;
+    char *tudo,*sitio,*pdi,etc;
+    int numero,i;
+    Pdi pdiptr, auxpdi;
     FILE *f=fopen(file,"r");
-    int check=0;
-    char *local,*pdi;
-    char etc;
 
 
-    while(fscanf(f, "%c\n", &etc) == 1){  /* SALTAR \N */
-        fflush(stdin);
-        if (etc==' ')
-            check=0;
-        local=malloc(vinte5*sizeof(char));
-        pdi=malloc(vinte5*sizeof(char));
-        if (check==0){
-            fgets(local,vinte5,f);
-            local=strtok(local,"\n");
-            printf("\n%s\n",local);
-            check=1;
-        }
-        if (check==1){
+    while(fscanf(f, "%c\n", &etc) == 1){   /* SALTAR \N */
+
+        tudo = malloc(vinte5*sizeof(char));
+        sitio = malloc(vinte5*sizeof(char));
+
+        fgets(tudo, vinte5, f);
+        sscanf(tudo, "%d %s", &numero, sitio);
+        sitio=strtok(sitio,"\n");
+
+        aux->local=sitio;
+        pdiptr=cria_pdi(aux);
+        auxpdi=pdiptr;
+        aux->pontos=auxpdi;
+
+        for (i=0; i<numero; i++){
+            pdi=malloc(vinte5*sizeof(char));
             fgets(pdi,vinte5,f);
             pdi=strtok(pdi,"\n");
-            printf("%s\n",pdi);
+
+            auxpdi->nome=pdi;
+            /*pdiptr->descricao=smth1;
+            pdiptr->horario=smth1;*/
+
+            auxpdi->abcnext=cria_pdi(aux);
+            auxpdi=auxpdi->abcnext;
         }
+        aux->abcnext=cria_local();
+        aux=aux->abcnext;
+
 
     }
     fclose(f);
+    return ptr;
 }

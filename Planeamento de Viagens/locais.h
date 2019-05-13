@@ -1,23 +1,26 @@
 #ifndef LOCAIS_H_INCLUDED
 #define LOCAIS_H_INCLUDED
 
-typedef struct localnode*local;
-typedef struct pdinode*pdi;
+typedef struct localnode*Local;
+typedef struct pdinode*Pdi;
 
 typedef struct localnode{
     char *local;
-    pdi pontos;
-    local popnext;
-    local abcnext;
+    Pdi pontos;
+    Local popnext;
+    Local abcnext;
 }local_node;
 
-typedef struct node{
+typedef struct pdinode{
     char *nome;
+    char *descricao;
+    char *horario;
     int prefered;
-    local sitio;
-    pdi next;
+    Local sitio;
+    Pdi popnext;
+    Pdi abcnext;
 }pdi_node;
 
-void openlocal(char *);
+Local openlocal(char *,Local);
 
 #endif

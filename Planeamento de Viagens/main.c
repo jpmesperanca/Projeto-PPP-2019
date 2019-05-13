@@ -310,7 +310,10 @@ int main(){
 
     return 0;
     */
-
-    openlocal("locais.txt");
+    Local ptr=cria_local();
+    Pdi smth;
+    openlocal("locais.txt",ptr);
+    smth=ptr->pontos;
+    printf("\n%s\n%s\n\n",ptr->local,smth->nome);
 }
 
