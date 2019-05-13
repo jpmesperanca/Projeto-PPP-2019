@@ -3,7 +3,7 @@
 #include <string.h>
 #include "locais.h"
 #define vinte5 25
-
+#define cem 100
 /*char *local;
     pdi pontos;
     local popnext;
@@ -49,7 +49,8 @@ Local cria_local(){
 
 Local openlocal(char *file,Local ptr){
     Local aux=ptr;
-    char *tudo,*sitio,*pdi,etc;
+    char *tudo,*sitio,etc;
+    char *info,*place,*descricao,*horario;
     int numero,i;
     Pdi pdiptr, auxpdi;
     FILE *f=fopen(file,"r");
@@ -69,14 +70,21 @@ Local openlocal(char *file,Local ptr){
         auxpdi=pdiptr;
         aux->pontos=auxpdi;
 
-        for (i=0; i<numero; i++){
-            pdi=malloc(vinte5*sizeof(char));
-            fgets(pdi,vinte5,f);
-            pdi=strtok(pdi,"\n");
+        printf("%s\n",sitio);
 
-            auxpdi->nome=pdi;
-            /*pdiptr->descricao=smth1;
-            pdiptr->horario=smth1;*/
+        for (i=0; i<numero; i++){
+            info=malloc(cem*sizeof(char));
+            place=malloc(vinte5*sizeof(char));
+            descricao=malloc(vinte5*sizeof(char));
+            horario=malloc(vinte5*sizeof(char));
+            fgets(info,cem,f);
+            sscanf(info, "%[^','], %[^','], %[^',']",place,descricao,horario);
+            horario=strtok(horario,"\n");
+            printf("-%s-%s-%s-\n\n",place,descricao,horario);
+
+            auxpdi->nome=place;
+            pdiptr->descricao=descricao;
+            pdiptr->horario=horario;
 
             auxpdi->abcnext=cria_pdi(aux);
             auxpdi=auxpdi->abcnext;

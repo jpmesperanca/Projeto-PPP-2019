@@ -314,6 +314,6 @@ int main(){
     Pdi smth;
     openlocal("locais.txt",ptr);
     smth=ptr->pontos;
-    printf("\n%s\n%s\n\n",ptr->local,smth->nome);
+    printf("\n%s\n%s\n%s\n%s\n",ptr->local,smth->nome,smth->descricao,smth->horario);
 }
 
