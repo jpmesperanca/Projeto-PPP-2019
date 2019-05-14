@@ -4,6 +4,7 @@
 #include "locais.h"
 #define vinte5 25
 #define cem 100
+
 /*char *local;
     pdi pontos;
     local popnext;
@@ -13,7 +14,7 @@
     int prefered;
     local sitio;
     pdi next;
-    */
+*/
 
 Pdi cria_pdi(Local loc){
     Pdi aux;

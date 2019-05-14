@@ -8,17 +8,22 @@
 #define tele 9
 
 nodeptr login(nodeptr first){
+
     char *nome= malloc(cinq*sizeof(char));
     nodeptr aux;
+
 
     while (1){
         aux = first;
 
-        printf("\nNome de Utilizador: ");
+        printf("\n...................... Login .....................\n.......... Escreva quit para regressar ...........\n\n");
+        printf("Nome de Utilizador: ");
         fgets(nome,cinq,stdin);
-
         fflush(stdin);
         nome=strtok(nome,"\n");
+
+        if (strcmp(nome,"quit")==0)
+            return NULL;
 
         while(aux->next != NULL){
             if (strcmp(nome,aux->name)==0){
@@ -34,6 +39,7 @@ nodeptr login(nodeptr first){
 }
 
 nodeptr regist(nodeptr first){
+
     char *name= malloc(cinq*sizeof(char));
     char *adress= malloc(cem*sizeof(char));
     char *date= malloc(cinq*sizeof(char));
@@ -41,15 +47,20 @@ nodeptr regist(nodeptr first){
     nodeptr aux;
     int num = 0;
 
+
+
     while (num == 0){
         aux=first;
         num = 1;
-        printf("\n.......... Inscricao de Novo utilizador ..........\n\n");
+        printf("\n.......... Inscricao de Novo utilizador ..........\n.......... Escreva quit para regressar ...........\n\n");
 
         printf("Nome de Utilizador: ");
         fgets(name,cinq,stdin);
         fflush(stdin);
         name=strtok(name,"\n");
+
+        if (strcmp(name,"quit")==0)
+            return NULL;
 
         while(aux->next != NULL){
             if (strcmp(name,aux->name)==0){                               /* Ve se o nome de utilizador ja existe*/
@@ -112,14 +123,12 @@ nodeptr menulogin(nodeptr first){
     system("cls");
 
     switch (num){
+
             case 1:
                 userptr=login(first);break;
             case 2:
                 userptr=regist(first);break;
     }
-
-    system("cls");
-    printf("\n     -Logged in com sucesso-\n");
 
     return userptr;
 }
@@ -207,7 +216,7 @@ int perfil(nodeptr userptr, nodeptr first){
     printf("\n\t -Perfil-\n");
     printf("\n1 - Mostrar dados");
     printf("\n2 - Alterar dados");
-    printf("\n3 - Logout");
+    printf("\n3 - Gravar e Logout");
     printf("\n4 - Back");
     printf("\n.........................\n");
     printf("\nEscolha: ");
@@ -304,7 +313,6 @@ int preferencias(nodeptr user, Local place){
     return 100;
 }
 
-
 int mainmenu(nodeptr user, nodeptr first){
 
     int num=0;
@@ -346,8 +354,14 @@ int main(){
     Local placesptr=openlocal("locais.txt");
 
     nodeptr first=cria_user();
+    nodeptr userptr;
 
-    nodeptr userptr=menulogin(first);
+    do{
+        userptr = menulogin(first);
+        system("cls");}
+    while (userptr == NULL);
+
+    printf("\n     -Logged in com sucesso-\n");
 
     while (num!=0){
         switch (num){
@@ -396,4 +410,3 @@ int main(){
     return 0;
     */
 }
-
