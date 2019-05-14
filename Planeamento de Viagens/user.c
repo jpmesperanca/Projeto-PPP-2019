@@ -17,6 +17,8 @@ nodeptr cria_user(){
         aux->adress=malloc(cem*sizeof(char));
         aux->date=malloc(cinq*sizeof(char));
         aux->phone=malloc(tele*sizeof(char));
+        aux->localnext=NULL;
+        aux->pdinext=NULL;
         aux->next=NULL;
     }
     return aux;
