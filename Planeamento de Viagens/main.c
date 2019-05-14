@@ -233,6 +233,33 @@ int perfil(nodeptr userptr, nodeptr first){
     return 100;
 }
 
+int preferencias(nodeptr user, Local place){
+    int num=0;
+
+    printf("\n..................................");
+    printf("\n\t -Preferencias-\n");
+    printf("\n1 - Locais");
+    printf("\n2 - Pontos de Interesse");
+    printf("\n3 - Something (?)");
+    printf("\n..................................\n");
+    printf("\nEscolha: ");
+
+    if (scanf("%d",&num) == 0 || (num < 1 || num > 3)){   /* Caso o Utilizador nao Escolha uma das opcoes */
+
+        fflush(stdin);
+        system("cls");
+        printf("%d",num);
+        return 3;
+    }
+    switch (num){
+            case 1:
+                printf("Wowwwwww");            /*Vai para o perfil*/
+
+    return 0;
+    }
+}
+
+
 int mainmenu(nodeptr user, nodeptr first){
 
     int num=0;
@@ -268,7 +295,7 @@ int mainmenu(nodeptr user, nodeptr first){
 }
 
 int main(){
-    /*
+
     int num = 1;
     nodeptr first=cria_user();
 
@@ -295,7 +322,7 @@ int main(){
                         printadados(userptr);num = 2;break;
 
                 case 3:
-                    num = 0;break;
+                    return 0;/*preferencias(userptr,place);*/break;
 
 
                 case 4:
@@ -309,11 +336,12 @@ int main(){
     logout(first);
 
     return 0;
-    */
+    /*
     Local ptr=cria_local();
     Pdi smth;
     openlocal("locais.txt",ptr);
     smth=ptr->pontos;
     printf("\n%s\n%s\n%s\n%s\n",ptr->local,smth->nome,smth->descricao,smth->horario);
+    */
 }
 
