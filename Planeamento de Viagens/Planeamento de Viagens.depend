@@ -14,15 +14,16 @@
 	<string.h>
 	"user.h"
 
-1556933345 source:c:\users\user\desktop\projeto-ppp-2019\planeamento de viagens\main.c
+1557861695 source:c:\users\user\desktop\projeto-ppp-2019\planeamento de viagens\main.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	"user.h"
+	"locais.h"
 
-1556928192 c:\users\user\desktop\projeto-ppp-2019\planeamento de viagens\user.h
+1557840768 c:\users\user\desktop\projeto-ppp-2019\planeamento de viagens\user.h
 
-1556932697 source:c:\users\user\desktop\projeto-ppp-2019\planeamento de viagens\user.c
+1557840768 source:c:\users\user\desktop\projeto-ppp-2019\planeamento de viagens\user.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -58,4 +59,12 @@
 	<stdlib.h>
 	<string.h>
 	"locais.h"
+
+1557861047 source:c:\users\user\desktop\projeto-ppp-2019\planeamento de viagens\locais.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"locais.h"
+
+1557858555 c:\users\user\desktop\projeto-ppp-2019\planeamento de viagens\locais.h
 

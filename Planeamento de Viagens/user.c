@@ -44,7 +44,6 @@ int print(nodeptr user){
 }
 
 
-
 nodeptr openfile(char *file,nodeptr ptr){
 
     nodeptr aux=ptr;
