@@ -124,13 +124,14 @@ nodeptr menulogin(nodeptr first){
     return userptr;
 }
 
-void printadados(nodeptr userptr){
+int printadados(nodeptr userptr){
     printf("\n*************************\n");
     printf("Nome de Utilizador: %s\n",userptr->name);
     printf("Morada: %s\n",userptr->adress);
     printf("Data de Nascimento: %s\n",userptr->date);
     printf("Telefone: %s\n",userptr->phone);
     printf("*************************\n");
+    return 2;
 }
 
 void logout(nodeptr first){
@@ -240,7 +241,7 @@ int preferencias(nodeptr user, Local place){
     printf("\n\t -Preferencias-\n");
     printf("\n1 - Locais");
     printf("\n2 - Pontos de Interesse");
-    printf("\n3 - Something (?)");
+    printf("\n3 - Back");
     printf("\n..................................\n");
     printf("\nEscolha: ");
 
@@ -253,10 +254,13 @@ int preferencias(nodeptr user, Local place){
     }
     switch (num){
             case 1:
-                printf("Wowwwwww");            /*Vai para o perfil*/
-
-    return 0;
+                return 31;            /*Vai para o Locais */
+            case 2:
+                return 32;              /*vai para PDIs */
+            case 3:
+                return 3;              /* vai para a Back */
     }
+    return 100;
 }
 
 
@@ -295,8 +299,11 @@ int mainmenu(nodeptr user, nodeptr first){
 }
 
 int main(){
-     /*
+
     int num = 1;
+
+    Local placesptr=openlocal("locais.txt");
+
     nodeptr first=cria_user();
 
     nodeptr userptr=menulogin(first);
@@ -305,7 +312,6 @@ int main(){
         switch (num){
             case 1:
                 num = mainmenu(userptr,first);break;
-
                 case 2:
                     num = perfil(userptr,first);break;
                     case 5:
@@ -319,12 +325,15 @@ int main(){
                         case 9:
                             num = alteraphone(userptr,first);break;
                     case 10:
-                        printadados(userptr);num = 2;break;
+                        num=printadados(userptr);break;
+
 
                 case 3:
-                    return 0;break;
-
-
+                    num=preferencias(userptr,placesptr);break;
+                    case 31:
+                        num=0;break;
+                    case 32:
+                        num=0;break;
                 case 4:
                     num = 0;break;
                 case 100:
@@ -336,12 +345,14 @@ int main(){
     logout(first);
 
     return 0;
-    */
+     /*
     Local ptr=cria_local();
     Pdi smth;
     openlocal("locais.txt",ptr);
     smth=ptr->pontos;
-    printf("\n%s\n%s\n%s\n%s\n%.3f\n",ptr->local,smth->nome,smth->descricao,smth->horario,smth->pop);
-
+    smth=smth->abcnext;
+    printf("\n%s\n%s\n%s\n%s\n%d\n",ptr->local,smth->nome,smth->descricao,smth->horario,smth->pop);
+    return 0;
+    */
 }
 

@@ -6,7 +6,7 @@ typedef struct pdinode*Pdi;
 
 typedef struct localnode{
     char *local;
-    double pop;
+    int pop;
     Pdi pontos;
     Local popnext;
     Local abcnext;
@@ -16,13 +16,13 @@ typedef struct pdinode{
     char *nome;
     char *descricao;
     char *horario;
-    double pop;
+    int pop;
     int prefered;
     Local sitio;
     Pdi popnext;
     Pdi abcnext;
 }pdi_node;
 
-Local openlocal(char *,Local);
+Local openlocal(char *);
 
 #endif

@@ -1,22 +1,22 @@
 
-3 Paris, 0.001
-Torre Eifel, Grande e Grossa, All Day All Night, 0.72
-Notre Dame, Queimada, Indisponivel, 0.25
-sadgfhjkl, fds, pimbas nela mm, 0.333
+3 Paris, 1
+Torre Eifel, Grande e Grossa, All Day All Night, 72
+Notre Dame, Queimada, Indisponivel, 25
+sadgfhjkl, fds, pimbas nela mm, 33
 
-4 Coimbra, 0.000
-Nada, nunca teve, nada, 0.000
-0.0, Nepia, nao ha mesmo nada, nunca, 0.000
-Rip, Rest In Peace, Final de Vida, 0.000
-Oof, Roblox Bitch, every fucking time, 0.000
+4 Coimbra, 0
+Nada, nunca teve, nada, 0
+0.0, Nepia, nao ha mesmo nada, nunca, 0
+Rip, Rest In Peace, Final de Vida, 0
+Oof, Roblox Bitch, every fucking time, 0
 
-3 WoW, 0.000
-Pimbas, bom meme tho, indeed, 0.000
-Puta, prostituta, all day, 0.000
-Nheques, eish fodeste te, agora mesmo, 0.000
+3 WoW, 0
+Pimbas, bom meme tho, indeed, 0
+Puta, prostituta, all day, 0
+Nheques, eish fodeste te, agora mesmo, 0
 
-4 local4, 1.234
-pdi1, desc1, hor1, 0.001
-pdi2, desc2, hor2, 0.002
-pdi3, desc3, hor3, 0.003
-pdi4, desc4, hor4, 0.003
+4 local4, 1234
+pdi1, desc1, hor1, 1
+pdi2, desc2, hor2, 2
+pdi3, desc3, hor3, 3
+pdi4, desc4, hor4, 4

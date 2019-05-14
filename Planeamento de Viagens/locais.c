@@ -24,7 +24,7 @@ Pdi cria_pdi(Local loc){
         aux->nome=malloc(vinte5*sizeof(char));
         aux->descricao=malloc(vinte5*sizeof(char));
         aux->horario=malloc(vinte5*sizeof(char));
-        aux->pop=0.0;
+        aux->pop=0;
         aux->prefered=0;
         aux->sitio=aux2;
         aux->popnext=NULL;
@@ -39,7 +39,7 @@ Local cria_local(){
 
     if (aux!=NULL){
         aux->local=malloc(vinte5*sizeof(char));
-        aux->pop=0.0;
+        aux->pop=0;
         aux->pontos=NULL;
         aux->popnext=NULL;
         aux->abcnext=NULL;
@@ -49,12 +49,13 @@ Local cria_local(){
 
 
 
-Local openlocal(char *file,Local ptr){
+Local openlocal(char *file){
+    Local ptr=cria_local();
     Local aux=ptr;
     char *tudo,*sitio,etc;
     char *info,*place,*descricao,*horario;
     int numero,i;
-    double pop=0.0;
+    int pop=0;
     Pdi pdiptr, auxpdi;
     FILE *f=fopen(file,"r");
 
@@ -63,10 +64,10 @@ Local openlocal(char *file,Local ptr){
 
         tudo = malloc(vinte5*sizeof(char));
         sitio = malloc(vinte5*sizeof(char));
-        pop=0.0;
+        pop=0;
 
         fgets(tudo, vinte5, f);
-        sscanf(tudo, "%d %[^,], %lf", &numero, sitio,&pop);
+        sscanf(tudo, "%d %[^,], %d", &numero, sitio,&pop);
 
         aux->local=sitio;
         aux->pop=pop;
@@ -74,23 +75,20 @@ Local openlocal(char *file,Local ptr){
         auxpdi=pdiptr;
         aux->pontos=auxpdi;
 
-        printf("%s-%.3f\n",sitio,aux->pop);   /* TESTE */
-
         for (i=0; i<numero; i++){
             info=malloc(cem*sizeof(char));
             place=malloc(vinte5*sizeof(char));
             descricao=malloc(vinte5*sizeof(char));
             horario=malloc(vinte5*sizeof(char));
-            pop=0.0;
+            pop=0;
 
             fgets(info,cem,f);
-            sscanf(info, "%[^,], %[^,], %[^,], %lg",place,descricao,horario,&pop);
-            printf("-%s-%s-%s-%.3f\n\n",place,descricao,horario,pop);                 /* TESTE */
+            sscanf(info, "%[^,], %[^,], %[^,], %d",place,descricao,horario,&pop);
 
             auxpdi->nome=place;
-            pdiptr->descricao=descricao;
-            pdiptr->horario=horario;
-            pdiptr->pop=pop;
+            auxpdi->descricao=descricao;
+            auxpdi->horario=horario;
+            auxpdi->pop=pop;
 
             auxpdi->abcnext=cria_pdi(aux);
             auxpdi=auxpdi->abcnext;

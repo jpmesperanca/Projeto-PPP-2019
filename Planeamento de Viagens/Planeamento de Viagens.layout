@@ -2,35 +2,35 @@
 <CodeBlocks_layout_file>
 	<FileVersion major="1" minor="0" />
 	<ActiveTarget name="Debug" />
+	<File name="main.c" open="1" top="1" tabpos="1" split="0" active="1" splitpos="0" zoom_1="-1" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="6540" topLine="219" />
+		</Cursor>
+		<Folding>
+			<Collapse line="9" />
+		</Folding>
+	</File>
+	<File name="locais.c" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1644" topLine="71" />
+		</Cursor>
+	</File>
 	<File name="locais.h" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="354" topLine="0" />
+			<Cursor1 position="459" topLine="0" />
 		</Cursor>
+		<Folding>
+			<Collapse line="6" />
+		</Folding>
 	</File>
 	<File name="user.c" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="-1" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="957" topLine="109" />
-		</Cursor>
-		<Folding>
-			<Collapse line="25" />
-		</Folding>
-	</File>
-	<File name="locais.c" open="1" top="1" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1405" topLine="52" />
+			<Cursor1 position="957" topLine="83" />
 		</Cursor>
 	</File>
 	<File name="user.h" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="52" topLine="0" />
 		</Cursor>
-	</File>
-	<File name="main.c" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="-1" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="8815" topLine="295" />
-		</Cursor>
-		<Folding>
-			<Collapse line="9" />
-		</Folding>
 	</File>
 </CodeBlocks_layout_file>
