@@ -295,7 +295,7 @@ int mainmenu(nodeptr user, nodeptr first){
 }
 
 int main(){
-
+     /*
     int num = 1;
     nodeptr first=cria_user();
 
@@ -322,7 +322,7 @@ int main(){
                         printadados(userptr);num = 2;break;
 
                 case 3:
-                    return 0;/*preferencias(userptr,place);*/break;
+                    return 0;break;
 
 
                 case 4:
@@ -336,12 +336,12 @@ int main(){
     logout(first);
 
     return 0;
-    /*
+    */
     Local ptr=cria_local();
     Pdi smth;
     openlocal("locais.txt",ptr);
     smth=ptr->pontos;
-    printf("\n%s\n%s\n%s\n%s\n",ptr->local,smth->nome,smth->descricao,smth->horario);
-    */
+    printf("\n%s\n%s\n%s\n%s\n%.3f\n",ptr->local,smth->nome,smth->descricao,smth->horario,smth->pop);
+
 }
 
