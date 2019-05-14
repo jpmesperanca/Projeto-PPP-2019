@@ -78,15 +78,24 @@ nodeptr regist(nodeptr first){
     fflush(stdin);
     adress=strtok(adress,"\n");
 
+    if (strcmp(name,"quit")==0)
+            return NULL;
+
     printf("Data de Nascimento: ");
     fgets(date,cinq,stdin);
     fflush(stdin);
     date=strtok(date,"\n");
 
+    if (strcmp(name,"quit")==0)
+            return NULL;
+
     printf("Telefone: ");
     fgets(phone,tele,stdin);
     fflush(stdin);
     phone=strtok(phone,"\n");
+
+    if (strcmp(name,"quit")==0)
+            return NULL;
 
     while(aux->next != NULL){
             aux=aux->next;
@@ -361,7 +370,7 @@ int main(){
         system("cls");}
     while (userptr == NULL);
 
-    printf("\n     -Logged in com sucesso-\n");
+    printf("\n      -Logged in com sucesso-\n");
 
     while (num!=0){
         switch (num){
