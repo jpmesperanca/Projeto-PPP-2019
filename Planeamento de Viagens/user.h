@@ -1,6 +1,6 @@
 #ifndef USER_H_INCLUDED
 #define USER_H_INCLUDED
-
+#include "locais.h"
 typedef struct lnode*nodeptr;
 
 typedef struct lnode{
@@ -8,7 +8,8 @@ typedef struct lnode{
     char *adress;
     char *date;
     char *phone;
-
+    Local localnext;
+    Pdi pdinext;
     nodeptr next;
 }utilizador_node;
 
