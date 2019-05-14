@@ -29,7 +29,6 @@ Pdi cria_pdi(Local loc){
         aux->sitio=aux2;
         aux->popnext=NULL;
         aux->abcnext=NULL;
-        aux->usernext=NULL;
     }
     return aux;
 }
@@ -41,11 +40,9 @@ Local cria_local(){
     if (aux!=NULL){
         aux->local=malloc(vinte5*sizeof(char));
         aux->pop=0;
-        aux->prefered=0;
         aux->pontos=NULL;
         aux->popnext=NULL;
         aux->abcnext=NULL;
-        aux->usernext=NULL;
     }
     return aux;
 }

@@ -234,44 +234,6 @@ int perfil(nodeptr userptr, nodeptr first){
     return 100;
 }
 
-int escolhalocais(nodeptr userptr, Local placesptr){
-    int num=0,i=1,count=1;
-    Local localaux=placesptr;
-    printf("\n..................................");
-    printf("\n\t -Locais Preferidos-");
-    printf("\n..................................");
-    printf("\n Escolha 3 dos seus Locais favoritos");
-    printf("\n..................................");
-    while(localaux->abcnext!=NULL){
-        if (localaux->prefered==0)
-            printf("\n%d - %s",i++,localaux->local);
-        else if (localaux->prefered==1)
-            printf("\n%d - %s *Choosed*",i++,localaux->local);
-        localaux=localaux->abcnext;
-    }
-    printf("\n..................................\n");
-    printf("\nEscolha: ");
-    if (scanf("%d",&num) == 0 || (num < 1 || num > i)){   /* Caso o Utilizador nao Escolha uma das opcoes */
-
-        fflush(stdin);
-        system("cls");
-        return 31;
-    }
-
-    localaux=placesptr;
-    while(count!=num){
-        count++;
-        localaux=localaux->abcnext;
-    }
-    localaux->prefered=1;
-
-    fflush(stdin);
-    system("cls");
-    printf("Ultima Cidade Escolhida: %s",localaux->local);
-    return 31;
-
-}
-
 int preferencias(nodeptr user, Local place){
     int num=0;
 
@@ -290,9 +252,6 @@ int preferencias(nodeptr user, Local place){
         printf("%d",num);
         return 3;
     }
-    fflush(stdin);
-    system("cls");
-
     switch (num){
             case 1:
                 return 31;            /*Vai para o Locais */
@@ -372,13 +331,13 @@ int main(){
                 case 3:
                     num=preferencias(userptr,placesptr);break;
                     case 31:
-                        num=escolhalocais(userptr,placesptr);break;
+                        num=0;break;
                     case 32:
                         num=0;break;
                 case 4:
                     num = 0;break;
                 case 100:
-                    printf("erro -  a funcao chegou ao fim!");num=0;break;
+                    printf("erro -  a funcao chegou ao fim!");break;
 
 
         }
