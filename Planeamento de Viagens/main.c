@@ -78,7 +78,7 @@ nodeptr regist(nodeptr first){
     fflush(stdin);
     adress=strtok(adress,"\n");
 
-    if (strcmp(name,"quit")==0)
+    if (strcmp(adress,"quit")==0)
             return NULL;
 
     printf("Data de Nascimento: ");
@@ -86,7 +86,7 @@ nodeptr regist(nodeptr first){
     fflush(stdin);
     date=strtok(date,"\n");
 
-    if (strcmp(name,"quit")==0)
+    if (strcmp(date,"quit")==0)
             return NULL;
 
     printf("Telefone: ");
@@ -94,7 +94,7 @@ nodeptr regist(nodeptr first){
     fflush(stdin);
     phone=strtok(phone,"\n");
 
-    if (strcmp(name,"quit")==0)
+    if (strcmp(phone,"quit")==0)
             return NULL;
 
     while(aux->next != NULL){
@@ -253,7 +253,7 @@ int perfil(nodeptr userptr, nodeptr first){
 }
 
 int escolhalocais(nodeptr userptr, Local placesptr){
-    int num=0,i=1,count=1;
+    int num=0,i=1,count=1,prefcount=0;
     Local localaux=placesptr;
     printf("\n..................................");
     printf("\n\t -Locais Preferidos-");
@@ -264,9 +264,10 @@ int escolhalocais(nodeptr userptr, Local placesptr){
         if (localaux->prefered==0)
             printf("\n%d - %s",i++,localaux->local);
         else if (localaux->prefered==1)
-            printf("\n%d - %s *Choosed*",i++,localaux->local);
+            printf("\n%d - %s *Choosen*",i++,localaux->local);
         localaux=localaux->abcnext;
     }
+    printf("\n%d - Back",i++);
     printf("\n..................................\n");
     printf("\nEscolha: ");
     if (scanf("%d",&num) == 0 || (num < 1 || num > i)){   /* Caso o Utilizador nao Escolha uma das opcoes */
@@ -275,17 +276,39 @@ int escolhalocais(nodeptr userptr, Local placesptr){
         system("cls");
         return 31;
     }
+    if (num==i-1){              /* BACK OPTION */
+
+        fflush(stdin);
+        system("cls");
+        return 3;
+    }
+
 
     localaux=placesptr;
-    while(count!=num){
+    while(count!=num){              /* DISCOVER WHAT LOCAL IT IS */
         count++;
+        if (localaux->prefered==1)
+            prefcount++;
         localaux=localaux->abcnext;
     }
+
+    if (localaux->prefered==1){         /* WAS IT ALREADY SELECTED? */
+        fflush(stdin);
+        system("cls");
+        printf("Esse Local ja foi escolhido...");
+        return 31;
+    }
+
+    if (prefcount==3){                   /* LIMIT OF 3 LOCALS PER PERSON */
+        printf("Maximo de Locais Escolhidos (3) !");
+    }
+
     localaux->prefered=1;
+    prefcount++;
 
     fflush(stdin);
     system("cls");
-    printf("Ultima Cidade Escolhida: %s",localaux->local);
+    printf("Local Escolhido Numero %d: %s",prefcount,localaux->local);
     return 31;
 
 }
@@ -317,7 +340,7 @@ int preferencias(nodeptr user, Local place){
             case 2:
                 return 32;              /*vai para PDIs */
             case 3:
-                return 3;              /* vai para a Back */
+                return 1;              /* vai para a Back */
     }
     return 100;
 }
