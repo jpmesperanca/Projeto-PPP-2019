@@ -51,6 +51,49 @@ Local cria_local(){
     return aux;
 }
 
+void ordena_abc(Local locaisptr, int n){
+
+    int j, pass;
+    int trocou = 1;
+    Local H,P1,P2,temp;
+    Local inicio = locaisptr;
+
+    for (pass=0; pass<n-1 && trocou; pass++){
+        trocou = 0;
+        H = inicio;
+        P1 = H->abcnext;
+        P2 = P1->abcnext;
+        for (j = 0; j < n-pass-1; j++){
+            if ( strcmp(H->local,P1->local) > 0 ){
+
+                trocou = 1;
+                printf("TROCAR %s  COM  %s\n", H->local,P1->local);
+                temp = H;
+                H = P1;
+                puts(P1->local);
+                P1 = P2;
+                puts(P1->local);
+                P2 = temp;
+            }
+            else{
+                H = H->abcnext;
+                P1 = P1->abcnext;
+                P2 = P2->abcnext;
+            }
+
+       }
+
+        Local localaux = inicio;
+        int i = 0;
+        while(localaux->abcnext!=NULL){
+            if (localaux->prefered==0)
+                printf("\n%d - %s",i++,localaux->local);
+            else if (localaux->prefered==1)
+                printf("\n%d - %s *Choosen*",i++,localaux->local);
+            localaux=localaux->abcnext;
+        }
+    }
+}
 
 
 Local openlocal(char *file){
@@ -103,5 +146,8 @@ Local openlocal(char *file){
 
     }
     fclose(f);
+
+    ordena_abc(ptr,4);
+
     return ptr;
 }
