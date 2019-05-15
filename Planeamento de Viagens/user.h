@@ -19,6 +19,8 @@ int print(nodeptr);
 
 nodeptr insere(nodeptr ,char *,char *,char *,char *);
 
+void preferedfile(char *,nodeptr ,Local );
+
 nodeptr openfile(char *,nodeptr);
 
 void inserefile(char *,nodeptr);
