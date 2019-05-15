@@ -51,48 +51,44 @@ Local cria_local(){
     return aux;
 }
 
-void ordena_abc(Local locaisptr, int n){
+Local ordena_abc(Local locaisptr, int n){
 
-    int j, pass;
-    int trocou = 1;
-    Local H,P1,P2,temp;
-    Local inicio = locaisptr;
+   /* int pass;
+    Local head,prox,aux;
 
-    for (pass=0; pass<n-1 && trocou; pass++){
-        trocou = 0;
-        H = inicio;
-        P1 = H->abcnext;
-        P2 = P1->abcnext;
-        for (j = 0; j < n-pass-1; j++){
-            if ( strcmp(H->local,P1->local) > 0 ){
+    for (pass=0; pass<n; pass++){
 
-                trocou = 1;
-                printf("TROCAR %s  COM  %s\n", H->local,P1->local);
-                temp = H;
-                H = P1;
-                puts(P1->local);
-                P1 = P2;
-                puts(P1->local);
-                P2 = temp;
+        head = locaisptr;
+        prox = locaisptr->abcnext;
+
+        while (prox->abcnext != NULL){
+            if ( strcmp(head->local,prox->local) > 0 ){
+
+                aux = prox->abcnext;
+                prox->abcnext = head;
+                head = head->abcnext;
+                head->abcnext = aux;
+
             }
             else{
-                H = H->abcnext;
-                P1 = P1->abcnext;
-                P2 = P2->abcnext;
-            }
+                head = head->abcnext;
+                prox = prox->abcnext;}
 
-       }
+        }
+    }
+    */
 
-        Local localaux = inicio;
+
+    Local localaux = head;
         int i = 0;
         while(localaux->abcnext!=NULL){
             if (localaux->prefered==0)
                 printf("\n%d - %s",i++,localaux->local);
             else if (localaux->prefered==1)
                 printf("\n%d - %s *Choosen*",i++,localaux->local);
-            localaux=localaux->abcnext;
-        }
-    }
+            localaux=localaux->abcnext;}
+
+    return head;
 }
 
 
@@ -147,7 +143,7 @@ Local openlocal(char *file){
     }
     fclose(f);
 
-    ordena_abc(ptr,4);
+    ptr = ordena_abc(ptr,4);
 
     return ptr;
 }
