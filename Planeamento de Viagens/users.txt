@@ -3,18 +3,12 @@ Marcelino
 Rua Correia Teles
 22/03/2000
 91223311
+3, Paris, local4, Wow
+4, Notre Dame, Torre Eifel, smth, pdi4
 
 Josphze
 O gajo
-q faz o
-projeto
-
-1
-2
-3
-4
-
-pilinha
-ola
-td
-b
+que
+fez ppp
+3, Coimbra, Paris, local4
+2, Notre Dame, Torre Eifel

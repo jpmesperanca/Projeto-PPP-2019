@@ -45,12 +45,87 @@ int print(nodeptr user){
     return 2;
 }
 
+void preferedfile(char *file,nodeptr ptr,Local placesptr){
+    FILE *f=fopen(file,"r");
+
+    nodeptr aux=ptr;
+    Local placesaux=placesptr;
+    Pdi pdis;
+    int i=0,num=0;
+    char *tudo,*str;
+    char etc;
+    while (fscanf(f, "%c\n", &etc) == 1){
+
+        fflush(stdin);
+        tudo=malloc(cem*sizeof(char));
+        str=malloc(cem*sizeof(char));
+
+        fgets(str,cem,f);                  /* NOME */
+        str=strtok(str,"\n");
+
+        fgets(tudo,cem,f);                 /* ADERECO */
+        fgets(tudo,cem,f);                  /* DATA */
+        fgets(tudo,cem,f);                 /* PHONE */
+
+        if (strcmp(str,aux->name)==0){
+
+            /* LOCAIS */
+            fgets(tudo,cem,f);                 /* LOCAIS*/
+            sscanf(tudo,"%d, %[^\n]",&num,str);
+            for(i=0;i<num;i++){
+                if (i==0)
+                    str=strtok(str,", ");
+                else if (i==num)
+                    str=strtok(NULL,"\n");
+                else
+                    str=strtok(NULL,", ");
+                placesaux=placesptr;
+
+                while (placesaux->abcnext!=NULL){
+
+                    if (strcmp(placesaux->local,str)==0){
+                        placesaux->prefered=1;
+                        break;
+                    }
+                    placesaux=placesaux->abcnext;
+                }
+            }
+
+            /* PONTOS DE INTERESSE */
+            fgets(tudo,cem,f);                 /* PDIS */
+            sscanf(tudo,"%d, %[^\n]",&num,str);
+            for(i=0;i<num;i++){
+                if (i==0)
+                    str=strtok(str,", ");
+                else if (i==num)
+                    str=strtok(NULL,"\n");
+                else
+                    str=strtok(NULL,", ");
+                placesaux=placesptr;
+
+                while (placesaux->abcnext!=NULL){
+                    pdis=placesaux->pontos;
+                    while (pdis->abcnext==0){
+                        if (strcmp(pdis->nome,str)==0){
+                            pdis->prefered=1;
+                            break;
+                        }
+                        pdis=pdis->abcnext;
+                    }
+                    placesaux=placesaux->abcnext;
+                }
+            }
+        }
+    }
+}
+
 
 nodeptr openfile(char *file,nodeptr ptr){
 
     nodeptr aux=ptr;
     FILE *f=fopen(file,"r");
     char *nome,*adereco,*data,*telefone;
+    char *trash;
     char etc;
 
 
@@ -61,6 +136,7 @@ nodeptr openfile(char *file,nodeptr ptr){
         adereco=malloc(cem*sizeof(char));
         data=malloc(cinq*sizeof(char));
         telefone=malloc(tele*sizeof(char));
+        trash=malloc(cem*sizeof(char));
 
         fgets(nome,cinq,f);
         nome=strtok(nome,"\n");
@@ -73,6 +149,9 @@ nodeptr openfile(char *file,nodeptr ptr){
 
         fgets(telefone,tele,f);
         telefone=strtok(telefone,"\n");
+
+        fgets(trash,cem,f);
+        fgets(trash,cem,f);
 
         aux=insere(aux,nome,adereco,data,telefone);
     }
