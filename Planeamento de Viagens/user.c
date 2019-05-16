@@ -4,7 +4,7 @@
 #include "user.h"
 #define cinq 50
 #define cem 100
-#define tele 9
+#define tele 10
 
 
 
@@ -66,43 +66,43 @@ void preferedfile(char *file,nodeptr ptr,Local placesptr){
         fgets(tudo,cem,f);                 /* ADERECO */
         fgets(tudo,cem,f);                  /* DATA */
         fgets(tudo,cem,f);                 /* PHONE */
-
         if (strcmp(str,aux->name)==0){
-
             /* LOCAIS */
             fgets(tudo,cem,f);                 /* LOCAIS*/
-            sscanf(tudo,"%d, %[^\n]",&num,str);
+            sscanf(tudo,"%d/%[^\n]",&num,str);
             for(i=0;i<num;i++){
                 if (i==0)
-                    str=strtok(str,", ");
+                    str=strtok(str,"/");
                 else if (i==num)
                     str=strtok(NULL,"\n");
                 else
-                    str=strtok(NULL,", ");
+                    str=strtok(NULL,"/");
                 placesaux=placesptr;
 
                 while (placesaux->abcnext!=NULL){
 
                     if (strcmp(placesaux->local,str)==0){
                         placesaux->prefered=1;
+
                         break;
                     }
+
                     placesaux=placesaux->abcnext;
                 }
             }
 
             /* PONTOS DE INTERESSE */
-            fgets(tudo,cem,f);                 /* PDIS */
-            sscanf(tudo,"%d, %[^\n]",&num,str);
+            tudo=malloc(cem*sizeof(char));
+            fgets(tudo,cem,f);                  /* PDIS */
+            sscanf(tudo,"%d/%[^\n]",&num,str);
             for(i=0;i<num;i++){
                 if (i==0)
-                    str=strtok(str,", ");
+                    str=strtok(str,"/");
                 else if (i==num)
                     str=strtok(NULL,"\n");
                 else
-                    str=strtok(NULL,", ");
+                    str=strtok(NULL,"/");
                 placesaux=placesptr;
-
                 while (placesaux->abcnext!=NULL){
                     pdis=placesaux->pontos;
                     while (pdis->abcnext==0){
@@ -115,6 +115,10 @@ void preferedfile(char *file,nodeptr ptr,Local placesptr){
                     placesaux=placesaux->abcnext;
                 }
             }
+        }
+        else{
+            fgets(tudo,cem,f);                 /* LOCAIS*/
+            fgets(tudo,cem,f);                 /* PDIS*/
         }
     }
 }
