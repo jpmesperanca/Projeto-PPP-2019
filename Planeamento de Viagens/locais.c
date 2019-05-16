@@ -35,33 +35,89 @@ Pdi cria_pdi(Local loc){
     return aux;
 }
 
+/*
 Local procura_local(Local first, char *novo){
 
     Local aux = first;
 
     while (aux->abcnext != NULL){
-        if (strcmp(novo,aux->local)>0)
+        if ( strcmp(novo,aux->local) > 0)
             aux = aux->abcnext;
         else
-            return aux;
+            break;
     }
-    return NULL
+    return aux;
 }
 
 void insere_local(Local first, char* sitio, int pop, Pdi pdiptr){
 
-    Local aux = procura_local(first, sitio);
+    Local anterior,temp,novo;
 
-    if (aux == NULL)
+    anterior = procura_local(first, sitio);
+
+    if (anterior->abcnext == NULL){
+        novo = cria_local();
+        novo->local = strdup(sitio);
+        anterior->pontos = pdiptr;
+        novo->abcnext = anterior->abcnext;
+        anterior->abcnext = novo;
+    }
 
     else{
-
+        novo = (Local)malloc(sizeof(local_node));
+        novo->local = strdup(sitio);
+        novo->pontos = pdiptr;
+        novo->abcnext = anterior;
+        anterior =novo;
     }
-    aux->local=sitio;
-    aux->pop=pop;
-    aux->pontos=pdiptr;
-    aux->abcnext=cria_local();
+}
 
+void procura_lista (Local first, char *sitio, Local ant, Local actual){
+    Local aux = first;
+    while ( aux->abcnext != NULL && strcmp(aux->abcnext->local,sitio) < 0)
+        aux = (aux)->abcnext;
+    if (aux->abcnext != NULL && aux->abcnext->local != sitio)
+        aux->abcnext= NULL;
+}
+void insere_local(Local first, char*sitio){
+    Local no;
+    Local ant, inutil;
+    no = (Local) malloc (sizeof (local_node));
+    if (no != NULL) {
+        no->local = sitio;
+        procura_lista (first, sitio, ant, inutil);
+        no->abcnext = ant->abcnext;
+        ant->abcnext = no;
+    }
+}
+*/
+
+Local insere_local(Local first, char* sitio){
+
+    Local novo = cria_local();
+    Local aux = first;
+
+    if(novo==NULL)
+        return NULL;
+
+    while((aux->abcnext!=NULL)&&(strcmp(aux->abcnext->local, sitio)<0))
+        aux = aux->abcnext;
+
+    novo->local= malloc(strlen(sitio)+1);
+    strcpy(novo->local, sitio);
+    novo->abcnext= aux->abcnext;
+    aux->abcnext = novo;
+
+
+    Local localaux = first;
+    int i=0;
+
+    while(localaux->abcnext!=NULL){
+        if (localaux->prefered==0)
+            printf("\n%d - %s",i++,localaux->local);
+        else if (localaux->prefered==1)
+            printf("\n%d - %s *Choosen*",i++,localaux->local);
+        localaux=localaux->abcnext;}
 
 }
 
@@ -80,47 +136,6 @@ Local cria_local(){
     }
     return aux;
 }
-
-Local ordena_abc(Local locaisptr, int n){
-
-   /* int pass;
-    Local head,prox,aux;
-
-    for (pass=0; pass<n; pass++){
-
-        head = locaisptr;
-        prox = locaisptr->abcnext;
-
-        while (prox->abcnext != NULL){
-            if ( strcmp(head->local,prox->local) > 0 ){
-
-                aux = prox->abcnext;
-                prox->abcnext = head;
-                head = head->abcnext;
-                head->abcnext = aux;
-
-            }
-            else{
-                head = head->abcnext;
-                prox = prox->abcnext;}
-
-        }
-    }
-    */
-
-
-    Local localaux = head;
-        int i = 0;
-        while(localaux->abcnext!=NULL){
-            if (localaux->prefered==0)
-                printf("\n%d - %s",i++,localaux->local);
-            else if (localaux->prefered==1)
-                printf("\n%d - %s *Choosen*",i++,localaux->local);
-            localaux=localaux->abcnext;}
-
-    return head;
-}
-
 
 Local openlocal(char *file){
     Local ptr=cria_local();
@@ -142,12 +157,9 @@ Local openlocal(char *file){
         fgets(tudo, vinte5, f);
         sscanf(tudo, "%d %[^,], %d", &numero, sitio,&pop);
 
-
-
         pdiptr=cria_pdi(aux);
         auxpdi=pdiptr;
-
-        insere_local(aux, sitio, pop, auxpdi);
+        insere_local(ptr, sitio);
 
         for (i=0; i<numero; i++){
             info=malloc(cem*sizeof(char));
@@ -167,12 +179,20 @@ Local openlocal(char *file){
             auxpdi->abcnext=cria_pdi(aux);
             auxpdi=auxpdi->abcnext;
         }
-
         aux=aux->abcnext;
-
-
     }
     fclose(f);
+    printf("\n Jesus Cristler");
+
+    Local localaux = ptr;
+    i=0;
+
+    while(localaux->abcnext!=NULL){
+        if (localaux->prefered==0)
+            printf("\n%d - %s",i++,localaux->local);
+        else if (localaux->prefered==1)
+            printf("\n%d - %s *Choosen*",i++,localaux->local);
+        localaux=localaux->abcnext;}
 
     return ptr;
 }
