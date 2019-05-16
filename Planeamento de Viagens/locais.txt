@@ -4,7 +4,7 @@ Torre Eifel, Grande e Grossa, All Day All Night, 72
 Notre Dame, Queimada, Indisponivel, 25
 sadgfhjkl, fds, pimbas nela mm, 33
 
-4 ZCoimbra, 0
+4 Coimbra, 0
 Nada, nunca teve, nada, 0
 0.0, Nepia, nao ha mesmo nada, nunca, 0
 Rip, Rest In Peace, Final de Vida, 0
@@ -15,7 +15,7 @@ Pimbas, bom meme tho, indeed, 0
 Puta, prostituta, all day, 0
 Nheques, eish fodeste te, agora mesmo, 0
 
-4 Local4, 1234
+4 local4, 1234
 pdi1, desc1, hor1, 1
 pdi2, desc2, hor2, 2
 pdi3, desc3, hor3, 3
