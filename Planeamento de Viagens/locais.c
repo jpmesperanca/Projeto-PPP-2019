@@ -35,6 +35,36 @@ Pdi cria_pdi(Local loc){
     return aux;
 }
 
+Local procura_local(Local first, char *novo){
+
+    Local aux = first;
+
+    while (aux->abcnext != NULL){
+        if (strcmp(novo,aux->local)>0)
+            aux = aux->abcnext;
+        else
+            return aux;
+    }
+    return NULL
+}
+
+void insere_local(Local first, char* sitio, int pop, Pdi pdiptr){
+
+    Local aux = procura_local(first, sitio);
+
+    if (aux == NULL)
+
+    else{
+
+    }
+    aux->local=sitio;
+    aux->pop=pop;
+    aux->pontos=pdiptr;
+    aux->abcnext=cria_local();
+
+
+}
+
 Local cria_local(){
     Local aux;
     aux=(Local)malloc(sizeof(local_node));
@@ -112,11 +142,12 @@ Local openlocal(char *file){
         fgets(tudo, vinte5, f);
         sscanf(tudo, "%d %[^,], %d", &numero, sitio,&pop);
 
-        aux->local=sitio;
-        aux->pop=pop;
+
+
         pdiptr=cria_pdi(aux);
         auxpdi=pdiptr;
-        aux->pontos=auxpdi;
+
+        insere_local(aux, sitio, pop, auxpdi);
 
         for (i=0; i<numero; i++){
             info=malloc(cem*sizeof(char));
@@ -136,14 +167,12 @@ Local openlocal(char *file){
             auxpdi->abcnext=cria_pdi(aux);
             auxpdi=auxpdi->abcnext;
         }
-        aux->abcnext=cria_local();
+
         aux=aux->abcnext;
 
 
     }
     fclose(f);
-
-    ptr = ordena_abc(ptr,4);
 
     return ptr;
 }
