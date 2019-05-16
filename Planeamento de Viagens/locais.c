@@ -97,28 +97,25 @@ Local insere_local(Local first, char* sitio){
     Local novo = cria_local();
     Local aux = first;
 
-    if(novo==NULL)
-        return NULL;
-
     while((aux->abcnext!=NULL)&&(strcmp(aux->abcnext->local, sitio)<0))
         aux = aux->abcnext;
 
-    novo->local= malloc(strlen(sitio)+1);
-    strcpy(novo->local, sitio);
+
     novo->abcnext= aux->abcnext;
     aux->abcnext = novo;
+    novo->local= malloc(strlen(sitio)+1);
+    strcpy(novo->local, sitio);
 
 
-    Local localaux = first;
+    Local localaux = first->abcnext;
     int i=0;
 
-    while(localaux->abcnext!=NULL){
+    while(localaux!=NULL){
         if (localaux->prefered==0)
             printf("\n%d - %s",i++,localaux->local);
         else if (localaux->prefered==1)
             printf("\n%d - %s *Choosen*",i++,localaux->local);
         localaux=localaux->abcnext;}
-
 }
 
 Local cria_local(){
@@ -179,8 +176,11 @@ Local openlocal(char *file){
             auxpdi->abcnext=cria_pdi(aux);
             auxpdi=auxpdi->abcnext;
         }
+
         aux=aux->abcnext;
+
     }
+
     fclose(f);
     printf("\n Jesus Cristler");
 
