@@ -24,6 +24,7 @@ nodeptr cria_user(){
     return aux;
 }
 
+
 nodeptr insere(nodeptr fnl,char *nome,char *morada,char *data,char *telefone){
     nodeptr aux=fnl;
     aux->name=nome;
@@ -34,6 +35,7 @@ nodeptr insere(nodeptr fnl,char *nome,char *morada,char *data,char *telefone){
     return aux->next;
 }
 
+
 int print(nodeptr user){
     nodeptr pessoa = user;
     printf("%s\n", pessoa->name);
@@ -42,6 +44,7 @@ int print(nodeptr user){
     printf("%s \n", pessoa->phone);
     return 2;
 }
+
 
 void preferedfile(char *file,nodeptr ptr,Local placesptr){
 

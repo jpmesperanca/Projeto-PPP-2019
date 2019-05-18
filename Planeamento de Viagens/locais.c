@@ -16,9 +16,8 @@
     pdi next;
 */
 
-Pdi cria_pdi(Local loc){
+Pdi cria_pdi(){
     Pdi aux;
-    Local aux2 = loc;
     aux = (Pdi)malloc(sizeof(pdi_node));
 
     if (aux!=NULL){
@@ -27,10 +26,8 @@ Pdi cria_pdi(Local loc){
         aux->horario=malloc(vinte5*sizeof(char));
         aux->pop=0;
         aux->prefered=0;
-        aux->sitio=aux2;
         aux->popnext=NULL;
         aux->abcnext=NULL;
-        aux->usernext=NULL;
     }
     return aux;
 }
@@ -53,6 +50,29 @@ Local insere_local(Local first, char* sitio, Pdi pontosptr){
     return aux->abcnext;
 }
 
+void insere_pdi(Pdi first, char* place, char* descricao, char* horario, int pop){
+
+    Pdi novo = cria_pdi();
+    Pdi aux = first;
+
+    printf("-----\n first: %s \n-----\n", first->nome);
+
+    while((aux->abcnext!=NULL)&&(strcmp(aux->abcnext->nome, place)<0)){
+        printf("while cycle- %s vs %s(novo)\n", aux->nome, place);
+        aux = aux->abcnext;
+    }
+
+    novo->nome = place;
+    novo->descricao = descricao;
+    novo->horario = horario;
+    novo->pop = pop;
+
+    novo->abcnext = aux->abcnext;
+    aux->abcnext = novo;
+
+    printf("-----\n POS first: %s \n-----\n", first->nome);
+}
+
 Local cria_local(){
     Local aux;
     aux=(Local)malloc(sizeof(local_node));
@@ -69,16 +89,15 @@ Local cria_local(){
 }
 
 Local openlocal(char *file){
+
     Local ptr=cria_local();
     Local localaux;
     Local aux=ptr;
-    char *tudo,*sitio,etc;
-    char *info,*place,*descricao,*horario;
+    Pdi pdiptr;
+    FILE *f=fopen(file,"r");
+    char *info,*place,*descricao,*horario,*tudo,*sitio,etc;
     int numero,i;
     int pop=0;
-    Pdi pdiptr, auxpdi;
-    FILE *f=fopen(file,"r");
-
 
     while(fscanf(f, "%c\n", &etc) == 1){   /* SALTAR \N */
 
@@ -89,7 +108,7 @@ Local openlocal(char *file){
         fgets(tudo, vinte5, f);
         sscanf(tudo, "%d %[^,], %d", &numero, sitio,&pop);
 
-        pdiptr=cria_pdi(aux);
+        pdiptr=cria_pdi();
 
         aux = insere_local(ptr, sitio, pdiptr);
 
@@ -104,16 +123,7 @@ Local openlocal(char *file){
             fgets(info,cem,f);
             sscanf(info, "%[^,], %[^,], %[^,], %d",place,descricao,horario,&pop);
 
-            pdiptr->nome=place;
-            pdiptr->descricao=descricao;
-            pdiptr->horario=horario;
-            pdiptr->pop=pop;
-
-            pdiptr->sitio = aux->abcnext;
-            pdiptr->abcnext=cria_pdi(aux);
-            pdiptr=pdiptr->abcnext;
-
-
+            insere_pdi(aux->pontos,place,descricao,horario,pop);
         }
 
         if (aux!=NULL)
@@ -121,23 +131,23 @@ Local openlocal(char *file){
 
     }
 
-    localaux  = ptr->abcnext;
+    localaux = ptr->abcnext;
 
     while(localaux!=NULL){
         if (localaux->prefered==0)
-            printf("%d - %s\n",i++,localaux->local);
+            printf("%s\n",localaux->local);
 
-            pdiptr = localaux->pontos;
+            pdiptr = localaux->pontos->abcnext;
 
-            while(pdiptr->abcnext!=NULL){
-                printf("a");
-                printf("%s - ", pdiptr->nome);
+            while(pdiptr!=NULL){
+                printf("%s - %s \n", pdiptr->nome, pdiptr->descricao);
                 pdiptr=pdiptr->abcnext;
                 }
 
         printf("\n");
         localaux = localaux->abcnext;
     }
+
     fclose(f);
     return ptr;
 }
