@@ -122,9 +122,8 @@ void preferedfile(char *file,nodeptr ptr,Local placesptr){
 
                 while (placesaux!=NULL){
 
-                    pdis=placesaux->pontos;
-
-                    while (pdis->abcnext==0){
+                    pdis=placesaux->pontos->abcnext;
+                    while (pdis==0){
                         if (strcmp(pdis->nome,str)==0){
                             pdis->prefered=1;
                             break;

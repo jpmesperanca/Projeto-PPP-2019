@@ -406,8 +406,8 @@ int addpdis(nodeptr userptr, Local placesptr){
     printf("\n..................................");
 
     while(localaux!=NULL){
-        pdiaux=localaux->pontos;
-        while(pdiaux->abcnext!=NULL){
+        pdiaux=localaux->pontos->abcnext;
+        while(pdiaux!=NULL){
             if (pdiaux->prefered==0)
                 printf("\n%2d - %s, %s",i++,pdiaux->nome,localaux->local);
             else if (pdiaux->prefered==1)
@@ -436,8 +436,8 @@ int addpdis(nodeptr userptr, Local placesptr){
 
     localaux=placesptr->abcnext;
     while(localaux!=NULL){     /* DISCOVER THE NUMBER OS PREFERED LOCALS */
-        pdiaux=localaux->pontos;
-        while(pdiaux->abcnext!=NULL){
+        pdiaux=localaux->pontos->abcnext;
+        while(pdiaux!=NULL){
             if (pdiaux->prefered==1){
                 prefcount++;
                 printf("%s\n",pdiaux->nome);
@@ -479,8 +479,8 @@ int rempdis(nodeptr userptr, Local placesptr){
     printf("\n..................................");
 
     while(localaux!=NULL){
-        pdiaux=localaux->pontos;
-        while(pdiaux->abcnext!=NULL){
+        pdiaux=localaux->pontos->abcnext;
+        while(pdiaux!=NULL){
             if (pdiaux->prefered==0)
                 printf("\n%2d - %s, %s",i++,pdiaux->nome,localaux->local);
             else if (pdiaux->prefered==1)
@@ -508,8 +508,8 @@ int rempdis(nodeptr userptr, Local placesptr){
 
     localaux=placesptr->abcnext;
     while(localaux!=NULL){     /* DISCOVER THE NUMBER OS PREFERED LOCALS */
-        pdiaux=localaux->pontos;
-        while(pdiaux->abcnext!=NULL){
+        pdiaux=localaux->pontos->abcnext;
+        while(pdiaux!=NULL){
             if (pdiaux->prefered==1){
                 prefcount++;
                 printf("%s\n",pdiaux->nome);
