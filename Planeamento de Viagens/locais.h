@@ -20,10 +20,8 @@ typedef struct pdinode{
     char *horario;
     int pop;
     int prefered;
-    Local sitio;
     Pdi popnext;
     Pdi abcnext;
-    Pdi usernext;
 }pdi_node;
 
 Local cria_local();

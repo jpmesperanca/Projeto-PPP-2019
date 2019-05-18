@@ -2,11 +2,11 @@
 3 Paris, 3
 Torre Eifel, Grande e Grossa, All Day All Night, 72
 Notre Dame, Queimada, Indisponivel, 25
-sadgfhjkl, fds, pimbas nela mm, 33
+Sadgfhjkl, fds, pimbas nela mm, 33
 
 4 Coimbra, 0
 Nada, nunca teve, nada, 0
-0.0, Nepia, nao ha mesmo nada, nunca, 0
+A, Nepia, nao ha mesmo nada, nunca, 0
 Rip, Rest In Peace, Final de Vida, 0
 Oof, Roblox Bitch, every fucking time, 0
 
@@ -20,3 +20,5 @@ pdi1, desc1, hor1, 1
 pdi2, desc2, hor2, 2
 pdi3, desc3, hor3, 3
 pdi4, desc4, hor4, 4
+
+
