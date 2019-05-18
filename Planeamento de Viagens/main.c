@@ -253,7 +253,7 @@ int perfil(nodeptr userptr, nodeptr first){
 
 int addlocais(nodeptr userptr, Local placesptr){
     int num,i=1,count=1,prefcount=0;
-    Local localaux=placesptr;
+    Local localaux=placesptr->abcnext;
 
     printf("\n..................................");
     printf("\n\t -Locais Preferidos-");
@@ -261,7 +261,7 @@ int addlocais(nodeptr userptr, Local placesptr){
     printf("\n Escolha os seus Locais favoritos");
     printf("\n..................................");
 
-    while(localaux->abcnext!=NULL){
+    while(localaux!=NULL){
         if (localaux->prefered==0)
             printf("\n%d - %s",i++,localaux->local);
         else if (localaux->prefered==1)
@@ -287,14 +287,14 @@ int addlocais(nodeptr userptr, Local placesptr){
         return 3;
     }
 
-    localaux=placesptr;
-    while(localaux->abcnext!=NULL){  /* DISCOVER THE NUMBER OS PREFERED LOCALS */
+    localaux=placesptr->abcnext;
+    while(localaux!=NULL){  /* DISCOVER THE NUMBER OS PREFERED LOCALS */
         if (localaux->prefered==1)
             prefcount++;
         localaux=localaux->abcnext;
     }
 
-    localaux=placesptr;
+    localaux=placesptr->abcnext;
     while(count!=num){              /* DISCOVER WHAT LOCAL IT IS */
         count++;
         localaux=localaux->abcnext;
@@ -328,7 +328,7 @@ int addlocais(nodeptr userptr, Local placesptr){
 }
 int remlocais(nodeptr userptr, Local placesptr){
     int num,i=1,count=1,prefcount=0;
-    Local localaux=placesptr;
+    Local localaux=placesptr->abcnext;
 
     printf("\n..................................");
     printf("\n\t -Remover Locais-");
@@ -336,7 +336,7 @@ int remlocais(nodeptr userptr, Local placesptr){
     printf("\n Escolha para Remover os Locais");
     printf("\n..................................");
 
-    while(localaux->abcnext!=NULL){
+    while(localaux!=NULL){
         if (localaux->prefered==0)
             printf("\n%d - %s",i++,localaux->local);
         else if (localaux->prefered==1)
@@ -361,14 +361,14 @@ int remlocais(nodeptr userptr, Local placesptr){
         return 3;
     }
 
-    localaux=placesptr;
-    while(localaux->abcnext!=NULL){  /* DISCOVER THE NUMBER OS PREFERED LOCALS */
+    localaux=placesptr->abcnext;
+    while(localaux!=NULL){  /* DISCOVER THE NUMBER OS PREFERED LOCALS */
         if (localaux->prefered==1)
             prefcount++;
         localaux=localaux->abcnext;
     }
 
-    localaux=placesptr;
+    localaux=placesptr->abcnext;
     while(count!=num){              /* DISCOVER WHAT LOCAL IT IS */
         count++;
         localaux=localaux->abcnext;

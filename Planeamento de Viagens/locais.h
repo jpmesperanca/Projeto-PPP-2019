@@ -12,7 +12,6 @@ typedef struct localnode{
     Pdi pontos;
     Local popnext;
     Local abcnext;
-    Local usernext;
 }local_node;
 
 typedef struct pdinode{

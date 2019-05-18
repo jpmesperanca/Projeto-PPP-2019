@@ -24,7 +24,6 @@ nodeptr cria_user(){
     return aux;
 }
 
-
 nodeptr insere(nodeptr fnl,char *nome,char *morada,char *data,char *telefone){
     nodeptr aux=fnl;
     aux->name=nome;
@@ -34,7 +33,6 @@ nodeptr insere(nodeptr fnl,char *nome,char *morada,char *data,char *telefone){
     aux->next=cria_user();
     return aux->next;
 }
-
 
 int print(nodeptr user){
     nodeptr pessoa = user;
@@ -46,65 +44,83 @@ int print(nodeptr user){
 }
 
 void preferedfile(char *file,nodeptr ptr,Local placesptr){
-    FILE *f=fopen(file,"r");
 
+    FILE *f=fopen(file,"r");
     nodeptr aux=ptr;
     Local placesaux=placesptr;
     Pdi pdis;
     int i=0,num=0;
     char *tudo,*str;
     char etc;
+
     while (fscanf(f, "%c\n", &etc) == 1){
 
-        fflush(stdin);
+        fflush(stdin);  /*well*/
+
         tudo=malloc(cem*sizeof(char));
         str=malloc(cem*sizeof(char));
 
         fgets(str,cem,f);                  /* NOME */
         str=strtok(str,"\n");
 
-        fgets(tudo,cem,f);                 /* ADERECO */
-        fgets(tudo,cem,f);                  /* DATA */
-        fgets(tudo,cem,f);                 /* PHONE */
+        for(;i<3;i++)
+            fgets(tudo,cem,f);                 /* ADERECO DATA PHONE */
+
         if (strcmp(str,aux->name)==0){
-            /* LOCAIS */
-            fgets(tudo,cem,f);                 /* LOCAIS*/
+
+            fgets(tudo,cem,f);                 /* NUMERO E LOCAIS*/
             sscanf(tudo,"%d/%[^\n]",&num,str);
+
             for(i=0;i<num;i++){
+
                 if (i==0)
                     str=strtok(str,"/");
+
                 else if (i==num)
                     str=strtok(NULL,"\n");
+
                 else
                     str=strtok(NULL,"/");
+
                 placesaux=placesptr;
 
                 while (placesaux->abcnext!=NULL){
 
                     if (strcmp(placesaux->local,str)==0){
                         placesaux->prefered=1;
-
                         break;
                     }
 
                     placesaux=placesaux->abcnext;
                 }
+
             }
 
             /* PONTOS DE INTERESSE */
+
+            free(tudo);
             tudo=malloc(cem*sizeof(char));
+
             fgets(tudo,cem,f);                  /* PDIS */
             sscanf(tudo,"%d/%[^\n]",&num,str);
+
             for(i=0;i<num;i++){
+
                 if (i==0)
                     str=strtok(str,"/");
+
                 else if (i==num)
                     str=strtok(NULL,"\n");
+
                 else
                     str=strtok(NULL,"/");
+
                 placesaux=placesptr;
+
                 while (placesaux->abcnext!=NULL){
+
                     pdis=placesaux->pontos;
+
                     while (pdis->abcnext==0){
                         if (strcmp(pdis->nome,str)==0){
                             pdis->prefered=1;
