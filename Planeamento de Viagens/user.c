@@ -47,7 +47,7 @@ void preferedfile(char *file,nodeptr ptr,Local placesptr){
 
     FILE *f=fopen(file,"r");
     nodeptr aux=ptr;
-    Local placesaux=placesptr;
+    Local placesaux=placesptr->abcnext;
     Pdi pdis;
     int i=0,num=0;
     char *tudo,*str;
@@ -82,9 +82,9 @@ void preferedfile(char *file,nodeptr ptr,Local placesptr){
                 else
                     str=strtok(NULL,"/");
 
-                placesaux=placesptr;
+                placesaux=placesptr->abcnext;
 
-                while (placesaux->abcnext!=NULL){
+                while (placesaux!=NULL){
 
                     if (strcmp(placesaux->local,str)==0){
                         placesaux->prefered=1;
@@ -115,9 +115,9 @@ void preferedfile(char *file,nodeptr ptr,Local placesptr){
                 else
                     str=strtok(NULL,"/");
 
-                placesaux=placesptr;
+                placesaux=placesptr->abcnext;
 
-                while (placesaux->abcnext!=NULL){
+                while (placesaux!=NULL){
 
                     pdis=placesaux->pontos;
 
