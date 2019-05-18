@@ -55,12 +55,9 @@ void insere_pdi(Pdi first, char* place, char* descricao, char* horario, int pop)
     Pdi novo = cria_pdi();
     Pdi aux = first;
 
-    printf("-----\n first: %s \n-----\n", first->nome);
-
-    while((aux->abcnext!=NULL)&&(strcmp(aux->abcnext->nome, place)<0)){
-        printf("while cycle- %s vs %s(novo)\n", aux->nome, place);
+    while((aux->abcnext!=NULL)&&(strcmp(aux->abcnext->nome, place)<0))
         aux = aux->abcnext;
-    }
+
 
     novo->nome = place;
     novo->descricao = descricao;
@@ -69,8 +66,6 @@ void insere_pdi(Pdi first, char* place, char* descricao, char* horario, int pop)
 
     novo->abcnext = aux->abcnext;
     aux->abcnext = novo;
-
-    printf("-----\n POS first: %s \n-----\n", first->nome);
 }
 
 Local cria_local(){
