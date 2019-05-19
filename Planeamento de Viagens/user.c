@@ -5,6 +5,7 @@
 #define cinq 50
 #define cem 100
 #define tele 10
+#define huge 400
 
 
 
@@ -17,6 +18,8 @@ nodeptr cria_user(){
         aux->adress=malloc(cem*sizeof(char));
         aux->date=malloc(cinq*sizeof(char));
         aux->phone=malloc(tele*sizeof(char));
+        aux->local=malloc(huge*sizeof(char));
+        aux->pdi=malloc(huge*sizeof(char));
         aux->localnext=NULL;
         aux->pdinext=NULL;
         aux->next=NULL;
@@ -25,12 +28,14 @@ nodeptr cria_user(){
 }
 
 
-nodeptr insere(nodeptr fnl,char *nome,char *morada,char *data,char *telefone){
+nodeptr insere(nodeptr fnl,char *nome,char *morada,char *data,char *telefone,char *local, char* pdi){
     nodeptr aux=fnl;
     aux->name=nome;
     aux->adress=morada;
     aux->date=data;
     aux->phone=telefone;
+    aux->local=local;
+    aux->pdi=pdi;
     aux->next=cria_user();
     return aux->next;
 }
@@ -46,97 +51,69 @@ int print(nodeptr user){
 }
 
 
-void preferedfile(char *file,nodeptr ptr,Local placesptr){
-
-    FILE *f=fopen(file,"r");
+void preferedfile(nodeptr ptr,Local placesptr){
     nodeptr aux=ptr;
     Local placesaux=placesptr->abcnext;
     Pdi pdis;
     int i=0,num=0;
-    char *tudo,*str;
-    char etc;
+    char *str=malloc(huge*sizeof(char));
 
-    while (fscanf(f, "%c\n", &etc) == 1){
 
-        fflush(stdin);  /*well*/
+    sscanf(aux->local,"%d/%[^\n]",&num,str);
 
-        tudo=malloc(cem*sizeof(char));
-        str=malloc(cem*sizeof(char));
+    for(i=0;i<num;i++){
 
-        fgets(str,cem,f);                  /* NOME */
-        str=strtok(str,"\n");
+        if (i==0)
+            str=strtok(str,"/");
 
-        for(;i<3;i++)
-            fgets(tudo,cem,f);                 /* ADERECO DATA PHONE */
+        else if (i==num)
+            str=strtok(NULL,"\n");
 
-        if (strcmp(str,aux->name)==0){
+        else
+            str=strtok(NULL,"/");
 
-            fgets(tudo,cem,f);                 /* NUMERO E LOCAIS*/
-            sscanf(tudo,"%d/%[^\n]",&num,str);
+        placesaux=placesptr->abcnext;
 
-            for(i=0;i<num;i++){
+        while (placesaux!=NULL){
 
-                if (i==0)
-                    str=strtok(str,"/");
-
-                else if (i==num)
-                    str=strtok(NULL,"\n");
-
-                else
-                    str=strtok(NULL,"/");
-
-                placesaux=placesptr->abcnext;
-
-                while (placesaux!=NULL){
-
-                    if (strcmp(placesaux->local,str)==0){
-                        placesaux->prefered=1;
-                        break;
-                    }
-
-                    placesaux=placesaux->abcnext;
-                }
-
+            if (strcmp(placesaux->local,str)==0){
+                placesaux->prefered++;
+                break;
             }
 
-            /* PONTOS DE INTERESSE */
-
-            free(tudo);
-            tudo=malloc(cem*sizeof(char));
-
-            fgets(tudo,cem,f);                  /* PDIS */
-            sscanf(tudo,"%d/%[^\n]",&num,str);
-
-            for(i=0;i<num;i++){
-
-                if (i==0)
-                    str=strtok(str,"/");
-
-                else if (i==num)
-                    str=strtok(NULL,"\n");
-
-                else
-                    str=strtok(NULL,"/");
-
-                placesaux=placesptr->abcnext;
-
-                while (placesaux!=NULL){
-
-                    pdis=placesaux->pontos->abcnext;
-                    while (pdis==0){
-                        if (strcmp(pdis->nome,str)==0){
-                            pdis->prefered=1;
-                            break;
-                        }
-                        pdis=pdis->abcnext;
-                    }
-                    placesaux=placesaux->abcnext;
-                }
-            }
+            placesaux=placesaux->abcnext;
         }
-        else{
-            fgets(tudo,cem,f);                 /* LOCAIS*/
-            fgets(tudo,cem,f);                 /* PDIS*/
+
+    }
+    free(str);
+    str=malloc(huge*sizeof(char));
+    /* PONTOS DE INTERESSE */
+    sscanf(aux->pdi,"%d/%[^\n]",&num,str);
+
+    for(i=0;i<num;i++){
+
+        if (i==0)
+            str=strtok(str,"/");
+
+        else if (i==num)
+            str=strtok(NULL,"\n");
+
+        else
+            str=strtok(NULL,"/");
+
+        placesaux=placesptr->abcnext;
+
+        while (placesaux!=NULL){
+
+            pdis=placesaux->pontos->abcnext;
+            while (pdis!=NULL){
+                if (strcmp(pdis->nome,str)==0){
+                    pdis->prefered++;
+                    break;
+                }
+                pdis=pdis->abcnext;
+            }
+            placesaux=placesaux->abcnext;
         }
     }
 }
@@ -146,8 +123,7 @@ nodeptr openfile(char *file,nodeptr ptr){
 
     nodeptr aux=ptr;
     FILE *f=fopen(file,"r");
-    char *nome,*adereco,*data,*telefone;
-    char *trash;
+    char *nome,*adereco,*data,*telefone,*local,*pdi;
     char etc;
 
 
@@ -158,7 +134,8 @@ nodeptr openfile(char *file,nodeptr ptr){
         adereco=malloc(cem*sizeof(char));
         data=malloc(cinq*sizeof(char));
         telefone=malloc(tele*sizeof(char));
-        trash=malloc(cem*sizeof(char));
+        local=malloc(huge*sizeof(char));
+        pdi=malloc(huge*sizeof(char));
 
         fgets(nome,cinq,f);
         nome=strtok(nome,"\n");
@@ -172,25 +149,108 @@ nodeptr openfile(char *file,nodeptr ptr){
         fgets(telefone,tele,f);
         telefone=strtok(telefone,"\n");
 
-        fgets(trash,cem,f);
-        fgets(trash,cem,f);
+        fgets(local,huge,f);
+        local=strtok(local,"\n");
 
-        aux=insere(aux,nome,adereco,data,telefone);
+        fgets(pdi,huge,f);
+        pdi=strtok(pdi,"\n");
+
+        aux=insere(aux,nome,adereco,data,telefone,local,pdi);
     }
     fclose(f);
     return aux;
 }
 
 
-void inserefile(char *file,nodeptr ptr){
+int prefcountlocais(Local placesptr){
+    Local localaux=placesptr->abcnext;
+    int prefcount=0;
+    while(localaux!=NULL){  /* DISCOVER THE NUMBER OS PREFERED LOCALS */
+        if (localaux->prefered==1)
+            prefcount++;
+        localaux=localaux->abcnext;
+    }
+    return prefcount;
+}
+
+
+int prefcountpdis(Local placesptr){
+    Local localaux=placesptr->abcnext;
+    Pdi aux;
+    int prefcount=0;
+    while(localaux!=NULL){
+        aux=localaux->pontos->abcnext;
+        while (aux!=NULL){
+            if (aux->prefered>=1)
+                prefcount++;
+            if (aux->prefered==2)
+                prefcount++;
+            aux=aux->abcnext;
+        }
+        localaux=localaux->abcnext;
+    }
+    return prefcount;
+}
+
+
+void inserefile(nodeptr ptr,Local placesptr){
     nodeptr aux=ptr;
-    FILE *f=fopen(file,"a");
-    fprintf(f,"\n\n");
-    fprintf(f,"%s\n",aux->name);
-    fprintf(f,"%s\n",aux->adress);
-    fprintf(f,"%s\n",aux->date);
-    fprintf(f,"%s",aux->phone);
-    fclose(f);
+    Local localaux=placesptr->abcnext;
+    Pdi pdiaux;
+    int i=0,count=0;
+    char *endlocal=malloc(huge*sizeof(char));
+    char *endpdi=malloc(huge*sizeof(char));
+    *endlocal='/';
+    *endpdi='/';
+    while(localaux!=NULL){
+        if (localaux->prefered==1){
+            if (count==0){
+                strcat(endlocal,localaux->local);
+                count=1;
+            }
+            else{
+                strcat(endlocal,"/");
+                strcat(endlocal,localaux->local);
+            }
+        }
+        localaux=localaux->abcnext;
+    }
+
+    count=0;
+    localaux=placesptr->abcnext;
+
+    while(localaux!=NULL){
+        pdiaux=localaux->pontos->abcnext;
+
+        while (pdiaux!=NULL){
+            if (pdiaux->prefered==2){
+                for(i=0;i<2;i++){
+                    if (count==0){
+                        strcat(endpdi,pdiaux->nome);
+                        count=1;
+                    }
+                    else{
+                        strcat(endpdi,"/");
+                        strcat(endpdi,pdiaux->nome);
+                    }
+                }
+            }
+            if (pdiaux->prefered==1){
+                 if (count==0){
+                        strcat(endpdi,pdiaux->nome);
+                        count=1;
+                    }
+                else{
+                    strcat(endpdi,"/");
+                    strcat(endpdi,pdiaux->nome);
+                }
+            }
+            pdiaux=pdiaux->abcnext;
+        }
+        localaux=localaux->abcnext;
+    }
+    aux->local=endlocal;
+    aux->pdi=endpdi;
 }
 
 
