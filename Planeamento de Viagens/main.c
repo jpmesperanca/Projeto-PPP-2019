@@ -522,6 +522,19 @@ int main(){
     nodeptr userptr;
     openfile("users.txt",first);
 
+    nodeptr aux1 = first;
+    listanomesptr p;
+
+    while (aux1->next != NULL){
+        printf("%s:\n", aux1->name);
+        p = aux1->ptrlista;
+        while (p->next != NULL){
+            printf("%s\n", p->nome);
+            p = p->next;
+        }
+        aux1 = aux1->next;
+    }
+
     do{
         userptr = menulogin(first,placesptr);
         system("cls");

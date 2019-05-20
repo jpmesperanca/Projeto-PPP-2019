@@ -38,8 +38,6 @@ Local insere_local(Local first, char* sitio, Pdi pontosptr, int popularidade){
     Local aux = first;
     Local aux2 = first;
 
-    printf("%s / %d\n", sitio, popularidade);
-
     while((aux->abcnext!=NULL)&&(strcmp(aux->abcnext->local, sitio)<0))
         aux = aux->abcnext;
 
@@ -138,21 +136,6 @@ Local openlocal(char *file){
         if (aux!=NULL)
             aux=aux->abcnext;
 
-    }
-
-    localaux = ptr->popnext;
-
-    while(localaux!=NULL){
-            printf("%s\n",localaux->local);
-
-            pdiptr = localaux->pontos->popnext;
-            while(pdiptr!=NULL){
-                printf("%s - %s \n", pdiptr->nome, pdiptr->descricao);
-                pdiptr=pdiptr->popnext;
-                }
-
-        printf("\n");
-        localaux = localaux->popnext;
     }
 
     fclose(f);

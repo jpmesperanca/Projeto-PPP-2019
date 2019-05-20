@@ -20,22 +20,63 @@ nodeptr cria_user(){
         aux->phone=malloc(tele*sizeof(char));
         aux->local=malloc(huge*sizeof(char));
         aux->pdi=malloc(huge*sizeof(char));
-        aux->localnext=NULL;
-        aux->pdinext=NULL;
+        aux->ptrlista = cria_nomes();
         aux->next=NULL;
     }
     return aux;
 }
 
 
+listanomesptr cria_nomes(){
+    listanomesptr aux;
+    aux=(listanomesptr)malloc(sizeof(listanomes_node));
+
+    if (aux!=NULL){
+        aux->nome = malloc(cinq*sizeof(char));
+        aux->next = NULL;
+    }
+
+    return aux;
+}
+
+
 nodeptr insere(nodeptr fnl,char *nome,char *morada,char *data,char *telefone,char *local, char* pdi){
     nodeptr aux=fnl;
+    listanomesptr p;
+    int num,i;
+    char *str = malloc(huge*sizeof(char));
+
     aux->name=nome;
     aux->adress=morada;
     aux->date=data;
     aux->phone=telefone;
+
+    sscanf(local,"%d/%[^\n]",&num,str);
+    p = aux->ptrlista;
+
+    for(i=0;i<num;i++){
+
+        if (i==0){
+            p->nome = strtok(str,"/");
+            p->next = cria_nomes();
+            puts(p->nome);
+        }
+
+        else if (i==num){
+            p->nome = strtok(NULL,"\n");
+            p->next = cria_nomes();
+        }
+
+        else{
+            p->nome = strtok(NULL,"/");
+            p->next = cria_nomes();
+        }
+        p = p -> next;
+    }
+
     aux->local=local;
     aux->pdi=pdi;
+
     aux->next=cria_user();
     return aux->next;
 }
@@ -59,20 +100,20 @@ void preferedfile(nodeptr ptr,Local placesptr){
     char *str=malloc(huge*sizeof(char));
 
 
-    sscanf(aux->local,"%d/%[^\n]",&num,str);
+        sscanf(aux->local,"%d/%[^\n]",&num,str);
 
-    for(i=0;i<num;i++){
+        for(i=0;i<num;i++){
 
-        if (i==0)
-            str=strtok(str,"/");
+            if (i==0)
+                str=strtok(str,"/");
 
-        else if (i==num)
-            str=strtok(NULL,"\n");
+            else if (i==num)
+                str=strtok(NULL,"\n");
 
-        else
-            str=strtok(NULL,"/");
+            else
+                str=strtok(NULL,"/");
 
-        placesaux=placesptr->abcnext;
+            placesaux=placesptr->abcnext;
 
         while (placesaux!=NULL){
 

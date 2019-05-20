@@ -1,7 +1,16 @@
 #ifndef USER_H_INCLUDED
 #define USER_H_INCLUDED
 #include "locais.h"
+
 typedef struct lnode*nodeptr;
+typedef struct nomesnode*listanomesptr;
+
+typedef struct nomesnode{
+
+    char* nome;
+    listanomesptr next;
+
+}listanomes_node;
 
 typedef struct lnode{
     char *name;
@@ -10,12 +19,13 @@ typedef struct lnode{
     char *phone;
     char *local;
     char *pdi;
-    Local localnext;
-    Pdi pdinext;
+    listanomesptr ptrlista;
     nodeptr next;
 }utilizador_node;
 
 nodeptr cria_user(void);
+
+listanomesptr cria_nomes();
 
 int print(nodeptr);
 
