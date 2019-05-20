@@ -290,7 +290,7 @@ int addlocais(nodeptr userptr, Local placesptr){
         if (localaux->prefered==0)
             printf("\n%d - %s",i++,localaux->local);
         else if (localaux->prefered==1)
-            printf("\n%d - %s *PREFERED*",i++,localaux->local);
+            printf("\n%d - %s *PREFERRED*",i++,localaux->local);
         localaux=localaux->abcnext;
     }
     printf("\n%d - Back",i++);
@@ -353,18 +353,20 @@ int addpdis(nodeptr userptr, Local placesptr){
 
     while(localaux!=NULL){
         pdiaux=localaux->pontos->abcnext;
+        printf("\n %s:",localaux->local);
         while(pdiaux!=NULL){
             if (pdiaux->prefered==0)
-                printf("\n%2d - %s, %s",i++,pdiaux->nome,localaux->local);
+                printf("\n\t%2d - %s",i++,pdiaux->nome,localaux->local);
             else if (pdiaux->prefered==1)
-                printf("\n%2d - %s, %s  *PREFERED*",i++,pdiaux->nome,localaux->local);
+                printf("\n\t%2d - %s  *PREFERRED*",i++,pdiaux->nome,localaux->local);
             else if (pdiaux->prefered==2)
-                printf("\n%2d - %s, %s  *HOT*",i++,pdiaux->nome,localaux->local);
+                printf("\n\t%2d - %s     *HOT*",i++,pdiaux->nome,localaux->local);
             pdiaux=pdiaux->abcnext;
         }
+        printf("\n");
         localaux=localaux->abcnext;
     }
-    printf("\n%2d - Back",i++);
+    printf("\n %2d - Back",i++);
     printf("\n..................................");
     printf("\nEscolha:");
 
@@ -462,6 +464,13 @@ int preferencias(nodeptr user, Local place){
 
 int viagem(nodeptr user, Local placesptr){
     int count=prefcountlocais(placesptr);
+    int localcount=0,pdicount=0;
+    char *helper1=malloc(cinq*sizeof(char));
+    char *helper2=malloc(cinq*sizeof(char));
+    Local localaux=placesptr->abcnext;
+    Pdi pdiaux;
+    strcpy(helper1," ");
+    strcpy(helper2," ");
 
     if (count<3){
         fflush(stdin);
@@ -469,6 +478,47 @@ int viagem(nodeptr user, Local placesptr){
         printf("Nao tem 3 Locais Preferidos (%d)",count);
         return 1;
     }
+    while (localcount!=count){
+
+        if (localaux->prefered==1){
+            printf("%d) %s\n",++localcount,localaux->local);
+            pdiaux=localaux->pontos->abcnext;
+            while (pdiaux!=NULL){
+                if (pdicount==3)break;
+                if (pdiaux->prefered==2){
+                    printf("\t%d) %s, %s\n",++pdicount,pdiaux->nome,localaux->local);
+                    strcpy(helper1,pdiaux->nome);
+                }
+                pdiaux=pdiaux->abcnext;
+            }
+            pdiaux=localaux->pontos->popnext;
+
+            while (pdiaux!=NULL){
+                if (pdicount==3)break;
+
+                if (pdiaux->prefered==1 && pdicount<3){
+                    printf("\t%d) %s, %s\n",++pdicount,pdiaux->nome,localaux->local);
+                    if (pdicount==1)
+                        strcpy(helper1,pdiaux->nome);
+                    else if (pdicount==2)
+                        strcpy(helper2,pdiaux->nome);
+                }
+                pdiaux=pdiaux->popnext;
+            }
+            pdiaux=localaux->pontos->popnext;
+            while (pdiaux!=NULL){
+                if (pdicount==3)break;
+                if (pdicount<3 && strcmp(pdiaux->nome,helper1)!=0 && strcmp(pdiaux->nome,helper2)!=0){
+                    printf("\t%d) %s, %s\n",++pdicount,pdiaux->nome,localaux->local);
+                }
+                pdiaux=pdiaux->popnext;
+            }
+            pdicount=0;
+
+        }
+        localaux=localaux->abcnext;
+    }
+
 
 
     return 100;

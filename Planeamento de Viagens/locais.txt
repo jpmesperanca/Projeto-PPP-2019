@@ -5,9 +5,9 @@ Notre Dame, Queimada, Indisponivel, 3
 Sadgfhjkl, smth, horario, 2
 
 4 Coimbra, 4
-Nada, nunca teve, nada, 1
-A, Nepia, nao ha mesmo nada nunca, 5
-Rip, Rest In Peace, Final de Vida, 0
+Nada, nunca teve, nada, 5
+A, Nepia, nao ha mesmo nada nunca, 0
+Rip, Rest In Peace, Final de Vida, 1
 Oof, Roblox, every fucking time, 9
 
 3 Wow, 1
