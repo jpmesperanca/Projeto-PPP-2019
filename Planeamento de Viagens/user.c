@@ -198,10 +198,11 @@ void inserefile(nodeptr ptr,Local placesptr){
     Local localaux=placesptr->abcnext;
     Pdi pdiaux;
     int i=0,count=0;
-    char *endlocal=malloc(huge*sizeof(char));
-    char *endpdi=malloc(huge*sizeof(char));
-    *endlocal='/';
-    *endpdi='/';
+    char *endlocal=(char *)malloc(huge*sizeof(char));
+    char *endpdi=(char *)malloc(huge*sizeof(char));
+    strcpy(endlocal,"/");
+    strcpy(endpdi,"/");
+
     while(localaux!=NULL){
         if (localaux->prefered==1){
             if (count==0){

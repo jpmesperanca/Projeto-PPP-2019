@@ -460,6 +460,21 @@ int preferencias(nodeptr user, Local place){
 }
 
 
+int viagem(nodeptr user, Local placesptr){
+    int count=prefcountlocais(placesptr);
+
+    if (count<3){
+        fflush(stdin);
+        system("cls");
+        printf("Nao tem 3 Locais Preferidos (%d)",count);
+        return 1;
+    }
+
+
+    return 100;
+}
+
+
 int mainmenu(nodeptr user, nodeptr first){
 
     int num=0;
@@ -542,7 +557,7 @@ int main(){
                     case 32:
                         num=addpdis(userptr,placesptr);break;
                 case 4:
-                    num = 0;break;
+                    num = viagem(userptr,placesptr);break;
                 case 100:
                     printf("\nerro -  a funcao chegou ao fim!\n");num=0;break;
 

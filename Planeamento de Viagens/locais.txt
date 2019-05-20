@@ -1,19 +1,19 @@
 
 3 Paris, 3
-Torre Eifel, Grande e Grossa, All Day All Night, 1
+Torre Eifel, descricao, All Day All Night, 1
 Notre Dame, Queimada, Indisponivel, 3
-Sadgfhjkl, fds, pimbas nela mm, 2
+Sadgfhjkl, smth, horario, 2
 
 4 Coimbra, 4
 Nada, nunca teve, nada, 1
 A, Nepia, nao ha mesmo nada nunca, 5
 Rip, Rest In Peace, Final de Vida, 0
-Oof, Roblox Bitch, every fucking time, 9
+Oof, Roblox, every fucking time, 9
 
 3 Wow, 1
 Pimbas, bom meme tho, indeed, 0
-Puta, prostituta, all day, 1
-Nheques, eish fodeste te, agora mesmo, 0
+Doge, Such fancy, horario, 2
+Nheques, eish, agora mesmo, 0
 
 4 Local4, 0
 pdi1, desc1, hor1, 1
