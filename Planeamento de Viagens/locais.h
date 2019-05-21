@@ -9,6 +9,7 @@ typedef struct localnode{
     char *local;
     int pop;
     int prefered;
+    int pdinum;
     Pdi pontos;
     Local popnext;
     Local abcnext;
@@ -27,5 +28,7 @@ typedef struct pdinode{
 Local cria_local();
 
 Local openlocal(char *);
+
+void filelocais(char *file,Local placesptr);
 
 #endif

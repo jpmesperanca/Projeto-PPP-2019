@@ -5,7 +5,7 @@
 #include "locais.h"
 #define cem 100
 #define cinq 50
-#define tele 9
+#define tele 10
 
 nodeptr login(nodeptr first,Local placesptr){
 
@@ -159,8 +159,6 @@ void logout(nodeptr first,nodeptr user,Local placesptr){
     nodeptr aux=first;
     listanomesptr list;
     int counter=0;
-    int placescount;
-    int pdiscount;
     FILE *f=fopen("users.txt","w");
 
     while (aux->next!=NULL){
@@ -181,7 +179,6 @@ void logout(nodeptr first,nodeptr user,Local placesptr){
         fprintf(f,"%d",countlist(list));
 
         while (list->next!=NULL){
-            printf("%s\n",list->nome);
             fprintf(f,"/%s",list->nome);
             list=list->next;
         }
@@ -190,7 +187,6 @@ void logout(nodeptr first,nodeptr user,Local placesptr){
         fprintf(f,"\n%d",countlist(list));
 
         while (list->next!=NULL){
-            printf("\t%s\n",list->nome);
             fprintf(f,"/%s",list->nome);
             list=list->next;
         }
@@ -387,7 +383,6 @@ int addpdis(nodeptr userptr, Local placesptr){
     }
 
     if (num==i-1){              /* BACK OPTION */
-
         fflush(stdin);
         system("cls");
         return 3;
@@ -399,7 +394,6 @@ int addpdis(nodeptr userptr, Local placesptr){
         while(pdiaux!=NULL){
             if (pdiaux->prefered>=1){
                 prefcount++;
-                printf("%s\n",pdiaux->nome);
                 if (pdiaux->prefered==2)
                     hot=1;
             }
@@ -421,6 +415,9 @@ int addpdis(nodeptr userptr, Local placesptr){
         pdiaux->prefered=0;
         pdiaux->pop--;
         prefcount--;
+    }
+    else if (pdiaux->prefered==1 && hot==0){
+        pdiaux->prefered=2;
     }
     else{
         if (pdiaux->prefered==0)
@@ -457,7 +454,9 @@ int preferencias(nodeptr user, Local placesptr){
     }
     fflush(stdin);
     system("cls");
+    printf("here?");
     rewritelista(user,placesptr);
+    printf("Not Here");
     switch (num){
             case 1:
                 return 31;              /*Vai para o Locais */
@@ -471,9 +470,53 @@ int preferencias(nodeptr user, Local placesptr){
 }
 
 
-int viagem(nodeptr user, Local placesptr){
+int viagemcounterlocais(nodeptr userptr,char * str){
+    int count=0;
+    nodeptr aux=userptr;
+    listanomesptr list;
+
+    while (aux->next!=NULL){
+        list=aux->ptrlocal;
+        while(list->next!=NULL){
+            if (strcmp(list->nome,str)==0){
+                count++;
+            }
+            list=list->next;
+        }
+        aux=aux->next;
+    }
+    return count;
+}
+
+
+int viagemcounterpdi(nodeptr userptr,char * str,int num){
+    int helper,count=0;
+    nodeptr aux=userptr;
+    listanomesptr list;
+
+    while (aux->next!=NULL){
+        list=aux->ptrpdi;
+        helper=0;
+        while(list->next!=NULL){
+            if (strcmp(list->nome,str)==0){
+                helper++;
+            }
+            if (helper==num){
+                count++;
+                break;
+            }
+            list=list->next;
+        }
+        aux=aux->next;
+    }
+    return count;
+}
+
+
+int viagem(nodeptr first,nodeptr user, Local placesptr){
     int count=prefcountlocais(placesptr);
     int localcount=0,pdicount=0;
+    int percentagemlocais=0,percentagemhot=0,percentagempdi=0;
     char *helper1=malloc(cinq*sizeof(char));
     char *helper2=malloc(cinq*sizeof(char));
     Local localaux=placesptr->abcnext;
@@ -491,11 +534,15 @@ int viagem(nodeptr user, Local placesptr){
 
         if (localaux->prefered==1){
             printf("%d) %s\n",++localcount,localaux->local);
+            percentagemlocais+=viagemcounterlocais(first,localaux->local);
             pdiaux=localaux->pontos->abcnext;
             while (pdiaux!=NULL){
                 if (pdicount==3)break;
+
                 if (pdiaux->prefered==2){
                     printf("\t%d) %s, %s\n",++pdicount,pdiaux->nome,localaux->local);
+                    percentagemhot+=viagemcounterpdi(first,pdiaux->nome,2);
+                    percentagempdi+=viagemcounterpdi(first,pdiaux->nome,1);
                     strcpy(helper1,pdiaux->nome);
                 }
                 pdiaux=pdiaux->abcnext;
@@ -507,6 +554,8 @@ int viagem(nodeptr user, Local placesptr){
 
                 if (pdiaux->prefered==1 && pdicount<3){
                     printf("\t%d) %s, %s\n",++pdicount,pdiaux->nome,localaux->local);
+                    percentagemhot+=viagemcounterpdi(first,pdiaux->nome,2);
+                    percentagempdi+=viagemcounterpdi(first,pdiaux->nome,1);
                     if (pdicount==1)
                         strcpy(helper1,pdiaux->nome);
                     else if (pdicount==2)
@@ -519,6 +568,8 @@ int viagem(nodeptr user, Local placesptr){
                 if (pdicount==3)break;
                 if (pdicount<3 && strcmp(pdiaux->nome,helper1)!=0 && strcmp(pdiaux->nome,helper2)!=0){
                     printf("\t%d) %s, %s\n",++pdicount,pdiaux->nome,localaux->local);
+                    percentagemhot+=viagemcounterpdi(first,pdiaux->nome,2);
+                    percentagempdi+=viagemcounterpdi(first,pdiaux->nome,1);
                 }
                 pdiaux=pdiaux->popnext;
             }
@@ -527,6 +578,7 @@ int viagem(nodeptr user, Local placesptr){
         }
         localaux=localaux->abcnext;
     }
+    printf("-%d-%d-%d-",percentagemlocais,percentagemhot,percentagempdi);
 
 
 
@@ -616,7 +668,7 @@ int main(){
                     case 32:
                         num=addpdis(userptr,placesptr);break;
                 case 4:
-                    num = viagem(userptr,placesptr);break;
+                    num = viagem(first,userptr,placesptr);break;
                 case 100:
                     printf("\nerro -  a funcao chegou ao fim!\n");num=0;break;
 
@@ -625,5 +677,6 @@ int main(){
     }
     rewritelista(userptr, placesptr);
     logout(first,userptr,placesptr);
+    filelocais("locais.txt",placesptr);
     return 0;
 }

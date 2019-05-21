@@ -195,7 +195,7 @@ nodeptr openfile(char *file,nodeptr ptr){
     return aux;
 }
 
-listanomesptr freenomes(listanomesptr ptr){
+void freenomes(listanomesptr ptr){
 
         listanomesptr aux = ptr->next;
 
@@ -205,9 +205,6 @@ listanomesptr freenomes(listanomesptr ptr){
             ptr = ptr->next;
             free(aux);
         }
-
-        free(aux);
-        return cria_nomes();
 }
 
 void printlistalocais(listanomesptr ptr){
@@ -241,12 +238,18 @@ void rewritelista(nodeptr userptr, Local placesptr){
     listanomesptr pdi;
     int i;
 
-    userptr->ptrlocal = freenomes(userptr->ptrlocal);
-    userptr->ptrpdi = freenomes(userptr->ptrpdi);
-
+    freenomes(userptr->ptrlocal);
+    printf("CHUPAMOS CARALHO");
+    freenomes(userptr->ptrpdi);
+    printf("nao erra no free");
+    printf("erro na criacao");
+    userptr->ptrlocal = cria_nomes();
+    userptr->ptrpdi = cria_nomes();
+    printf("Nao erra na criacao");
+    printf("erro last");
     local = userptr->ptrlocal;
     pdi = userptr->ptrpdi;
-
+    printf("nao erro com last");
     while(placesaux!=NULL){
 
         if (placesaux->prefered==1){

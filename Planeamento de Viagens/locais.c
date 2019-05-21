@@ -32,7 +32,7 @@ Pdi cria_pdi(){
     return aux;
 }
 
-Local insere_local(Local first, char* sitio, Pdi pontosptr, int popularidade){
+Local insere_local(Local first, char* sitio, Pdi pontosptr, int popularidade,int numero){
 
     Local novo = cria_local();
     Local aux = first;
@@ -46,6 +46,7 @@ Local insere_local(Local first, char* sitio, Pdi pontosptr, int popularidade){
     novo->pontos = pontosptr;
     novo->pop = popularidade;
     novo->local = sitio;
+    novo->pdinum = numero;
 
     while((aux2->popnext!=NULL)&&(popularidade<=aux2->popnext->pop))
         aux2 = aux2->popnext;
@@ -118,7 +119,7 @@ Local openlocal(char *file){
 
         pdiptr=cria_pdi();
 
-        aux = insere_local(ptr, sitio, pdiptr, pop);
+        aux = insere_local(ptr, sitio, pdiptr, pop,numero);
 
         for (i=0; i<numero; i++){
 
@@ -140,4 +141,32 @@ Local openlocal(char *file){
 
     fclose(f);
     return ptr;
+}
+
+
+void filelocais(char *file,Local placesptr){
+    int counter=0;
+    Local aux=placesptr->popnext;
+    Pdi pdi;
+    FILE *f=fopen(file,"w");
+
+    while (aux!=NULL){
+        if (counter==0){
+            fprintf(f,"\n");
+            counter++;
+        }
+        else{
+            fprintf(f,"\n\n");
+        }
+        fprintf(f,"%d %s, %d\n",aux->pdinum,aux->local,aux->pop);
+        pdi=aux->pontos->popnext;
+        while (pdi!=NULL){
+            if (pdi->popnext==NULL)
+                fprintf(f,"%s, %s, %s, %d",pdi->nome,pdi->descricao,pdi->horario,pdi->pop);
+            else
+                fprintf(f,"%s, %s, %s, %d\n",pdi->nome,pdi->descricao,pdi->horario,pdi->pop);
+            pdi=pdi->popnext;
+        }
+        aux=aux->popnext;
+    }
 }

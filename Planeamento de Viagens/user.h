@@ -46,6 +46,10 @@ int alteradata(nodeptr ,nodeptr);
 
 int alteraphone(nodeptr ,nodeptr);
 
+int prefcountlocais(Local);
+
+int prefcountpdis(Local);
+
 void rewritelista(nodeptr,Local);
 
 int countlist(listanomesptr );
