@@ -124,10 +124,8 @@ void preferedfile(nodeptr ptr,Local placesptr){
     listanomesptr str=aux->ptrlocal;
     Pdi pdis;
     while (str->next!=NULL){
-        printf("Here");
         placesaux=placesptr->abcnext;
         while (placesaux!=NULL){
-            printf("\n%s-%s\n",placesaux->local,str->nome);
             if (strcmp(placesaux->local,str->nome)==0){
                 placesaux->prefered++;
                 break;
@@ -135,9 +133,7 @@ void preferedfile(nodeptr ptr,Local placesptr){
             placesaux=placesaux->abcnext;
         }
         str=str->next;
-        printf("here2");
     }
-    printf("Here1");
     str=aux->ptrpdi;
     while (str->next!=NULL){
         placesaux=placesptr->abcnext;
@@ -204,9 +200,6 @@ listanomesptr freenomes(listanomesptr ptr){
         listanomesptr aux = ptr->next;
 
         while(ptr->next != NULL){
-
-            printlistalocais(ptr);
-            printf("%p\n\n", ptr->next);
 
             aux = ptr;
             ptr = ptr->next;
