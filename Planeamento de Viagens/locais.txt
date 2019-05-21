@@ -1,9 +1,4 @@
 
-3 Wow, 0
-Doge, Such fancy, horario, 0
-Pimbas, bom meme tho, indeed, 0
-Nheques, eish, agora mesmo, 0
-
 4 Coimbra, 1
 Oof, Roblox, every fucking time, 1
 Nada, nunca teve, nada, 1
@@ -20,3 +15,8 @@ pdi1, desc1, hor1, 0
 Torre Eifel, descricao, All Day All Night, 0
 Sadgfhjkl, smth, horario, 0
 Notre Dame, Queimada, Indisponivel, 0
+
+3 Wow, 0
+Doge, Such fancy, horario, 0
+Pimbas, bom meme tho, indeed, 0
+Nheques, eish, agora mesmo, 0

@@ -4,7 +4,7 @@
 #include "user.h"
 #define cinq 50
 #define cem 100
-#define tele 10
+#define tele 11
 #define huge 400
 
 
