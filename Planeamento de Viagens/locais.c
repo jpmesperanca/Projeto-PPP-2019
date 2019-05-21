@@ -41,9 +41,9 @@ Local insere_local(Local first, char* sitio, Pdi pontosptr, int popularidade){
     while((aux->abcnext!=NULL)&&(strcmp(aux->abcnext->local, sitio)<0))
         aux = aux->abcnext;
 
-    novo->abcnext= aux->abcnext;
+    novo->abcnext = aux->abcnext;
     aux->abcnext = novo;
-    novo->pontos=pontosptr;
+    novo->pontos = pontosptr;
     novo->pop = popularidade;
     novo->local = sitio;
 

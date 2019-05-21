@@ -199,23 +199,33 @@ nodeptr openfile(char *file,nodeptr ptr){
     return aux;
 }
 
-void freenomes(listanomesptr ptr){
+listanomesptr freenomes(listanomesptr ptr){
 
-        listanomesptr aux;
-        int stop = 0;
+        listanomesptr aux = ptr->next;
 
-        do{
-            if (ptr->next == NULL)
-                break;
-            aux = ptr->next;
-            free(ptr->nome);
-            free(ptr->next);
-            ptr = aux;
+        while(ptr->next != NULL){
 
-        }while(1);
+            printlistalocais(ptr);
+            printf("%p\n\n", ptr->next);
+
+            aux = ptr;
+            ptr = ptr->next;
+            free(aux);
+        }
 
         free(aux);
-        ptr=NULL;
+        return cria_nomes();
+}
+
+void printlistalocais(listanomesptr ptr){
+
+    listanomesptr aux = ptr;
+
+    while (aux->next != NULL){
+
+        printf("%s\n", aux->nome);
+        aux = aux->next;
+    }
 }
 
 
@@ -223,41 +233,45 @@ void rewritelista(nodeptr userptr, Local placesptr){
 
     Local placesaux = placesptr->abcnext;
     Pdi pdiaux;
-    nodeptr aux=userptr;
-    listanomesptr local=userptr->ptrlocal;
-    listanomesptr pdi=userptr->ptrpdi;
+    listanomesptr local;
+    listanomesptr pdi;
     int i;
 
-    freenomes(local);
-    freenomes(pdi);
+    userptr->ptrlocal = freenomes(userptr->ptrlocal);
+    userptr->ptrpdi = freenomes(userptr->ptrpdi);
+
+    local = userptr->ptrlocal;
+    pdi = userptr->ptrpdi;
 
     while(placesaux!=NULL){
 
         if (placesaux->prefered==1){
-            local=cria_nomes();
-            local->nome=placesaux->local;
+
+            local->next = cria_nomes();
+            local->nome = placesaux->local;
             local=local->next;
         }
+
         pdiaux=placesaux->pontos->abcnext;
-        placesaux=placesaux->abcnext;
 
         while(pdiaux!=NULL){
+
             if (pdiaux->prefered==2){
                 for(i=0;i<2;i++){
-                    pdi=cria_nomes();
+                    pdi->next =cria_nomes();
                     pdi->nome=pdiaux->nome;
                     pdi=pdi->next;
                 }
             }
             if (pdiaux->prefered==1){
-                pdi=cria_nomes();
-                pdi->nome=pdiaux->nome;
-                pdi=pdi->next;
+                pdi->next = cria_nomes();
+                pdi->nome = pdiaux->nome;
+                pdi = pdi->next;
             }
-        pdiaux=pdiaux->abcnext;
+            pdiaux=pdiaux->abcnext;
         }
+    placesaux=placesaux->abcnext;
     }
-
 }
 
 
