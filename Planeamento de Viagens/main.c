@@ -157,6 +157,7 @@ int printadados(nodeptr userptr){
 
 void logout(nodeptr first,nodeptr user,Local placesptr){
     nodeptr aux=first;
+    listanomesptr list;
     int counter=0;
     int placescount = prefcountlocais(placesptr);
     int pdiscount = prefcountpdis(placesptr);
@@ -175,17 +176,21 @@ void logout(nodeptr first,nodeptr user,Local placesptr){
         fprintf(f,"%s\n",aux->date);
         fprintf(f,"%s\n",aux->phone);
 
-        if (aux->name==user->name){
-            fprintf(f,"%d",placescount);
-            fprintf(f,"%s\n",aux->local);
-            fprintf(f,"%d",pdiscount);
-            fprintf(f,"%s",aux->pdi);
+        fprintf(f,"%d",placescount);
+
+        list=aux->ptrlocal;
+        while (list->next!=NULL){
+            fprintf(f,"/%s",list->nome);
+            list=list->next;
         }
-        else{
-            fprintf(f,"%s\n",aux->local);
-            fprintf(f,"%s",aux->pdi);
+
+        fprintf(f,"\n%d",pdiscount);
+        list=aux->ptrpdi;
+        while (list->next!=NULL){
+            fprintf(f,"/%s",list->nome);
+            list=list->next;
         }
-        aux=aux->next;
+    aux=aux->next;
     }
     fclose(f);
     printf("\n     -Logged out com sucesso-\n");
@@ -428,7 +433,7 @@ int addpdis(nodeptr userptr, Local placesptr){
 }
 
 
-int preferencias(nodeptr user, Local place){
+int preferencias(nodeptr user, Local placesptr){
     int num=0;
 
     printf("\n..................................");
@@ -448,7 +453,7 @@ int preferencias(nodeptr user, Local place){
     }
     fflush(stdin);
     system("cls");
-
+    rewritelista(user,placesptr);
     switch (num){
             case 1:
                 return 31;              /*Vai para o Locais */
@@ -525,7 +530,7 @@ int viagem(nodeptr user, Local placesptr){
 }
 
 
-int mainmenu(nodeptr user, nodeptr first){
+int mainmenu(nodeptr user, nodeptr first,Local placesptr){
 
     int num=0;
 
@@ -577,7 +582,7 @@ int main(){
 
     while (aux1->next != NULL){
         printf("%s:\n", aux1->name);
-        p = aux1->ptrlista;
+        p = aux1->ptrpdi;
         while (p->next != NULL){
             printf("%s\n", p->nome);
             p = p->next;
@@ -596,7 +601,7 @@ int main(){
     while (num!=0){
         switch (num){
             case 1:
-                num = mainmenu(userptr,first);break;
+                num = mainmenu(userptr,first,placesptr);break;
                 case 2:
                     num = perfil(userptr,first);break;
                     case 5:
@@ -627,8 +632,7 @@ int main(){
 
         }
     }
-
-    inserefile(userptr,placesptr);
+    rewritelista(userptr, placesptr);
     logout(first,userptr,placesptr);
     return 0;
 }

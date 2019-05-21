@@ -20,7 +20,8 @@ nodeptr cria_user(){
         aux->phone=malloc(tele*sizeof(char));
         aux->local=malloc(huge*sizeof(char));
         aux->pdi=malloc(huge*sizeof(char));
-        aux->ptrlista = cria_nomes();
+        aux->ptrlocal = cria_nomes();
+        aux->ptrpdi= cria_nomes();
         aux->next=NULL;
     }
     return aux;
@@ -42,7 +43,7 @@ listanomesptr cria_nomes(){
 
 nodeptr insere(nodeptr fnl,char *nome,char *morada,char *data,char *telefone,char *local, char* pdi){
     nodeptr aux=fnl;
-    listanomesptr p;
+    listanomesptr prefaux;
     int num,i;
     char *str = malloc(huge*sizeof(char));
 
@@ -52,26 +53,51 @@ nodeptr insere(nodeptr fnl,char *nome,char *morada,char *data,char *telefone,cha
     aux->phone=telefone;
 
     sscanf(local,"%d/%[^\n]",&num,str);
-    p = aux->ptrlista;
+    prefaux = aux->ptrlocal;
 
     for(i=0;i<num;i++){
 
         if (i==0){
-            p->nome = strtok(str,"/");
-            p->next = cria_nomes();
-            puts(p->nome);
+            prefaux->nome = strtok(str,"/");
+            prefaux->next = cria_nomes();
         }
 
         else if (i==num){
-            p->nome = strtok(NULL,"\n");
-            p->next = cria_nomes();
+            prefaux->nome = strtok(NULL,"\n");
+            prefaux->next = cria_nomes();
         }
 
         else{
-            p->nome = strtok(NULL,"/");
-            p->next = cria_nomes();
+            prefaux->nome = strtok(NULL,"/");
+            prefaux->next = cria_nomes();
         }
-        p = p -> next;
+        prefaux = prefaux -> next;
+    }
+
+    aux->local=local;
+    aux->pdi=pdi;
+
+    str = malloc(huge*sizeof(char));
+    sscanf(pdi,"%d/%[^\n]",&num,str);
+    prefaux = aux->ptrpdi;
+
+    for(i=0;i<num;i++){
+
+        if (i==0){
+            prefaux->nome = strtok(str,"/");
+            prefaux->next = cria_nomes();
+        }
+
+        else if (i==num){
+            prefaux->nome = strtok(NULL,"\n");
+            prefaux->next = cria_nomes();
+        }
+
+        else{
+            prefaux->nome = strtok(NULL,"/");
+            prefaux->next = cria_nomes();
+        }
+        prefaux = prefaux -> next;
     }
 
     aux->local=local;
@@ -94,68 +120,39 @@ int print(nodeptr user){
 
 void preferedfile(nodeptr ptr,Local placesptr){
     nodeptr aux=ptr;
-    Local placesaux=placesptr->abcnext;
+    Local placesaux;
+    listanomesptr str=aux->ptrlocal;
     Pdi pdis;
-    int i=0,num=0;
-    char *str=malloc(huge*sizeof(char));
-
-
-        sscanf(aux->local,"%d/%[^\n]",&num,str);
-
-        for(i=0;i<num;i++){
-
-            if (i==0)
-                str=strtok(str,"/");
-
-            else if (i==num)
-                str=strtok(NULL,"\n");
-
-            else
-                str=strtok(NULL,"/");
-
-            placesaux=placesptr->abcnext;
-
+    while (str->next!=NULL){
+        printf("Here");
+        placesaux=placesptr->abcnext;
         while (placesaux!=NULL){
-
-            if (strcmp(placesaux->local,str)==0){
+            printf("\n%s-%s\n",placesaux->local,str->nome);
+            if (strcmp(placesaux->local,str->nome)==0){
                 placesaux->prefered++;
                 break;
             }
-
             placesaux=placesaux->abcnext;
         }
-
+        str=str->next;
+        printf("here2");
     }
-    free(str);
-    str=malloc(huge*sizeof(char));
-    /* PONTOS DE INTERESSE */
-    sscanf(aux->pdi,"%d/%[^\n]",&num,str);
-
-    for(i=0;i<num;i++){
-
-        if (i==0)
-            str=strtok(str,"/");
-
-        else if (i==num)
-            str=strtok(NULL,"\n");
-
-        else
-            str=strtok(NULL,"/");
-
+    printf("Here1");
+    str=aux->ptrpdi;
+    while (str->next!=NULL){
         placesaux=placesptr->abcnext;
-
         while (placesaux!=NULL){
-
             pdis=placesaux->pontos->abcnext;
             while (pdis!=NULL){
-                if (strcmp(pdis->nome,str)==0){
+                if (strcmp(pdis->nome,str->nome)==0){
                     pdis->prefered++;
                     break;
                 }
                 pdis=pdis->abcnext;
             }
-            placesaux=placesaux->abcnext;
+        placesaux=placesaux->abcnext;
         }
+        str=str->next;
     }
 }
 
@@ -200,6 +197,67 @@ nodeptr openfile(char *file,nodeptr ptr){
     }
     fclose(f);
     return aux;
+}
+
+void freenomes(listanomesptr ptr){
+
+        listanomesptr aux;
+        int stop = 0;
+
+        do{
+            if (ptr->next == NULL)
+                break;
+            aux = ptr->next;
+            free(ptr->nome);
+            free(ptr->next);
+            ptr = aux;
+
+        }while(1);
+
+        free(aux);
+        ptr=NULL;
+}
+
+
+void rewritelista(nodeptr userptr, Local placesptr){
+
+    Local placesaux = placesptr->abcnext;
+    Pdi pdiaux;
+    nodeptr aux=userptr;
+    listanomesptr local=userptr->ptrlocal;
+    listanomesptr pdi=userptr->ptrpdi;
+    int i;
+
+    freenomes(local);
+    freenomes(pdi);
+
+    while(placesaux!=NULL){
+
+        if (placesaux->prefered==1){
+            local=cria_nomes();
+            local->nome=placesaux->local;
+            local=local->next;
+        }
+        pdiaux=placesaux->pontos->abcnext;
+        placesaux=placesaux->abcnext;
+
+        while(pdiaux!=NULL){
+            if (pdiaux->prefered==2){
+                for(i=0;i<2;i++){
+                    pdi=cria_nomes();
+                    pdi->nome=pdiaux->nome;
+                    pdi=pdi->next;
+                }
+            }
+            if (pdiaux->prefered==1){
+                pdi=cria_nomes();
+                pdi->nome=pdiaux->nome;
+                pdi=pdi->next;
+            }
+        pdiaux=pdiaux->abcnext;
+        }
+    }
+
 }
 
 

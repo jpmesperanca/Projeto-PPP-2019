@@ -19,7 +19,8 @@ typedef struct lnode{
     char *phone;
     char *local;
     char *pdi;
-    listanomesptr ptrlista;
+    listanomesptr ptrlocal;
+    listanomesptr ptrpdi;
     nodeptr next;
 }utilizador_node;
 
