@@ -46,4 +46,8 @@ int alteradata(nodeptr ,nodeptr);
 
 int alteraphone(nodeptr ,nodeptr);
 
+void rewritelista(nodeptr,Local);
+
+int countlist(listanomesptr );
+
 #endif

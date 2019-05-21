@@ -219,6 +219,17 @@ void freenomes(listanomesptr ptr){
 }
 
 
+int countlist(listanomesptr ptr){
+    listanomesptr aux=ptr;
+    int count=0;
+    while (aux->next!=NULL){
+        count++;
+        aux=aux->next;
+    }
+    return count;
+}
+
+
 void rewritelista(nodeptr userptr, Local placesptr){
 
     Local placesaux = placesptr->abcnext;
@@ -264,14 +275,13 @@ void rewritelista(nodeptr userptr, Local placesptr){
 int prefcountlocais(Local placesptr){
     Local localaux=placesptr->abcnext;
     int prefcount=0;
-    while(localaux!=NULL){  /* DISCOVER THE NUMBER OS PREFERED LOCALS */
+    while(localaux!=NULL){
         if (localaux->prefered==1)
             prefcount++;
         localaux=localaux->abcnext;
     }
     return prefcount;
 }
-
 
 int prefcountpdis(Local placesptr){
     Local localaux=placesptr->abcnext;

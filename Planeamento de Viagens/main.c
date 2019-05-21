@@ -159,8 +159,8 @@ void logout(nodeptr first,nodeptr user,Local placesptr){
     nodeptr aux=first;
     listanomesptr list;
     int counter=0;
-    int placescount = prefcountlocais(placesptr);
-    int pdiscount = prefcountpdis(placesptr);
+    int placescount;
+    int pdiscount;
     FILE *f=fopen("users.txt","w");
 
     while (aux->next!=NULL){
@@ -176,17 +176,21 @@ void logout(nodeptr first,nodeptr user,Local placesptr){
         fprintf(f,"%s\n",aux->date);
         fprintf(f,"%s\n",aux->phone);
 
-        fprintf(f,"%d",placescount);
 
         list=aux->ptrlocal;
+        fprintf(f,"%d",countlist(list));
+
         while (list->next!=NULL){
+            printf("%s\n",list->nome);
             fprintf(f,"/%s",list->nome);
             list=list->next;
         }
 
-        fprintf(f,"\n%d",pdiscount);
         list=aux->ptrpdi;
+        fprintf(f,"\n%d",countlist(list));
+
         while (list->next!=NULL){
+            printf("\t%s\n",list->nome);
             fprintf(f,"/%s",list->nome);
             list=list->next;
         }

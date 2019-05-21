@@ -4,7 +4,7 @@ Rua Correia Teles
 22/03/2000
 91223311
 3/Coimbra/Local4/Paris
-15/A/A/Nada/Oof/Rip/pdi1/pdi2/pdi3/pdi4/Notre Dame/Sadgfhjkl/Torre Eifel/Doge/Nheques/Pimbas
+6/A/A/Nada/Oof/Rip/pdi1
 
 Josphze
 Avenue SMTH
@@ -25,4 +25,4 @@ coimbra e tal
 weeabo
 93779393
 3/Local4/Paris/Wow
-9/A/A/Oof/pdi1/pdi4/Notre Dame/Torre Eifel/Doge/Nheques
+6/A/A/Oof/pdi1/pdi4/Notre Dame
