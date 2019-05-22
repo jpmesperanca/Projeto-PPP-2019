@@ -239,17 +239,14 @@ void rewritelista(nodeptr userptr, Local placesptr){
     int i;
 
     freenomes(userptr->ptrlocal);
-    printf("CHUPAMOS CARALHO");
     freenomes(userptr->ptrpdi);
-    printf("nao erra no free");
-    printf("erro na criacao");
+
     userptr->ptrlocal = cria_nomes();
     userptr->ptrpdi = cria_nomes();
-    printf("Nao erra na criacao");
-    printf("erro last");
+
     local = userptr->ptrlocal;
     pdi = userptr->ptrpdi;
-    printf("nao erro com last");
+
     while(placesaux!=NULL){
 
         if (placesaux->prefered==1){
