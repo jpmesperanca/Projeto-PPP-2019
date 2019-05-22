@@ -20,22 +20,27 @@ nodeptr login(nodeptr first,Local placesptr){
         printf("Nome de Utilizador: ");
         fgets(nome,cinq,stdin);
         fflush(stdin);
-        nome=strtok(nome,"\n");
-
-        if (strcmp(nome,"quit")==0)
-            return NULL;
-
-        while(aux->next != NULL){
-            printf("/%s/%s/",nome,aux->name);
-            if (strcmp(nome,aux->name)==0){
-                preferedfile(aux,placesptr);
-                return aux;
-
-            }
-            aux=aux->next;
+        if(strcmp(nome,"\n")==0){
+            system("cls");
         }
+        else{
 
-        printf("\nNome de Utilizador Nao Encontrado...\n");
+            nome=strtok(nome,"\n");
+            if (strcmp(nome,"quit")==0)
+                return NULL;
+
+            while(aux->next != NULL){
+                printf("/%s/%s/",nome,aux->name);
+                if (strcmp(nome,aux->name)==0){
+                    preferedfile(aux,placesptr);
+                    return aux;
+
+                }
+                aux=aux->next;
+            }
+
+            printf("\nNome de Utilizador Nao Encontrado...\n");
+        }
     }
 }
 
@@ -52,53 +57,103 @@ nodeptr regist(nodeptr first){
 
 
     while (num == 0){
+
         aux=first;
         num = 1;
         printf("\n.......... Inscricao de Novo utilizador ..........\n.......... Escreva quit para regressar ...........\n\n");
 
         printf("Nome de Utilizador: ");
+
         fgets(name,cinq,stdin);
         fflush(stdin);
-        name=strtok(name,"\n");
+        if (strcmp(name,"\n")==0){
+            system("cls");
+            printf("\n\t  //////// Utilizador invalido ///////\n");
+            num = 0;
+        }
+        else{
+            name=strtok(name,"\n");
+            if (strcmp(name,"quit")==0)
+                return NULL;
 
-        if (strcmp(name,"quit")==0)
-            return NULL;
-
-        while(aux->next != NULL){
-            if (strcmp(name,aux->name)==0){                               /* Ve se o nome de utilizador ja existe*/
-                printf("a");
-                system("cls");
-                printf("\n\t  ###### Utilizador em uso ######\n\n");
-                num = 0;
+            while(aux->next != NULL){
+                if (strcmp(name,aux->name)==0){                               /* Ve se o nome de utilizador ja existe*/
+                    system("cls");
+                    printf("\n\t  ###### Utilizador em uso ######\n\n");
+                    num = 0;
+                }
+                aux=aux->next;
             }
-            aux=aux->next;
+        }
+    }
+    num=0;
+
+    while (num==0){
+
+        printf("Morada: ");
+
+        num=1;
+        fgets(adress,cem,stdin);
+        fflush(stdin);
+        if (strcmp(adress,"\n")==0){
+            system("cls");
+            printf("\n\t  //////// Morada Invalida ///////\n");
+            printf("\n.......... Inscricao de Novo utilizador ..........\n.......... Escreva quit para regressar ...........\n\n");
+            printf("Nome de Utilizador: %\n",name);
+            num = 0;
+        }
+        else{
+            adress=strtok(adress,"\n");
+            if (strcmp(adress,"quit")==0)
+                    return NULL;
         }
     }
 
-    printf("Morada: ");
-    fgets(adress,cem,stdin);
-    fflush(stdin);
-    adress=strtok(adress,"\n");
+    num=0;
+    while (num==0){
 
-    if (strcmp(adress,"quit")==0)
-            return NULL;
+        printf("Data de Nascimento: ");
 
-    printf("Data de Nascimento: ");
-    fgets(date,cinq,stdin);
-    fflush(stdin);
-    date=strtok(date,"\n");
+        num=1;
+        fgets(date,cinq,stdin);
+        fflush(stdin);
+        if (strcmp(date,"\n")==0){
+            system("cls");
+            printf("\n\t  //////// Data Invalida ///////\n");
+            printf("\n.......... Inscricao de Novo utilizador ..........\n.......... Escreva quit para regressar ...........\n\n");
+            printf("Nome de Utilizador: %s",name);
+            printf("\nMorada: %s\n",adress);
+            num = 0;
+        }
+        else{
+            date=strtok(date,"\n");
+            if (strcmp(date,"quit")==0)
+                    return NULL;
+        }
+    }
+    num=0;
+    while (num==0){
 
-    if (strcmp(date,"quit")==0)
-            return NULL;
+        printf("Telefone: ");
 
-    printf("Telefone: ");
-    fgets(phone,tele,stdin);
-    fflush(stdin);
-    phone=strtok(phone,"\n");
-
-    if (strcmp(phone,"quit")==0)
-            return NULL;
-
+        num=1;
+        fgets(phone,tele,stdin);
+        fflush(stdin);
+        if (strcmp(phone,"\n")==0){
+            system("cls");
+            printf("\n\t  //////// Telefone Invalida ///////\n\n");
+            printf("\n.......... Inscricao de Novo utilizador ..........\n.......... Escreva quit para regressar ...........\n\n");
+            printf("Nome de Utilizador: %s",name);
+            printf("\nMorada: %s",adress);
+            printf("\nData de Nascimento: %s\n",date);
+            num = 0;
+        }
+        else{
+            phone=strtok(phone,"\n");
+            if (strcmp(phone,"quit")==0)
+                    return NULL;
+        }
+    }
     while(aux->next != NULL){
             aux=aux->next;
     }
@@ -470,6 +525,16 @@ int preferencias(nodeptr user, Local placesptr){
 }
 
 
+void tripcheckreset(nodeptr userptr){
+    nodeptr aux=userptr;
+
+    while(aux->next!=NULL){
+        aux->tripcheck=0;
+        aux=aux->next;
+    }
+}
+
+
 int viagemcounterlocais(nodeptr userptr,char * str){
     int count=0;
     nodeptr aux=userptr;
@@ -477,11 +542,15 @@ int viagemcounterlocais(nodeptr userptr,char * str){
 
     while (aux->next!=NULL){
         list=aux->ptrlocal;
-        while(list->next!=NULL){
-            if (strcmp(list->nome,str)==0){
-                count++;
+        if (aux->tripcheck==0){
+            while(list->next!=NULL){
+                if (strcmp(list->nome,str)==0){
+                    count++;
+                    aux->tripcheck=1;
+                    break;
+                }
+                list=list->next;
             }
-            list=list->next;
         }
         aux=aux->next;
     }
@@ -489,25 +558,51 @@ int viagemcounterlocais(nodeptr userptr,char * str){
 }
 
 
-int viagemcounterpdi(nodeptr userptr,char * str,int num){
-    int helper,count=0;
+int viagemcounterhot(nodeptr userptr,char * str){
+    int count=0;
     nodeptr aux=userptr;
     listanomesptr list;
 
     while (aux->next!=NULL){
         list=aux->ptrpdi;
-        helper=0;
-        while(list->next!=NULL){
-            if (strcmp(list->nome,str)==0){
-                helper++;
+        if (aux->tripcheck==0){
+            while(list->next!=NULL){
+                if (strcmp(list->nome,str)==0 && list->hot==1){
+                    count++;
+                    aux->tripcheck=1;
+                    break;
+                }
+                list=list->next;
             }
-            if (helper==num){
-                count++;
-                break;
-            }
-            list=list->next;
         }
         aux=aux->next;
+    }
+    return count;
+}
+
+
+double contarpessoas(nodeptr first){
+    double count=0.0;
+    nodeptr aux=first;
+
+    while (aux->next!=NULL){
+        count++;
+        aux=aux->next;
+    }
+    return count;
+}
+
+double contarpdis(Local placesptr){
+    Local localaux=placesptr->abcnext;
+    Pdi aux;
+    double count=0.0;
+    while(localaux!=NULL){
+        aux=localaux->pontos->abcnext;
+        while (aux!=NULL){
+            count+=aux->pop;
+            aux=aux->abcnext;
+        }
+        localaux=localaux->abcnext;
     }
     return count;
 }
@@ -517,6 +612,8 @@ int viagem(nodeptr first,nodeptr user, Local placesptr){
     int count=prefcountlocais(placesptr);
     int localcount=0,pdicount=0;
     int percentagemlocais=0,percentagemhot=0,percentagempdi=0;
+    double totalusers=contarpessoas(first);
+    double totalpdi=contarpdis(placesptr);
     char *helper1=malloc(cinq*sizeof(char));
     char *helper2=malloc(cinq*sizeof(char));
     Local localaux=placesptr->abcnext;
@@ -530,55 +627,75 @@ int viagem(nodeptr first,nodeptr user, Local placesptr){
         printf("Nao tem 3 Locais Preferidos (%d)",count);
         return 1;
     }
+
+
     while (localcount!=count){
 
         if (localaux->prefered==1){
-            printf("%d) %s\n",++localcount,localaux->local);
+            localcount++;
             percentagemlocais+=viagemcounterlocais(first,localaux->local);
-            pdiaux=localaux->pontos->abcnext;
-            while (pdiaux!=NULL){
-                if (pdicount==3)break;
-
-                if (pdiaux->prefered==2){
-                    printf("\t%d) %s, %s\n",++pdicount,pdiaux->nome,localaux->local);
-                    percentagemhot+=viagemcounterpdi(first,pdiaux->nome,2);
-                    percentagempdi+=viagemcounterpdi(first,pdiaux->nome,1);
-                    strcpy(helper1,pdiaux->nome);
-                }
-                pdiaux=pdiaux->abcnext;
-            }
-            pdiaux=localaux->pontos->popnext;
-
-            while (pdiaux!=NULL){
-                if (pdicount==3)break;
-
-                if (pdiaux->prefered==1 && pdicount<3){
-                    printf("\t%d) %s, %s\n",++pdicount,pdiaux->nome,localaux->local);
-                    percentagemhot+=viagemcounterpdi(first,pdiaux->nome,2);
-                    percentagempdi+=viagemcounterpdi(first,pdiaux->nome,1);
-                    if (pdicount==1)
-                        strcpy(helper1,pdiaux->nome);
-                    else if (pdicount==2)
-                        strcpy(helper2,pdiaux->nome);
-                }
-                pdiaux=pdiaux->popnext;
-            }
-            pdiaux=localaux->pontos->popnext;
-            while (pdiaux!=NULL){
-                if (pdicount==3)break;
-                if (pdicount<3 && strcmp(pdiaux->nome,helper1)!=0 && strcmp(pdiaux->nome,helper2)!=0){
-                    printf("\t%d) %s, %s\n",++pdicount,pdiaux->nome,localaux->local);
-                    percentagemhot+=viagemcounterpdi(first,pdiaux->nome,2);
-                    percentagempdi+=viagemcounterpdi(first,pdiaux->nome,1);
-                }
-                pdiaux=pdiaux->popnext;
-            }
-            pdicount=0;
-
         }
         localaux=localaux->abcnext;
     }
-    printf("-%d-%d-%d-",percentagemlocais,percentagemhot,percentagempdi);
+    tripcheckreset(first);
+    localcount=0;
+    localaux=placesptr->abcnext;
+
+
+    /* VIAGEM */
+
+    while (localcount!=count){
+        if (localaux->prefered==1)
+            printf("%d) %s\n",++localcount,localaux->local);
+        pdiaux=localaux->pontos->abcnext;
+        while (pdiaux!=NULL){
+            if (pdicount==3)break;
+
+            if (pdiaux->prefered==2){
+                printf("\t%d) %s, %s\n",++pdicount,pdiaux->nome,localaux->local);
+                percentagemhot+=viagemcounterhot(first,pdiaux->nome);
+                percentagempdi+=pdiaux->pop;
+                strcpy(helper1,pdiaux->nome);
+            }
+            pdiaux=pdiaux->abcnext;
+        }
+        pdiaux=localaux->pontos->popnext;
+
+        while (pdiaux!=NULL){
+            if (pdicount==3)break;
+
+            if (pdiaux->prefered==1 && pdicount<3){
+                printf("\t%d) %s, %s\n",++pdicount,pdiaux->nome,localaux->local);
+                percentagemhot+=viagemcounterhot(first,pdiaux->nome);
+                percentagempdi+=pdiaux->pop;
+                if (pdicount==1)
+                    strcpy(helper1,pdiaux->nome);
+                else if (pdicount==2)
+                    strcpy(helper2,pdiaux->nome);
+            }
+            pdiaux=pdiaux->popnext;
+        }
+        pdiaux=localaux->pontos->popnext;
+        while (pdiaux!=NULL){
+            if (pdicount==3)break;
+            if (pdicount<3 && strcmp(pdiaux->nome,helper1)!=0 && strcmp(pdiaux->nome,helper2)!=0){
+                printf("\t%d) %s, %s\n",++pdicount,pdiaux->nome,localaux->local);
+                percentagemhot+=viagemcounterhot(first,pdiaux->nome);
+                percentagempdi+=pdiaux->pop;
+            }
+            pdiaux=pdiaux->popnext;
+        }
+        pdicount=0;
+        localaux=localaux->abcnext;
+    }
+
+    tripcheckreset(first);
+    printf("\n\n\tPercentagens Relacionadas com a Viagem\n\n");
+    printf("->%.1f %% dos utilizadores têm pelo menos 1 local favorito entre os incluídos na sua viagem\n",100*(double)percentagemlocais/totalusers);
+    printf("->%.1f %% dos utilizadores têm um dos pontos da viagem como Hot\n",100*(double)percentagemhot/totalusers);
+    printf("->%.1f %% de popularidade dos PDI escolhidos \n",100*(double)percentagempdi/totalpdi);
+    printf("\n-%d-%d-%d-\n",percentagemlocais,percentagemhot,percentagempdi);
+    printf("-%.0f-%.0f-%.0f-\n",totalusers,totalusers,totalpdi);
 
 
 

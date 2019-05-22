@@ -8,6 +8,7 @@ typedef struct nomesnode*listanomesptr;
 typedef struct nomesnode{
 
     char* nome;
+    int hot;
     listanomesptr next;
 
 }listanomes_node;
@@ -19,6 +20,7 @@ typedef struct lnode{
     char *phone;
     char *local;
     char *pdi;
+    int tripcheck;
     listanomesptr ptrlocal;
     listanomesptr ptrpdi;
     nodeptr next;

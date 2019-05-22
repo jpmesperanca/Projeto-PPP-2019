@@ -20,6 +20,7 @@ nodeptr cria_user(){
         aux->phone=malloc(tele*sizeof(char));
         aux->local=malloc(huge*sizeof(char));
         aux->pdi=malloc(huge*sizeof(char));
+        aux->tripcheck=0;
         aux->ptrlocal = cria_nomes();
         aux->ptrpdi= cria_nomes();
         aux->next=NULL;
@@ -34,6 +35,7 @@ listanomesptr cria_nomes(){
 
     if (aux!=NULL){
         aux->nome = malloc(cinq*sizeof(char));
+        aux->hot=0;
         aux->next = NULL;
     }
 
@@ -239,17 +241,11 @@ void rewritelista(nodeptr userptr, Local placesptr){
     int i;
 
     freenomes(userptr->ptrlocal);
-    printf("CHUPAMOS CARALHO");
     freenomes(userptr->ptrpdi);
-    printf("nao erra no free");
-    printf("erro na criacao");
     userptr->ptrlocal = cria_nomes();
     userptr->ptrpdi = cria_nomes();
-    printf("Nao erra na criacao");
-    printf("erro last");
     local = userptr->ptrlocal;
     pdi = userptr->ptrpdi;
-    printf("nao erro com last");
     while(placesaux!=NULL){
 
         if (placesaux->prefered==1){
@@ -264,11 +260,10 @@ void rewritelista(nodeptr userptr, Local placesptr){
         while(pdiaux!=NULL){
 
             if (pdiaux->prefered==2){
-                for(i=0;i<2;i++){
-                    pdi->next =cria_nomes();
-                    pdi->nome=pdiaux->nome;
-                    pdi=pdi->next;
-                }
+                pdi->next =cria_nomes();
+                pdi->nome=pdiaux->nome;
+                pdi->hot=1;
+                pdi=pdi->next;
             }
             if (pdiaux->prefered==1){
                 pdi->next = cria_nomes();
@@ -377,51 +372,101 @@ void inserefile(nodeptr ptr,Local placesptr){
 int alterauser(nodeptr userptr,nodeptr first){
     nodeptr aux=first;
     char *input=malloc(cinq*sizeof(char));
+
+    printf("\n.......... Escreva quit para regressar ...........\n\n");
     printf("\nNome de Utilizador: ");
     fgets(input,cinq,stdin);
     fflush(stdin);
     system("cls");
-    input=strtok(input,"\n");
+    if(strcmp(input,"\n")==0){
+       system("cls");
+       return 6;
+    }
+    else{
+        input=strtok(input,"\n");
+        if (strcmp(input,"quit")==0)
+            return 2;
 
-    while(aux->next!=NULL){
-        if (strcmp(input,aux->name)==0){                              /* Ve se o nome de utilizador ja existe*/
-            system("cls");
-            printf("\n\t  ###### Utilizador em uso ######\n");
-            return 6;
+        while(aux->next!=NULL){
+            if (strcmp(input,aux->name)==0){                              /* Ve se o nome de utilizador ja existe*/
+                system("cls");
+                printf("\n\t  ###### Utilizador em uso ######\n");
+                return 6;
+            }
+            aux=aux->next;
         }
-        aux=aux->next;
-        }
+}
 
-    userptr->name=input;
-    return 5;
+userptr->name=input;
+return 5;
 }
 
 
 int alteramorada(nodeptr userptr,nodeptr first){
+    char *input=malloc(cem*sizeof(char));
+    printf("\n.......... Escreva quit para regressar ...........\n\n");
     printf("\nMorada: ");
-    fgets(userptr->adress,cem,stdin);
+    fgets(input,cem,stdin);
     fflush(stdin);
     system("cls");
-    userptr->adress=strtok(userptr->adress,"\n");
-    return 5;
+    if(strcmp(input,"\n")==0){
+       system("cls");
+       return 7;
+    }
+    else{
+       input=strtok(input,"\n");
+        if (strcmp(input,"quit")==0)
+            return 2;
+        else{
+            userptr->adress=input;
+            return 5;
+        }
+    }
+
 }
 
 
 int alteradata(nodeptr userptr,nodeptr first){
+    char *input=malloc(cinq*sizeof(char));
+    printf("\n.......... Escreva quit para regressar ...........\n\n");
     printf("\nData de Nascimento: ");
-    fgets(userptr->date,cinq,stdin);
+    fgets(input,cinq,stdin);
     fflush(stdin);
     system("cls");
-    userptr->date=strtok(userptr->date,"\n");
-    return 5;
+    if(strcmp(input,"\n")==0){
+       system("cls");
+       return 8;
+    }
+    else{
+        input=strtok(input,"\n");
+        if (strcmp(input,"quit")==0)
+            return 2;
+        else{
+            userptr->date=input;
+            return 5;
+        }
+    }
 }
 
 
 int alteraphone(nodeptr userptr,nodeptr first){
-    printf("\nNumero de Telefone: ");
-    fgets(userptr->phone,tele,stdin);
+    char *input=malloc(tele*sizeof(char));
+    printf("\n.......... Escreva quit para regressar ...........\n\n");
+    printf("\nTelefone: ");
+    fgets(input,tele,stdin);
     fflush(stdin);
     system("cls");
-    userptr->phone=strtok(userptr->phone,"\n");
-    return 5;
+    if(strcmp(input,"\n")==0){
+       system("cls");
+       return 9;
+    }
+    else{
+       input=strtok(input,"\n");
+        if (strcmp(input,"quit")==0)
+            return 2;
+        else{
+            userptr->phone=input;
+            return 5;
+        }
+    }
 }
