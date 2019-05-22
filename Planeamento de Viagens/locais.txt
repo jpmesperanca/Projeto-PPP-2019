@@ -1,22 +1,22 @@
 
-4 Coimbra, 1
+4 Coimbra, 3
+Nada, nunca teve, nada, 2
+Rip, Rest In Peace, Final de Vida, 2
+A, Nepia, nao ha mesmo nada nunca, 2
 Oof, Roblox, every fucking time, 1
-Nada, nunca teve, nada, 1
-Rip, Rest In Peace, Final de Vida, 1
-A, Nepia, nao ha mesmo nada nunca, 1
 
-4 Local4, 1
-pdi4, desc4, hor4, 0
-pdi3, desc3, hor3, 0
-pdi2, desc2, hor2, 0
-pdi1, desc1, hor1, 0
-
-3 Paris, 1
+3 Paris, 3
 Torre Eifel, descricao, All Day All Night, 0
 Sadgfhjkl, smth, horario, 0
 Notre Dame, Queimada, Indisponivel, 0
 
-3 Wow, 0
-Doge, Such fancy, horario, 0
+4 Local4, 2
+pdi2, desc2, hor2, 1
+pdi1, desc1, hor1, 1
+pdi4, desc4, hor4, 0
+pdi3, desc3, hor3, 0
+
+3 Wow, 5
+Doge, Such fancy, horario, 1
 Pimbas, bom meme tho, indeed, 0
 Nheques, eish, agora mesmo, 0

@@ -220,7 +220,6 @@ void printlistalocais(listanomesptr ptr){
     }
 }
 
-
 int countlist(listanomesptr ptr){
     listanomesptr aux=ptr;
     int count=0;
@@ -238,14 +237,16 @@ void rewritelista(nodeptr userptr, Local placesptr){
     Pdi pdiaux;
     listanomesptr local;
     listanomesptr pdi;
-    int i;
 
     freenomes(userptr->ptrlocal);
     freenomes(userptr->ptrpdi);
+
     userptr->ptrlocal = cria_nomes();
     userptr->ptrpdi = cria_nomes();
+
     local = userptr->ptrlocal;
     pdi = userptr->ptrpdi;
+
     while(placesaux!=NULL){
 
         if (placesaux->prefered==1){
