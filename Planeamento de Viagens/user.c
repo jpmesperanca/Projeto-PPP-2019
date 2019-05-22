@@ -218,7 +218,6 @@ void printlistalocais(listanomesptr ptr){
     }
 }
 
-
 int countlist(listanomesptr ptr){
     listanomesptr aux=ptr;
     int count=0;

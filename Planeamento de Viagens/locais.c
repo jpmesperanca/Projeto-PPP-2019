@@ -57,6 +57,61 @@ Local insere_local(Local first, char* sitio, Pdi pontosptr, int popularidade,int
     return aux->abcnext;
 }
 
+void freelistapdis(Pdi ptr){
+
+    Pdi aux = ptr->abcnext;
+
+    while(ptr != NULL){
+
+        aux = ptr;
+        ptr = ptr->abcnext;
+        free(aux);
+    }
+}
+
+void freelistalocais(Local ptr){
+
+    Local aux = ptr->abcnext;
+
+    while(ptr != NULL){
+
+        aux = ptr;
+        freelistapdis(aux->pontos->abcnext);
+        ptr = ptr->abcnext;
+        free(aux);
+    }
+}
+
+Local rewritelocais(Local nova, Local inicial){
+
+    Local original = inicial;
+    Pdi ptr;
+
+    while (original != NULL){
+        Local aux = insere_local(nova, original->local, cria_pdi(), original->pop,original->prefered);
+        ptr = original->pontos->abcnext;
+        while (ptr != NULL){
+            insere_pdi(aux,ptr->nome,ptr->descricao,ptr->horario,ptr->pop);
+            printf("--%s--",ptr->nome);
+            ptr = ptr->abcnext;
+        }
+        printf("pos pdi\n");
+        if (original != NULL)
+            original = original->abcnext;
+    }
+
+    return nova;
+}
+
+Local reorganiza_pop(Local inicial){
+
+    Local nova_lista = cria_local();
+    nova_lista = rewritelocais(nova_lista, inicial);
+    freelistalocais(inicial);
+
+    return nova_lista;
+}
+
 void insere_pdi(Local inicial, char* place, char* descricao, char* horario, int popularidade){
 
     Pdi first = inicial->pontos;
@@ -101,7 +156,6 @@ Local cria_local(){
 Local openlocal(char *file){
 
     Local ptr=cria_local();
-    Local localaux;
     Local aux=ptr;
     Pdi pdiptr;
     FILE *f=fopen(file,"r");
@@ -133,16 +187,11 @@ Local openlocal(char *file){
 
             insere_pdi(aux,place,descricao,horario,pop);
         }
-
-        if (aux!=NULL)
-            aux=aux->abcnext;
-
     }
 
     fclose(f);
     return ptr;
 }
-
 
 void filelocais(char *file,Local placesptr){
     int counter=0;

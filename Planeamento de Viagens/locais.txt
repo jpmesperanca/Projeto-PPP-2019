@@ -16,7 +16,7 @@ pdi1, desc1, hor1, 1
 pdi4, desc4, hor4, 0
 pdi3, desc3, hor3, 0
 
-3 Wow, 1
+3 Wow, 5
 Doge, Such fancy, horario, 1
 Pimbas, bom meme tho, indeed, 0
 Nheques, eish, agora mesmo, 0

@@ -73,10 +73,14 @@ nodeptr regist(nodeptr first){
         }
     }
 
-    printf("Morada: ");
-    fgets(adress,cem,stdin);
-    fflush(stdin);
-    adress=strtok(adress,"\n");
+    strcpy(adress,"");
+    while (strcmp(adress,"")==0){
+        printf("Morada: ");
+        fgets(adress,cem,stdin);
+        fflush(stdin);
+        adress=strtok(adress,"\n");
+        puts(adress);
+    }
 
     if (strcmp(adress,"quit")==0)
             return NULL;
@@ -452,6 +456,24 @@ int preferencias(nodeptr user, Local placesptr){
     system("cls");
 
     rewritelista(user,placesptr);
+    placesptr = reorganiza_pop(placesptr->abcnext);
+
+    Local localaux = placesptr->popnext;
+    Pdi pdiaux;
+
+    while(localaux!=NULL){
+
+    pdiaux=localaux->pontos->popnext;
+    printf("%s:\n",localaux->local);
+
+        while(pdiaux!=NULL){
+            printf("%s,",pdiaux->nome);
+            pdiaux = pdiaux->popnext;}
+
+    printf("\n");
+    localaux=localaux->popnext;
+    }
+
 
     switch (num){
             case 1:
