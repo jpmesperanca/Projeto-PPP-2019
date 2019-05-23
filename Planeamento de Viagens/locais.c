@@ -92,10 +92,8 @@ Local rewritelocais(Local nova, Local inicial){
         ptr = original->pontos->abcnext;
         while (ptr != NULL){
             insere_pdi(aux,ptr->nome,ptr->descricao,ptr->horario,ptr->pop);
-            printf("--%s--",ptr->nome);
             ptr = ptr->abcnext;
         }
-        printf("pos pdi\n");
         if (original != NULL)
             original = original->abcnext;
     }
@@ -107,7 +105,7 @@ Local reorganiza_pop(Local inicial){
 
     Local nova_lista = cria_local();
     nova_lista = rewritelocais(nova_lista, inicial);
-    freelistalocais(inicial);
+    /*freelistalocais(inicial);*/
 
     return nova_lista;
 }

@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <locale.h>
 #include "user.h"
 #include "locais.h"
 #define cem 100
@@ -36,6 +37,7 @@ nodeptr login(nodeptr first,Local placesptr){
                     preferedfile(aux,placesptr);
                     return aux;
                 }
+                aux=aux->next;
             }
             system("cls");
             printf("\n\tNome de Utilizador Nao Encontrado...\n");
@@ -48,10 +50,12 @@ nodeptr regist(nodeptr first){
 
     char *name= malloc(cinq*sizeof(char));
     char *adress= malloc(cem*sizeof(char));
-    char *date= malloc(cinq*sizeof(char));
     char *phone= malloc(tele*sizeof(char));
     nodeptr aux;
     int num = 0;
+    int dia,mes,ano;
+    int bisexto=4;
+    int i=0;
 
 
 
@@ -110,26 +114,49 @@ nodeptr regist(nodeptr first){
 
     num=0;
     while (num==0){
-
-        printf("Data de Nascimento: ");
-
         num=1;
-        fgets(date,cinq,stdin);
-        fflush(stdin);
-        if (strcmp(date,"\n")==0){
+        printf("Data de Nascimento: ");
+        printf("\n\t Dia: ");
+        if (scanf("%d",&dia) == 0 || (dia < 1 || dia > 31)) {   /* Caso o Utilizador nao EscolhaEscolha uma das 2 opcoes */
+            fflush(stdin);
             system("cls");
             printf("\n\t  //////// Data Invalida ///////\n");
             printf("\n.......... Inscricao de Novo utilizador ..........\n.......... Escreva quit para regressar ...........\n\n");
             printf("Nome de Utilizador: %s",name);
             printf("\nMorada: %s\n",adress);
             num = 0;
+            continue;
         }
-        else{
-            date=strtok(date,"\n");
-            if (strcmp(date,"quit")==0)
-                    return NULL;
+        fflush(stdin);
+
+        printf("\t Mes: ");
+        if (scanf("%d",&mes) == 0 || (mes < 1 || mes > 12) || (mes==4 && dia>30) || (mes==6 && dia>30) || (mes==8 && dia>30)|| (mes==11 && dia>30)|| (mes==2 && dia>29)) {   /* Caso o Utilizador nao EscolhaEscolha uma das 2 opcoes */
+            fflush(stdin);
+            system("cls");
+            printf("\n\t  //////// Data Invalida ///////\n");
+            printf("\n.......... Inscricao de Novo utilizador ..........\n.......... Escreva quit para regressar ...........\n\n");
+            printf("Nome de Utilizador: %s",name);
+            printf("\nMorada: %s\n",adress);
+            num = 0;
+            continue;
         }
+        fflush(stdin);
+
+        printf("\t Ano: ");
+        if (scanf("%d",&ano) == 0 || (ano < 1888 || ano > 2010) || ((ano%bisexto)!=0 && dia==29 && mes==2)) {   /* Caso o Utilizador nao EscolhaEscolha uma das 2 opcoes */
+            fflush(stdin);
+            system("cls");
+            printf("\n\t  //////// Data Invalida ///////\n");
+            printf("\n.......... Inscricao de Novo utilizador ..........\n.......... Escreva quit para regressar ...........\n\n");
+            printf("Nome de Utilizador: %s",name);
+            printf("\nMorada: %s\n",adress);
+            num = 0;
+            continue;
+        }
+        fflush(stdin);
+
     }
+
     num=0;
     while (num==0){
 
@@ -140,24 +167,37 @@ nodeptr regist(nodeptr first){
         fflush(stdin);
         if (strcmp(phone,"\n")==0){
             system("cls");
-            printf("\n\t  //////// Telefone Invalida ///////\n\n");
+            printf("\n\t  //////// Telefone Invalido ///////\n");
             printf("\n.......... Inscricao de Novo utilizador ..........\n.......... Escreva quit para regressar ...........\n\n");
             printf("Nome de Utilizador: %s",name);
             printf("\nMorada: %s",adress);
-            printf("\nData de Nascimento: %s\n",date);
+            printf("\nData de Nascimento: %d/%d/%d\n",dia,mes,ano);
             num = 0;
         }
         else{
             phone=strtok(phone,"\n");
             if (strcmp(phone,"quit")==0)
                     return NULL;
+            for (i=0;i<9;i++){
+
+                if (*phone+i<'0' || *phone+i>'9' || strlen(phone)<9){
+                    system("cls");
+                    printf("\n\t  //////// Telefone Invalido ///////\n");
+                    printf("\n.......... Inscricao de Novo utilizador ..........\n.......... Escreva quit para regressar ...........\n\n");
+                    printf("Nome de Utilizador: %s",name);
+                    printf("\nMorada: %s",adress);
+                    printf("\nData de Nascimento: %d/%d/%d\n",dia,mes,ano);
+                    num=0;
+
+                }
+            }
         }
     }
     while(aux->next != NULL){
             aux=aux->next;
     }
 
-    insere(aux,name,adress,date,phone,"0/","0/");
+    insere(aux,name,adress,dia,mes,ano,phone,"0/","0/");
 
     return aux;
 }
@@ -202,7 +242,7 @@ int printadados(nodeptr userptr){
     printf("\n*************************\n");
     printf("Nome de Utilizador: %s\n",userptr->name);
     printf("Morada: %s\n",userptr->adress);
-    printf("Data de Nascimento: %s\n",userptr->date);
+    printf("Data de Nascimento: %d/%d/%d\n",userptr->day,userptr->month,userptr->year);
     printf("Telefone: %s\n",userptr->phone);
     printf("*************************\n");
     return 2;
@@ -225,7 +265,7 @@ void logout(nodeptr first,nodeptr user,Local placesptr){
         }
         fprintf(f,"%s\n",aux->name);
         fprintf(f,"%s\n",aux->adress);
-        fprintf(f,"%s\n",aux->date);
+        fprintf(f,"%d/%d/%d\n",aux->day,aux->month,aux->year);
         fprintf(f,"%s\n",aux->phone);
 
 
@@ -239,8 +279,9 @@ void logout(nodeptr first,nodeptr user,Local placesptr){
 
         list=aux->ptrpdi;
         fprintf(f,"\n%d",countlist(list));
-
         while (list->next!=NULL){
+            if (list->hot==1)
+                fprintf(f,"/%s",list->nome);
             fprintf(f,"/%s",list->nome);
             list=list->next;
         }
@@ -324,23 +365,33 @@ int perfil(nodeptr userptr, nodeptr first){
 }
 
 
-Local localpos(Local placesptr,int num){
+Local localpos(Local placesptr,int num,int check){
     int count=1;
-    Local localaux=placesptr->abcnext;
-    while (count!=num){
-        count++;
-        localaux=localaux->abcnext;
+    if (check==0){
+        Local localaux=placesptr->abcnext;
+        while (count!=num){
+            count++;
+            localaux=localaux->abcnext;
+        }
+        return localaux;
     }
-    return localaux;
+    else{
+        Local localaux=placesptr->popnext;
+        while (count!=num){
+            count++;
+            localaux=localaux->popnext;
+        }
+        return localaux;
+    }
 }
 
 
-int addlocais(nodeptr userptr, Local placesptr){
+int addlocaisabc(nodeptr userptr, Local placesptr){
     int num,i=1,prefcount=0;
     Local localaux=placesptr->abcnext;
 
     printf("\n..................................");
-    printf("\n\t -Adicionar Locais-");
+    printf("\n\t -Locais Alfabeticamente-");
     printf("\n..................................");
     printf("\n Escolha os seus Locais favoritos");
     printf("\n..................................");
@@ -360,7 +411,7 @@ int addlocais(nodeptr userptr, Local placesptr){
 
         fflush(stdin);
         system("cls");
-        return 31;
+        return 312;
     }
 
 
@@ -373,13 +424,13 @@ int addlocais(nodeptr userptr, Local placesptr){
 
     prefcount=prefcountlocais(placesptr);
 
-    localaux=localpos(placesptr,num);
+    localaux=localpos(placesptr,num,0);
 
     if(prefcount==3 && localaux->prefered==0){
         fflush(stdin);
         system("cls");
         printf("Remova 1 Local Preferido antes de escolher outro");
-        return 31;
+        return 312;
     }
 
     if (localaux->prefered==1){         /* WAS IT ALREADY SELECTED? */
@@ -395,11 +446,118 @@ int addlocais(nodeptr userptr, Local placesptr){
 
     fflush(stdin);
     system("cls");
-    return 31;
+    return 312;
 }
 
 
-int addpdis(nodeptr userptr, Local placesptr){
+int addlocaispop(nodeptr userptr, Local placesptr){
+    int num,i=1,prefcount=0;
+    Local localaux=placesptr->popnext;
+
+    printf("\n..................................");
+    printf("\n\t -Locais Popularidade-");
+    printf("\n..................................");
+    printf("\n Escolha os seus Locais favoritos");
+    printf("\n..................................");
+
+    while(localaux!=NULL){
+        if (localaux->prefered==0)
+            printf("\n%d - %s",i++,localaux->local);
+        else if (localaux->prefered==1)
+            printf("\n%d - %s *FAVORITO*",i++,localaux->local);
+        localaux=localaux->popnext;
+    }
+    printf("\n%d - Back",i++);
+    printf("\n..................................\n");
+    printf("\nEscolha: ");
+
+    if (scanf("%d",&num) == 0 || (num < 1 || num > i)){   /* Caso o Utilizador nao Escolha uma das opcoes */
+
+        fflush(stdin);
+        system("cls");
+        return 311;
+    }
+
+
+    if (num==i-1){              /* BACK OPTION */
+
+        fflush(stdin);
+        system("cls");
+        return 3;
+    }
+
+    prefcount=prefcountlocais(placesptr);
+
+    localaux=localpos(placesptr,num,1);
+
+    if(prefcount==3 && localaux->prefered==0){
+        fflush(stdin);
+        system("cls");
+        printf("Remova 1 Local Preferido antes de escolher outro");
+        return 311;
+    }
+
+    if (localaux->prefered==1){         /* WAS IT ALREADY SELECTED? */
+            localaux->prefered=0;
+            localaux->pop--;
+            prefcount--;
+    }
+    else{
+    localaux->prefered++;               /* FINAL DECISION */
+    localaux->pop++;
+    prefcount++;
+    }
+
+    fflush(stdin);
+    system("cls");
+    return 311;
+}
+
+
+int pop_or_abc(nodeptr userptr, Local placesptr, int check){
+    int num;
+    printf("\n....................................");
+    if (check==1)
+        printf("\n\t     -Locais-");
+    else
+        printf("\n\t-Pontos de Interesse-");
+    printf("\n....................................");
+    printf("\nPor Popularidade ou Alfabeticamente?");
+    printf("\n....................................");
+    printf("\n\n1 - Popularidade");
+    printf("\n2 - Alfabeticamente");
+    printf("\n 3 - Back");
+    printf("\n....................................");
+    printf("\nEscolha:");
+
+    if (scanf("%d",&num) == 0 || (num < 1 || num > 3)){   /* Caso o Utilizador nao Escolha uma das opcoes */
+
+        fflush(stdin);
+        system("cls");
+        return 31;
+    }
+    fflush(stdin);
+    system("cls");
+    switch (num){
+            case 1:
+                if (check==1)
+                    return 311;              /*Vai para o Locais */
+                else
+                    return 321;
+            case 2:
+                if (check==1)
+                    return 312;              /*Vai para pdi */
+                else
+                    return 322;
+            case 3:
+                return 1;              /*vai para Back */
+
+    }
+    return 100;
+}
+
+
+int addpdisabc(nodeptr userptr, Local placesptr){
     int num=0,i=1,count=1,prefcount=0,hot=0;
     Local localaux=placesptr->abcnext;
     Pdi shortener, pdiaux;
@@ -407,7 +565,7 @@ int addpdis(nodeptr userptr, Local placesptr){
     printf("\n\t -Adicionar PDI's-");
     printf("\n..................................");
     printf("\n  Escolha os seus PDI favoritos");
-    printf("\n  Escolha um PDI favorito para o tornar HOT");
+    printf("\n  Escolha um PDI favorito para o\n  tornar HOT");
     printf("\n..................................");
 
     while(localaux!=NULL){
@@ -429,11 +587,11 @@ int addpdis(nodeptr userptr, Local placesptr){
     printf("\n..................................");
     printf("\nEscolha:");
 
-        if (scanf("%d",&num) == 0 || (num < 1 || num > i)){   /* Caso o Utilizador nao Escolha uma das opcoes */
+    if (scanf("%d",&num) == 0 || (num < 1 || num > i)){   /* Caso o Utilizador nao Escolha uma das opcoes */
 
         fflush(stdin);
         system("cls");
-        return 32;
+        return 322;
     }
 
     if (num==i-1){              /* BACK OPTION */
@@ -483,7 +641,95 @@ int addpdis(nodeptr userptr, Local placesptr){
 
     fflush(stdin);
     system("cls");
-    return 32;
+    return 322;
+}
+
+
+int addpdispop(nodeptr userptr, Local placesptr){
+    int num=0,i=1,count=1,prefcount=0,hot=0;
+    Local localaux=placesptr->popnext;
+    Pdi shortener, pdiaux;
+    printf("\n..................................");
+    printf("\n\t -Adicionar PDI's-");
+    printf("\n..................................");
+    printf("\n  Escolha os seus PDI favoritos");
+    printf("\n  Escolha um PDI favorito para o\n  tornar HOT");
+    printf("\n..................................");
+
+    while(localaux!=NULL){
+        pdiaux=localaux->pontos->popnext;
+        printf("\n %s:",localaux->local);
+        while(pdiaux!=NULL){
+            if (pdiaux->prefered==0)
+                printf("\n\t%2d - %s",i++,pdiaux->nome,localaux->local);
+            else if (pdiaux->prefered==1)
+                printf("\n\t%2d - %s  *FAVORITO*",i++,pdiaux->nome,localaux->local);
+            else if (pdiaux->prefered==2)
+                printf("\n\t%2d - %s  *HOT*",i++,pdiaux->nome,localaux->local);
+            pdiaux=pdiaux->popnext;
+        }
+        printf("\n");
+        localaux=localaux->popnext;
+    }
+    printf("\n %2d - Back",i++);
+    printf("\n..................................");
+    printf("\nEscolha:");
+
+    if (scanf("%d",&num) == 0 || (num < 1 || num > i)){   /* Caso o Utilizador nao Escolha uma das opcoes */
+
+        fflush(stdin);
+        system("cls");
+        return 321;
+    }
+
+    if (num==i-1){              /* BACK OPTION */
+        fflush(stdin);
+        system("cls");
+        return 3;
+    }
+
+    localaux=placesptr->popnext;
+    while(localaux!=NULL){     /* DISCOVER THE NUMBER OS PREFERED LOCALS */
+        pdiaux=localaux->pontos->popnext;
+        while(pdiaux!=NULL){
+            if (pdiaux->prefered>=1){
+                prefcount++;
+                if (pdiaux->prefered==2)
+                    hot=1;
+            }
+            if (count==num)
+                shortener=pdiaux;
+            pdiaux=pdiaux->popnext;
+            count++;
+        }
+        localaux=localaux->popnext;
+    }
+
+    pdiaux=shortener;
+    if (pdiaux->prefered==2){         /* WAS IT ALREADY SELECTED? */
+        pdiaux->prefered=0;
+        pdiaux->pop--;
+        prefcount--;
+    }
+    else if (pdiaux->prefered==1 && hot==1){
+        pdiaux->prefered=0;
+        pdiaux->pop--;
+        prefcount--;
+    }
+    else if (pdiaux->prefered==1 && hot==0){
+        pdiaux->prefered=2;
+    }
+    else{
+        if (pdiaux->prefered==0)
+            prefcount++;
+        pdiaux->prefered++;
+        pdiaux->pop++;
+
+    }
+
+    fflush(stdin);
+    system("cls");
+    return 321;
 }
 
 
@@ -510,7 +756,7 @@ int preferencias(nodeptr user, Local placesptr){
     rewritelista(user,placesptr);
     placesptr = reorganiza_pop(placesptr->abcnext);
 
-    Local localaux = placesptr->popnext;
+    /*Local localaux = placesptr->popnext;
     Pdi pdiaux;
 
     while(localaux!=NULL){
@@ -525,6 +771,7 @@ int preferencias(nodeptr user, Local placesptr){
     printf("\n");
     localaux=localaux->popnext;
     }
+    */
 
 
     switch (num){
@@ -606,6 +853,7 @@ double contarpessoas(nodeptr first){
     }
     return count;
 }
+
 
 double contarpdis(Local placesptr){
     Local localaux=placesptr->abcnext;
@@ -758,7 +1006,8 @@ int mainmenu(nodeptr user, nodeptr first,Local placesptr){
 
 int main(){
     int num = 1;
-
+    /*system("COLOR 2");*/
+    setlocale(LC_ALL,"Portuguese");
     Local placesptr=openlocal("locais.txt");
 
     nodeptr first=cria_user();
@@ -772,7 +1021,6 @@ int main(){
 
     printf("\n      -Logged in com sucesso-\n");
     printf("          Welcome, %s",userptr->name);
-
     while (num!=0){
         switch (num){
             case 1:
@@ -796,9 +1044,19 @@ int main(){
                 case 3:
                     num=preferencias(userptr,placesptr);break;
                     case 31:
-                        num=addlocais(userptr,placesptr);break;
+                        num=pop_or_abc(userptr,placesptr,1);break;
+
+                       case 311:
+                            num=addlocaispop(userptr,placesptr);break;
+                       case 312:
+                            num=addlocaisabc(userptr,placesptr);break;
                     case 32:
-                        num=addpdis(userptr,placesptr);break;
+                        num=pop_or_abc(userptr,placesptr,2);break;
+
+                        case 321:
+                            num=addpdispop(userptr,placesptr);break;
+                        case 322:
+                            num=addpdisabc(userptr,placesptr);break;
                 case 4:
                     num = viagem(first,userptr,placesptr);break;
                 case 100:
@@ -810,5 +1068,6 @@ int main(){
     rewritelista(userptr, placesptr);
     logout(first,userptr,placesptr);
     filelocais("locais.txt",placesptr);
+
     return 0;
 }
