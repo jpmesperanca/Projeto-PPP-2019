@@ -63,9 +63,9 @@ nodeptr regist(nodeptr first){
     char *phone= malloc(TELE*sizeof(char));
     nodeptr aux;
     int num = 0;
-    char *dia=malloc(tele*sizeof(char));
-    char *mes=malloc(tele*sizeof(char));
-    char *ano=malloc(tele*sizeof(char));
+    char *dia=malloc(TELE*sizeof(char));
+    char *mes=malloc(TELE*sizeof(char));
+    char *ano=malloc(TELE*sizeof(char));
     int day,month,year;
     int bisexto=4;
     int i=0;
