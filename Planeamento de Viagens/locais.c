@@ -3,7 +3,6 @@
 #include <string.h>
 #include <strings.h>
 #include "locais.h"
-#define VINTECINCO 25
 #define CINQ 50
 #define CEM 100
 
@@ -12,9 +11,9 @@ Pdi cria_pdi(){
     aux = (Pdi)malloc(sizeof(pdi_node));
 
     if (aux!=NULL){
-        aux->nome=malloc(VINTECINCO*sizeof(char));
-        aux->descricao=malloc(VINTECINCO*sizeof(char));
-        aux->horario=malloc(VINTECINCO*sizeof(char));
+        aux->nome=malloc(CINQ*sizeof(char));
+        aux->descricao=malloc(CINQ*sizeof(char));
+        aux->horario=malloc(CINQ*sizeof(char));
         aux->pop=0;
         aux->prefered=0;
         aux->popnext=NULL;
@@ -210,7 +209,7 @@ Local cria_local(){
     aux=(Local)malloc(sizeof(local_node));
 
     if (aux!=NULL){
-        aux->local=malloc(VINTECINCO*sizeof(char));
+        aux->local=malloc(CINQ*sizeof(char));
         aux->pop=0;
         aux->prefered=0;
         aux->pontos=NULL;
@@ -232,10 +231,10 @@ Local openlocal(char *file){
 
     while(fscanf(f, "%c\n", &etc) == 1){   /* SALTAR \N */
 
-        tudo = malloc(VINTECINCO*sizeof(char));
-        sitio = malloc(VINTECINCO*sizeof(char));
+        tudo = malloc(CINQ*sizeof(char));
+        sitio = malloc(CINQ*sizeof(char));
 
-        fgets(tudo, VINTECINCO, f);
+        fgets(tudo, CINQ, f);
         sscanf(tudo, "%d %[^,], %d", &numero, sitio,&pop);
 
         pdiptr=cria_pdi();
@@ -245,9 +244,9 @@ Local openlocal(char *file){
         for (i=0; i<numero; i++){
 
             info=malloc(CEM*sizeof(char));
-            place=malloc(VINTECINCO*sizeof(char));
-            descricao=malloc(VINTECINCO*sizeof(char));
-            horario=malloc(VINTECINCO*sizeof(char));
+            place=malloc(CINQ*sizeof(char));
+            descricao=malloc(CINQ*sizeof(char));
+            horario=malloc(CINQ*sizeof(char));
 
             fgets(info,CEM,f);
             sscanf(info, "%[^,], %[^,], %[^,], %d",place,descricao,horario,&pop);

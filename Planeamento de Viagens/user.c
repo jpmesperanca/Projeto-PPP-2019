@@ -3,10 +3,10 @@
 #include <strings.h>
 #include <string.h>
 #include "user.h"
-#define cinq 50
-#define cem 100
-#define tele 11
-#define huge 400
+#define CINQ 50
+#define CEM 100
+#define TELE 11
+#define HUGE 400
 #define FIVE 5
 
 
@@ -16,14 +16,14 @@ nodeptr cria_user(){
     aux=(nodeptr)malloc(sizeof(utilizador_node));
 
     if (aux!=NULL){
-        aux->name=malloc(cinq*sizeof(char));
-        aux->adress=malloc(cem*sizeof(char));
+        aux->name=malloc(CINQ*sizeof(char));
+        aux->adress=malloc(CEM*sizeof(char));
         aux->day=0;
         aux->month=0;
         aux->year=0;
-        aux->phone=malloc(tele*sizeof(char));
-        aux->local=malloc(huge*sizeof(char));
-        aux->pdi=malloc(huge*sizeof(char));
+        aux->phone=malloc(TELE*sizeof(char));
+        aux->local=malloc(HUGE*sizeof(char));
+        aux->pdi=malloc(HUGE*sizeof(char));
         aux->tripcheck=0;
         aux->ptrlocal = cria_nomes();
         aux->ptrpdi= cria_nomes();
@@ -38,7 +38,7 @@ listanomesptr cria_nomes(){
     aux=(listanomesptr)malloc(sizeof(listanomes_node));
 
     if (aux!=NULL){
-        aux->nome = malloc(cinq*sizeof(char));
+        aux->nome = malloc(CINQ*sizeof(char));
         aux->hot=0;
         aux->next = NULL;
     }
@@ -48,18 +48,18 @@ listanomesptr cria_nomes(){
 
 
 
-nodeptr insere(nodeptr fnl,char *nome,char *morada,int day,int month,int year,char *telefone,char *local, char* pdi){
+nodeptr insere(nodeptr fnl,char *nome,char *morada,int day,int month,int year,char *TELEfone,char *local, char* pdi){
     nodeptr aux=fnl;
     listanomesptr prefaux,helper;
     int num,i;
-    char *str = malloc(huge*sizeof(char));
+    char *str = malloc(HUGE*sizeof(char));
 
     aux->name=nome;
     aux->adress=morada;
     aux->day=day;
     aux->month=month;
     aux->year=year;
-    aux->phone=telefone;
+    aux->phone=TELEfone;
 
     sscanf(local,"%d/%[^\n]",&num,str);
     prefaux = aux->ptrlocal;
@@ -87,7 +87,7 @@ nodeptr insere(nodeptr fnl,char *nome,char *morada,int day,int month,int year,ch
     aux->local=local;
     aux->pdi=pdi;
 
-    str = malloc(huge*sizeof(char));
+    str = malloc(HUGE*sizeof(char));
     sscanf(pdi,"%d/%[^\n]",&num,str);
     prefaux = aux->ptrpdi;
 
@@ -177,7 +177,7 @@ nodeptr openfile(char *file,nodeptr ptr){
 
     nodeptr aux=ptr;
     FILE *f=fopen(file,"r");
-    char *nome,*adereco,*data,*telefone,*local,*pdi;
+    char *nome,*adereco,*data,*TELEfone,*local,*pdi;
     char *day,*month,*year;
     int dia, mes, ano;
     char etc;
@@ -186,23 +186,23 @@ nodeptr openfile(char *file,nodeptr ptr){
     while(fscanf(f, "%c\n", &etc) == 1){  /* SALTAR \N */
 
         fflush(stdin);
-        nome=malloc(cinq*sizeof(char));
-        adereco=malloc(cem*sizeof(char));
-        data=malloc(cinq*sizeof(char));
+        nome=malloc(CINQ*sizeof(char));
+        adereco=malloc(CEM*sizeof(char));
+        data=malloc(CINQ*sizeof(char));
         day=malloc(FIVE*sizeof(char));
         month=malloc(FIVE*sizeof(char));
         year=malloc(FIVE*sizeof(char));
-        telefone=malloc(tele*sizeof(char));
-        local=malloc(huge*sizeof(char));
-        pdi=malloc(huge*sizeof(char));
+        TELEfone=malloc(TELE*sizeof(char));
+        local=malloc(HUGE*sizeof(char));
+        pdi=malloc(HUGE*sizeof(char));
 
-        fgets(nome,cinq,f);
+        fgets(nome,CINQ,f);
         nome=strtok(nome,"\n");
 
-        fgets(adereco,cem,f);
+        fgets(adereco,CEM,f);
         adereco=strtok(adereco,"\n");
 
-        fgets(data,cinq,f);
+        fgets(data,CINQ,f);
         data=strtok(data,"\n");
         day=strtok(data,"/");
         month=strtok(NULL,"/");
@@ -212,16 +212,16 @@ nodeptr openfile(char *file,nodeptr ptr){
         mes=atoi(month);
         ano=atoi(year);
 
-        fgets(telefone,tele,f);
-        telefone=strtok(telefone,"\n");
+        fgets(TELEfone,TELE,f);
+        TELEfone=strtok(TELEfone,"\n");
 
-        fgets(local,huge,f);
+        fgets(local,HUGE,f);
         local=strtok(local,"\n");
 
-        fgets(pdi,huge,f);
+        fgets(pdi,HUGE,f);
         pdi=strtok(pdi,"\n");
 
-        aux=insere(aux,nome,adereco,dia,mes,ano,telefone,local,pdi);
+        aux=insere(aux,nome,adereco,dia,mes,ano,TELEfone,local,pdi);
     }
     fclose(f);
     return aux;
@@ -345,8 +345,8 @@ void inserefile(nodeptr ptr,Local placesptr){
     Local localaux=placesptr->abcnext;
     Pdi pdiaux;
     int i=0,count=0;
-    char *endlocal=(char *)malloc(huge*sizeof(char));
-    char *endpdi=(char *)malloc(huge*sizeof(char));
+    char *endlocal=(char *)malloc(HUGE*sizeof(char));
+    char *endpdi=(char *)malloc(HUGE*sizeof(char));
     strcpy(endlocal,"/");
     strcpy(endpdi,"/");
 
@@ -404,11 +404,11 @@ void inserefile(nodeptr ptr,Local placesptr){
 
 int alterauser(nodeptr userptr,nodeptr first){
     nodeptr aux=first;
-    char *input=malloc(cinq*sizeof(char));
+    char *input=malloc(CINQ*sizeof(char));
 
     printf("\n.......... Escreva quit para regressar ...........\n\n");
     printf("\nNome de Utilizador: ");
-    fgets(input,cinq,stdin);
+    fgets(input,CINQ,stdin);
     fflush(stdin);
     system("cls");
     if(strcmp(input,"\n")==0){
@@ -437,10 +437,10 @@ int alterauser(nodeptr userptr,nodeptr first){
 
 
 int alteramorada(nodeptr userptr,nodeptr first){
-    char *input=malloc(cem*sizeof(char));
+    char *input=malloc(CEM*sizeof(char));
     printf("\n.......... Escreva quit para regressar ...........\n\n");
     printf("\nMorada: ");
-    fgets(input,cem,stdin);
+    fgets(input,CEM,stdin);
     fflush(stdin);
     system("cls");
     if(strcmp(input,"\n")==0){
@@ -497,16 +497,16 @@ int alteradata(nodeptr userptr,nodeptr first){
 
 
 int alteraphone(nodeptr userptr,nodeptr first){
-    char *phone=malloc(tele*sizeof(char));
+    char *phone=malloc(TELE*sizeof(char));
     int i=0;
 
     printf("\n.......... Escreva quit para regressar ...........\n\n");
-    printf("Telefone: ");
-    fgets(phone,tele,stdin);
+    printf("TELEfone: ");
+    fgets(phone,TELE,stdin);
     fflush(stdin);
     if (strcmp(phone,"\n")==0){
         system("cls");
-        printf("\n\t  //////// Telefone Invalido ///////\n");
+        printf("\n\t  //////// TELEfone Invalido ///////\n");
         return 24;
     }
     else{
@@ -517,7 +517,7 @@ int alteraphone(nodeptr userptr,nodeptr first){
 
             if (*(phone+i)<'0' || *(phone+i)>'9' || strlen(phone)!=9){
                 system("cls");
-                printf("\n\t  //////// Telefone Invalido ///////\n");
+                printf("\n\t  //////// TELEfone Invalido ///////\n");
                 return 24;
             }
         }
