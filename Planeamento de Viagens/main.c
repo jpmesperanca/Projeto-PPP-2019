@@ -521,11 +521,10 @@ int pop_or_abc(nodeptr userptr, Local placesptr, int check){
     else
         printf("\n\t-Pontos de Interesse-");
     printf("\n....................................");
-    printf("\nPor Popularidade ou Alfabeticamente?");
-    printf("\n....................................");
+    printf("\nOrdenar por:");
     printf("\n\n1 - Popularidade");
     printf("\n2 - Alfabeticamente");
-    printf("\n 3 - Back");
+    printf("\n3 - Back");
     printf("\n....................................");
     printf("\nEscolha:");
 
@@ -569,7 +568,6 @@ int addpdisabc(nodeptr userptr, Local placesptr){
 
     while(localaux!=NULL){
         pdiaux=localaux->pontos->abcnext;
-        printf("\n %s:",localaux->local);
         while(pdiaux!=NULL){
             if (pdiaux->prefered==0)
                 printf("\n\t%2d - %s",i++,pdiaux->nome,localaux->local);

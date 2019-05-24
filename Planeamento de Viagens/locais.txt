@@ -1,7 +1,7 @@
 
 5 Paris, 0
-Torre Eiffel, Torre símbolo do século XIX com 324 m de altura, 9:30-23:45,0
-Museu do Louvre, Museu de arte com uma vasta coleção, 9:00-22:00,0
+erária, Torre símbolo do século XIX com 324 m de9:30-23:45, 9:30-23:45, 0
+Museu do Louvre, Museu de arte com uma vasta coleção, 9:00-22:00, 0
 Notre-Dame, Icônica igreja gótica com associação literária, Fechado Temporariamente, 0
 Arco do Triunfo, Arco do Triunfo e monumento nacional, 10:00-23:00, 0
 Champs-Élysées, Compras monumento teatro e moda, Aberto 24 horas, 0
@@ -12,15 +12,15 @@ Wat Phra Kaew, Templo sagrado com o Buda deitado, 8:30 - 15:30, 0
 Wat Arun, Templo junto ao rio com torre icônica, 8:30 - 15:30, 0
 
 5 Londres, 0
-Big Ben, Emblemático relógio nacional de Londres, Fechado para reparações, 0
-Palácio de Buckingham, Moradia da Rainha e salas para visitação, 9:30-19:30, 0
+Big Ben, Emblemático relógio nacional de LondresMoradia da Rainha e salas para visitação9:30-19:30, Fechado para reparações, 0
+Palácio de Buckingham, Moradia da Rainha e salas para visitação9:30-19:30, 9:30-19:30, 0
 London Eye, Icónica roda-gigante junto ao rio, 10:00-20:30, 0
-Torre de Londres, Castelo medieval que abriga as joias da Coroa, 9:00-17:30, 0
+Coroa, Castelo medieval que abriga as joias da Coroa, 9:00-17:30, 0
 Tower Bridge, Rio e arquitetura, 9:30-17:00, 0
 
 3 Singapura, 0
-Marina Bay Sands, Hotel de luxo com piscina infinita e spa, 8:30-21:00, 0
-Sentosa, Parque de diversão, golfinho e aquário, 9:00-19:00, 0
+Marina Bay Sands, Hotel de luxo com piscina infinita e spa8:30-21:00, 8:30-21:00, 0
+Sentosa, Parque de diversão e aquário, 9:00-19:00, 0
 Jardins da Baía, Moderno jardim público em área renovada, 5:00-2:00, 0
 
 3 Nicarágua, 0
@@ -55,10 +55,10 @@ International Mountain Museum, Museu numa montanha, 09:00–17:00, 0
 4 Sérvia, 0
 Kalemegdan, Fortaleza construída em 279 a.C., Aberto 24 horas, 0
 Templo de São Sava, Igreja de inspiração bizantina, 9:00-17:00, 0
-Museu Nikola Tesla, Museu dedicado ao inventor Nikola Tesla, 10:00-20:00, 0
+Museu Nikola Tesla, Museu dedicado ao inventor Nikola TeslaŒĞÎª, 10:00-20:00, 0
 Mosteiro de Studenica, Mosteiro e igreja, 9:00-17:00, 0
 
-5 Zimbabué, 0 
+5 Zimbabué, 0
 Parque Nacional Hwange, Grande área com observação de animais, 9:00-19:00, 0
 Parque Nacional de Mana Pools, Safári parque elefante e acampamento, 8:00-17:00, 0
 Parque Nacional de Matobo, Parque com rochas rinocerontes e águias, 9:00-17:00, 0
@@ -74,7 +74,7 @@ La Corniche, Praia junto ao litoral, Aberto 24 horas, 0
 3 Argélia, 0
 Jardin d'Essai du Hamma, Jardins botânicos do século XIX, 10:00-19:00, 0
 Maqam Echahid, Monumento em homenagem à independência, Aberto 24 horas, 0
-Al Qal'a dos Beni Hammad, Ruína de castelo com história e arquitetura, 9:00-17:00, 0
+Al Qal'a dos Beni Hammad, Ruína de castelo com história e arquitet9:00-17:00, 9:00-17:00, 0
 
 3 Ilhas Marshall, 0
 Ilha nas Ilhas Marshall, Pesca snorkeling e ilha, Aberto 24 horas, 0
@@ -86,30 +86,4 @@ Yap Islands, Mergulho autónomo, Aberto 24 horas, 0
 Tamilyog Trail east, Caminhada e desporto, Aberto 24 horas, 0
 Maap, Ilha fantastica, Aberto 24 horas, 0
 
-4 Timisoara, 0
-Timisoara Orthodox Cathedral, Grande catedral ortodoxa romana com arte, 9:00-17:00, 0
-Banat Village Museum, Museu, 9:00-19:00, 0
-Pirata Victoriei, Arquitetura edificio jardim, Aberto 24 horas, 0	
-Roses Park, Parque flores árvores, Aberto 24 horas, 0
-
-3 Honiara, 0
-I.S.I.S. Visitors Bureau, História, 9:00-12:00, 0
-Mataniko, Jardim floresta, Aberto 24 horas, 0
-Solomon Scouts & Coastwatchers Monument, Arquitetura, Aberto 24 horas, 0
-
-5 Wakanda, 0
-Vision Memorial, Arquitetura, Aberto 24 horas, 0
-Lago Turkana, Paisagem, Aberto 24 horas, 0
-T'Challa Mountain, Natureza, Aberto 24 horas, 0
-Bucky Cottage, Civilização, 10:00-17:00, 0
-Vibranium Mine, Material para escudos, 9:00-17:00, 0
-
-3 Darwin, 0
-Mindil Beach, Praia, Aberto 24 horas, 0
-Crocosaurus Cove, Crocodilo e réptil, 10:00-15:00, 0
-Museum and Art Gallery of the Northern Territory, Museu de arte história natural e arte, 9:00-19:00, 0
-
-3 Alabama, 0
-Gulf State Park, Oásis panorâmico na praia e atividades, Aberto 24 horas, 0
-Cheaha State Park, Quartos chalés e cabanas, 5:00-2:00, 0
-U.S. Space & Rocket Center, Museu com foguetes foguetões e foguetinhos, 9:00-17:00, 0
+4 Timis
