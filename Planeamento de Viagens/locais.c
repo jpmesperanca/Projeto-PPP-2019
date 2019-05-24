@@ -55,6 +55,9 @@ void freelistapdis(Pdi ptr){
 
         while(ptr != NULL){
 
+            free(ptr->nome);
+            free(ptr->descricao);
+            free(ptr->horario);
             aux = ptr->abcnext;
             free(ptr);
             ptr = aux;
@@ -67,6 +70,7 @@ void freelocais(Local ptr){
 
         while(ptr != NULL){
 
+            free(ptr->local);
             aux = ptr->abcnext;
             free(ptr);
             ptr = aux;

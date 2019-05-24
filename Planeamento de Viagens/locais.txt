@@ -1,22 +1,22 @@
 
-3 Wow, 5
-Doge, Such fancy, horario, 1
-Pimbas, bom meme tho, indeed, 0
-Nheques, eish, agora mesmo, 0
-
-4 Coimbra, 3
-Nada, nunca teve, nada, 2
-Rip, Rest In Peace, Final de Vida, 2
-A, Nepia, nao ha mesmo nada nunca, 2
-Oof, Roblox, every fucking time, 1
-
-3 Paris, 3
-Torre Eifel, descricao, All Day All Night, 0
-Sadgfhjkl, smth, horario, 0
-Notre Dame, Queimada, Indisponivel, 0
-
-4 Local4, 2
-pdi2, desc2, hor2, 1
+4 Local4, 1235
+pdi4, desc4, hor4, 4
+pdi3, desc3, hor3, 3
+pdi2, desc2, hor2, 2
 pdi1, desc1, hor1, 1
-pdi4, desc4, hor4, 0
-pdi3, desc3, hor3, 0
+
+3 Paris, 4
+Torre Eifel, Grande e Grossa, All Day All Night, 72
+sadgfhjkl, fds, pimbas nela mm, 33
+Notre Dame, Queimada, Indisponivel, 25
+
+3 Wow, 1
+Puta, prostituta, all day, 1
+Pimbas, bom meme tho, indeed, 0
+Nheques, eish fodeste te, agora mesmo, 0
+
+4 ZCoimbra, 0
+Nada, nunca teve, nada, 0
+0.0, Nepia, nao ha mesmo nada, 0
+Oof, Roblox Bitch, every fucking time, 0
+Rip, Rest In Peace, Final de Vida, 0

@@ -180,7 +180,7 @@ nodeptr regist(nodeptr first){
                     return NULL;
             for (i=0;i<9;i++){
 
-                if (*phone+i<'0' || *phone+i>'9' || strlen(phone)<9){
+                if (*(phone+i)<'0' || *(phone+i)>'9' || strlen(phone)!=9){
                     system("cls");
                     printf("\n\t  //////// Telefone Invalido ///////\n");
                     printf("\n.......... Inscricao de Novo utilizador ..........\n.......... Escreva quit para regressar ...........\n\n");
@@ -238,14 +238,13 @@ nodeptr menulogin(nodeptr first, Local placesptr){
 }
 
 
-int printadados(nodeptr userptr){
-    printf("\n*************************\n");
+void printadados(nodeptr userptr){
+    printf("\n*******************************\n");
     printf("Nome de Utilizador: %s\n",userptr->name);
     printf("Morada: %s\n",userptr->adress);
     printf("Data de Nascimento: %d/%d/%d\n",userptr->day,userptr->month,userptr->year);
     printf("Telefone: %s\n",userptr->phone);
-    printf("*************************\n");
-    return 2;
+    printf("*******************************\n");
 }
 
 
@@ -295,7 +294,7 @@ void logout(nodeptr first,nodeptr user,Local placesptr){
 int menualtera(nodeptr userptr,nodeptr first){
 
     int num=0;
-
+    printadados(userptr);
     printf("\n.........................");
     printf("\n     -Alterar Dados-\n");
     printf("\n1 - Utilizador");
@@ -309,7 +308,7 @@ int menualtera(nodeptr userptr,nodeptr first){
     if (scanf("%d",&num) == 0 || (num < 1 || num > 5)){  /* Caso o Utilizador nao Escolha uma das opcoes */
         fflush(stdin);
         system("cls");
-        return 5;
+        return 21;
     }
 
     fflush(stdin);
@@ -317,15 +316,15 @@ int menualtera(nodeptr userptr,nodeptr first){
 
     switch (num){
             case 1:
-                return 6; /*Altera user*/
+                return 21; /*Altera user*/
             case 2:
-                return 7; /*Altera morada*/
+                return 22; /*Altera morada*/
             case 3:
-                return 8; /*Altera data*/
+                return 23; /*Altera data*/
             case 4:
-                return 9; /*Altera phone*/
+                return 24; /*Altera phone*/
             case 5:
-                return 2; /* Vai para o perfil */
+                return 1; /* Vai para o perfil */
 
     }
     return 100;
@@ -335,16 +334,15 @@ int menualtera(nodeptr userptr,nodeptr first){
 int perfil(nodeptr userptr, nodeptr first){
 
     int num=0;
-
+    printadados(userptr);
     printf("\n.........................");
     printf("\n\t -Perfil-\n");
-    printf("\n1 - Mostrar dados");
-    printf("\n2 - Alterar dados");
-    printf("\n3 - Back");
+    printf("\n1 - Alterar dados");
+    printf("\n2 - Back");
     printf("\n.........................\n");
     printf("\nEscolha: ");
 
-    if (scanf("%d",&num) == 0 || (num < 1 || num > 3)){   /* Caso o Utilizador nao Escolha uma das 4 opcoes */
+    if (scanf("%d",&num) == 0 || (num < 1 || num > 2)){   /* Caso o Utilizador nao Escolha uma das 4 opcoes */
         fflush(stdin);
         system("cls");
         return 2;
@@ -355,9 +353,9 @@ int perfil(nodeptr userptr, nodeptr first){
 
     switch (num){
             case 1:
-                return 10; /* Mostrar os dados */
+                return 22; /* Mostrar os dados */
             case 2:
-                return 5; /* Alterar Dados */
+                return 21; /* Alterar Dados */
             case 3:
                 return 1; /*Back to main menu*/
     }
@@ -419,7 +417,7 @@ int addlocaisabc(nodeptr userptr, Local placesptr){
 
         fflush(stdin);
         system("cls");
-        return 3;
+        return 31;
     }
 
     prefcount=prefcountlocais(placesptr);
@@ -484,7 +482,7 @@ int addlocaispop(nodeptr userptr, Local placesptr){
 
         fflush(stdin);
         system("cls");
-        return 3;
+        return 31;
     }
 
     prefcount=prefcountlocais(placesptr);
@@ -551,7 +549,7 @@ int pop_or_abc(nodeptr userptr, Local placesptr, int check){
                 else
                     return 322;
             case 3:
-                return 1;              /*vai para Back */
+                return 3;              /*vai para Back */
 
     }
     return 100;
@@ -598,7 +596,7 @@ int addpdisabc(nodeptr userptr, Local placesptr){
     if (num==i-1){              /* BACK OPTION */
         fflush(stdin);
         system("cls");
-        return 3;
+        return 32;
     }
 
     localaux=placesptr->abcnext;
@@ -687,7 +685,7 @@ int addpdispop(nodeptr userptr, Local placesptr){
     if (num==i-1){              /* BACK OPTION */
         fflush(stdin);
         system("cls");
-        return 3;
+        return 32;
     }
 
     localaux=placesptr->popnext;
@@ -855,7 +853,7 @@ double contarpdis(Local placesptr){
 
 int viagem(nodeptr first,nodeptr user, Local placesptr){
     int count=prefcountlocais(placesptr);
-    int localcount=0,pdicount=0;
+    int localcount=0,pdicount=0,num;
     int percentagemlocais=0,percentagemhot=0,percentagempdi=0;
     double totalusers=contarpessoas(first);
     double totalpdi=contarpdis(placesptr);
@@ -897,7 +895,7 @@ int viagem(nodeptr first,nodeptr user, Local placesptr){
             if (pdicount==3)break;
 
             if (pdiaux->prefered==2){
-                printf("\t%d) %s, %s\n",++pdicount,pdiaux->nome,localaux->local);
+                printf("\t%d) %s, %s, %s\n",++pdicount,pdiaux->nome,pdiaux->descricao,pdiaux->horario);
                 percentagemhot+=viagemcounterhot(first,pdiaux->nome);
                 percentagempdi+=pdiaux->pop;
                 strcpy(helper1,pdiaux->nome);
@@ -910,7 +908,7 @@ int viagem(nodeptr first,nodeptr user, Local placesptr){
             if (pdicount==3)break;
 
             if (pdiaux->prefered==1 && pdicount<3){
-                printf("\t%d) %s, %s\n",++pdicount,pdiaux->nome,localaux->local);
+                printf("\t%d) %s, %s, %s\n",++pdicount,pdiaux->nome,pdiaux->descricao,pdiaux->horario);
                 percentagemhot+=viagemcounterhot(first,pdiaux->nome);
                 percentagempdi+=pdiaux->pop;
                 if (pdicount==1)
@@ -924,12 +922,14 @@ int viagem(nodeptr first,nodeptr user, Local placesptr){
         while (pdiaux!=NULL){
             if (pdicount==3)break;
             if (pdicount<3 && strcmp(pdiaux->nome,helper1)!=0 && strcmp(pdiaux->nome,helper2)!=0){
-                printf("\t%d) %s, %s\n",++pdicount,pdiaux->nome,localaux->local);
+                printf("\t%d) %s, %s, %s\n",++pdicount,pdiaux->nome,pdiaux->descricao,pdiaux->horario);
                 percentagemhot+=viagemcounterhot(first,pdiaux->nome);
                 percentagempdi+=pdiaux->pop;
             }
             pdiaux=pdiaux->popnext;
         }
+        free(helper1);
+        free(helper2);
         pdicount=0;
         localaux=localaux->abcnext;
     }
@@ -939,12 +939,26 @@ int viagem(nodeptr first,nodeptr user, Local placesptr){
     printf("->%.1f %% dos utilizadores têm pelo menos 1 local favorito entre os incluídos na sua viagem\n",100*(double)percentagemlocais/totalusers);
     printf("->%.1f %% dos utilizadores têm um dos pontos da viagem como Hot\n",100*(double)percentagemhot/totalusers);
     printf("->%.1f %% de popularidade dos PDI escolhidos \n",100*(double)percentagempdi/totalpdi);
-    printf("\n-%d-%d-%d-\n",percentagemlocais,percentagemhot,percentagempdi);
-    printf("-%.0f-%.0f-%.0f-\n",totalusers,totalusers,totalpdi);
 
+    printf("\nDeseja Sair?\n");
+    printf("\n1)Sim (Logout)");
+    printf("\n2)Nao (Main Menu)");
+    printf("\nEscolha: ");
 
+    if (scanf("%d",&num) == 0 || (num < 1 || num > 2)){   /* Caso o Utilizador nao Escolha uma das 2 opcoes */
+        fflush(stdin);
+        system("cls");
+        printf("%d",num);
+        return 4;
+    }
 
-    return 100;
+    if (num==2){
+        fflush(stdin);
+        system("cls");
+        return 1;
+    }
+
+    return 0;
 }
 
 
@@ -1008,19 +1022,15 @@ int main(){
             case 1:
                 num = mainmenu(userptr,first,placesptr);break;
                 case 2:
-                    num = perfil(userptr,first);break;
-                    case 5:
-                        num = menualtera(userptr,first);break;
-                        case 6:
-                            num = alterauser(userptr,first);break;
-                        case 7:
-                            num = alteramorada(userptr,first);break;
-                        case 8:
-                            num = alteradata(userptr,first);break;
-                        case 9:
-                            num = alteraphone(userptr,first);break;
-                    case 10:
-                        num=printadados(userptr);break;
+                    num = menualtera(userptr,first);break;
+                    case 21:
+                        num = alterauser(userptr,first);break;
+                    case 22:
+                        num = alteramorada(userptr,first);break;
+                    case 23:
+                        num = alteradata(userptr,first);break;
+                    case 24:
+                        num = alteraphone(userptr,first);break;
 
 
                 case 3:
@@ -1050,6 +1060,8 @@ int main(){
     rewritelista(userptr, placesptr);
     logout(first,userptr,placesptr);
     filelocais("locais.txt",placesptr);
+    freeusers(first);
+    freelistalocais(placesptr);
 
     return 0;
 }

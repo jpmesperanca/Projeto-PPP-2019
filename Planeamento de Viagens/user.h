@@ -58,4 +58,5 @@ void rewritelista(nodeptr,Local);
 
 int countlist(listanomesptr );
 
+void freeusers(nodeptr );
 #endif
