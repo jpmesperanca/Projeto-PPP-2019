@@ -402,7 +402,7 @@ int addlocaisabc(nodeptr userptr, Local placesptr){
             printf("\n%d - %s *FAVORITO*",i++,localaux->local);
         localaux=localaux->abcnext;
     }
-    printf("\n%d - Back",i++);
+    printf("\n\n %d - Back",i++);
     printf("\n..................................\n");
     printf("\nEscolha: ");
 
@@ -467,7 +467,7 @@ int addlocaispop(nodeptr userptr, Local placesptr){
             printf("\n%d - %s *FAVORITO*",i++,localaux->local);
         localaux=localaux->popnext;
     }
-    printf("\n%d - Back",i++);
+    printf("\n\n %d - Back",i++);
     printf("\n..................................\n");
     printf("\nEscolha: ");
 
@@ -582,7 +582,7 @@ int addpdisabc(nodeptr userptr, Local placesptr){
         printf("\n");
         localaux=localaux->abcnext;
     }
-    printf("\n %2d - Back",i++);
+    printf("\n\n %2d - Back",i++);
     printf("\n..................................");
     printf("\nEscolha:");
 
@@ -671,7 +671,7 @@ int addpdispop(nodeptr userptr, Local placesptr){
         printf("\n");
         localaux=localaux->popnext;
     }
-    printf("\n %2d - Back",i++);
+    printf("\n\n %2d - Back",i++);
     printf("\n..................................");
     printf("\nEscolha:");
 
@@ -888,50 +888,52 @@ int viagem(nodeptr first,nodeptr user, Local placesptr){
     /* VIAGEM */
 
     while (localcount!=count){
-        if (localaux->prefered==1)
+        if (localaux->prefered==1){
             printf("%d) %s\n",++localcount,localaux->local);
-        pdiaux=localaux->pontos->abcnext;
-        while (pdiaux!=NULL){
-            if (pdicount==3)break;
-
-            if (pdiaux->prefered==2){
-                printf("\t%d) %s, %s, %s\n",++pdicount,pdiaux->nome,pdiaux->descricao,pdiaux->horario);
-                percentagemhot+=viagemcounterhot(first,pdiaux->nome);
-                percentagempdi+=pdiaux->pop;
-                strcpy(helper1,pdiaux->nome);
-            }
-            pdiaux=pdiaux->abcnext;
-        }
-        pdiaux=localaux->pontos->popnext;
-
-        while (pdiaux!=NULL){
-            if (pdicount==3)break;
-
-            if (pdiaux->prefered==1 && pdicount<3){
-                printf("\t%d) %s, %s, %s\n",++pdicount,pdiaux->nome,pdiaux->descricao,pdiaux->horario);
-                percentagemhot+=viagemcounterhot(first,pdiaux->nome);
-                percentagempdi+=pdiaux->pop;
-                if (pdicount==1)
+            pdiaux=localaux->pontos->abcnext;
+            while (pdiaux!=NULL){
+                if (pdicount==3)
+                    break;
+                if (pdiaux->prefered==2){
+                    printf("\t%d) %s, %s, %s\n",++pdicount,pdiaux->nome,pdiaux->descricao,pdiaux->horario);
+                    percentagemhot+=viagemcounterhot(first,pdiaux->nome);
+                    percentagempdi+=pdiaux->pop;
                     strcpy(helper1,pdiaux->nome);
-                else if (pdicount==2)
-                    strcpy(helper2,pdiaux->nome);
+                }
+                pdiaux=pdiaux->abcnext;
             }
-            pdiaux=pdiaux->popnext;
-        }
-        pdiaux=localaux->pontos->popnext;
-        while (pdiaux!=NULL){
-            if (pdicount==3)break;
-            if (pdicount<3 && strcmp(pdiaux->nome,helper1)!=0 && strcmp(pdiaux->nome,helper2)!=0){
-                printf("\t%d) %s, %s, %s\n",++pdicount,pdiaux->nome,pdiaux->descricao,pdiaux->horario);
-                percentagemhot+=viagemcounterhot(first,pdiaux->nome);
-                percentagempdi+=pdiaux->pop;
+            pdiaux=localaux->pontos->popnext;
+
+            while (pdiaux!=NULL){
+                if (pdicount==3)break;
+
+                if (pdiaux->prefered==1 && pdicount<3){
+                    printf("\t%d) %s, %s, %s\n",++pdicount,pdiaux->nome,pdiaux->descricao,pdiaux->horario);
+                    percentagemhot+=viagemcounterhot(first,pdiaux->nome);
+                    percentagempdi+=pdiaux->pop;
+                    if (pdicount==1)
+                        strcpy(helper1,pdiaux->nome);
+                    else if (pdicount==2)
+                        strcpy(helper2,pdiaux->nome);
+                }
+                pdiaux=pdiaux->popnext;
             }
-            pdiaux=pdiaux->popnext;
+
+            pdiaux=localaux->pontos->popnext;
+            while (pdiaux!=NULL){
+                if (pdicount==3)break;
+                if (pdicount<3 && strcmp(pdiaux->nome,helper1)!=0 && strcmp(pdiaux->nome,helper2)!=0){
+                    printf("\t%d) %s, %s, %s\n",++pdicount,pdiaux->nome,pdiaux->descricao,pdiaux->horario);
+                    percentagemhot+=viagemcounterhot(first,pdiaux->nome);
+                    percentagempdi+=pdiaux->pop;
+                }
+                pdiaux=pdiaux->popnext;
+            }
+            pdicount=0;
         }
+        localaux=localaux->abcnext;
         free(helper1);
         free(helper2);
-        pdicount=0;
-        localaux=localaux->abcnext;
     }
 
     tripcheckreset(first);
