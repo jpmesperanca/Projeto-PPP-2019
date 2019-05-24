@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <strings.h>
 #include "locais.h"
 #define VINTECINCO 25
 #define CINQ 50

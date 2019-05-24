@@ -2,9 +2,9 @@
 <CodeBlocks_layout_file>
 	<FileVersion major="1" minor="0" />
 	<ActiveTarget name="Debug" />
-	<File name="user.c" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="-1" zoom_2="0">
+	<File name="locais.h" open="1" top="1" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="5481" topLine="475" />
+			<Cursor1 position="0" topLine="0" />
 		</Cursor>
 	</File>
 	<File name="locais.c" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -12,12 +12,7 @@
 			<Cursor1 position="1428" topLine="66" />
 		</Cursor>
 	</File>
-	<File name="locais.h" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="0" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="main.c" open="1" top="1" tabpos="1" split="0" active="1" splitpos="0" zoom_1="-1" zoom_2="0">
+	<File name="main.c" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="-1" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="25850" topLine="144" />
 		</Cursor>
@@ -47,94 +42,16 @@
 			<Collapse line="180" />
 			<Collapse line="182" />
 			<Collapse line="195" />
-			<Collapse line="205" />
-			<Collapse line="210" />
-			<Collapse line="218" />
-			<Collapse line="228" />
-			<Collapse line="240" />
-			<Collapse line="250" />
-			<Collapse line="256" />
-			<Collapse line="257" />
-			<Collapse line="261" />
-			<Collapse line="273" />
-			<Collapse line="280" />
-			<Collapse line="293" />
-			<Collapse line="307" />
-			<Collapse line="316" />
-			<Collapse line="333" />
-			<Collapse line="344" />
-			<Collapse line="353" />
-			<Collapse line="365" />
-			<Collapse line="367" />
-			<Collapse line="369" />
-			<Collapse line="375" />
-			<Collapse line="377" />
-			<Collapse line="386" />
-			<Collapse line="396" />
-			<Collapse line="407" />
-			<Collapse line="415" />
-			<Collapse line="426" />
-			<Collapse line="433" />
-			<Collapse line="438" />
-			<Collapse line="451" />
-			<Collapse line="461" />
-			<Collapse line="472" />
-			<Collapse line="480" />
-			<Collapse line="491" />
-			<Collapse line="498" />
-			<Collapse line="503" />
-			<Collapse line="515" />
-			<Collapse line="531" />
-			<Collapse line="539" />
-			<Collapse line="558" />
-			<Collapse line="569" />
-			<Collapse line="572" />
-			<Collapse line="588" />
-			<Collapse line="595" />
-			<Collapse line="602" />
-			<Collapse line="604" />
-			<Collapse line="605" />
-			<Collapse line="619" />
-			<Collapse line="624" />
-			<Collapse line="629" />
-			<Collapse line="632" />
-			<Collapse line="647" />
-			<Collapse line="658" />
-			<Collapse line="661" />
-			<Collapse line="677" />
-			<Collapse line="684" />
-			<Collapse line="691" />
-			<Collapse line="693" />
-			<Collapse line="694" />
-			<Collapse line="708" />
-			<Collapse line="713" />
-			<Collapse line="718" />
-			<Collapse line="721" />
-			<Collapse line="756" />
-			<Collapse line="769" />
-			<Collapse line="772" />
-			<Collapse line="779" />
-			<Collapse line="784" />
-			<Collapse line="786" />
-			<Collapse line="787" />
-			<Collapse line="788" />
-			<Collapse line="802" />
-			<Collapse line="807" />
-			<Collapse line="809" />
-			<Collapse line="810" />
-			<Collapse line="811" />
-			<Collapse line="825" />
-			<Collapse line="829" />
-			<Collapse line="837" />
-			<Collapse line="841" />
-			<Collapse line="843" />
-			<Collapse line="866" />
-			<Collapse line="964" />
 		</Folding>
+	</File>
+	<File name="user.c" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="-1" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="5481" topLine="475" />
+		</Cursor>
 	</File>
 	<File name="user.h" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1096" topLine="32" />
+			<Cursor1 position="1096" topLine="20" />
 		</Cursor>
 	</File>
 </CodeBlocks_layout_file>

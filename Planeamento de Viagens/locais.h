@@ -37,4 +37,5 @@ void reorganiza_pop_p(Local,Pdi);
 
 void insere_pdi(Local, char*, char*, char*, int, int);
 
+void freelistalocais(Local);
 #endif

@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <strings.h>
 #include <locale.h>
 #include "user.h"
 #include "locais.h"
@@ -568,6 +569,7 @@ int addpdisabc(nodeptr userptr, Local placesptr){
 
     while(localaux!=NULL){
         pdiaux=localaux->pontos->abcnext;
+        printf("\n %s:",localaux->local);
         while(pdiaux!=NULL){
             if (pdiaux->prefered==0)
                 printf("\n\t%2d - %s",i++,pdiaux->nome,localaux->local);
@@ -1000,12 +1002,14 @@ int mainmenu(nodeptr user, nodeptr first,Local placesptr){
 
 int main(){
     int num = 1;
+    Local placesptr;
+    nodeptr first,userptr;
     /*system("COLOR 2");*/
     setlocale(LC_ALL,"Portuguese");
-    Local placesptr=openlocal("locais.txt");
+    placesptr = openlocal("locais.txt");
 
-    nodeptr first=cria_user();
-    nodeptr userptr;
+    first=cria_user();
+
     openfile("users.txt",first);
 
     do{

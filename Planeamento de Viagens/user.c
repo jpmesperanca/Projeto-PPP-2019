@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <strings.h>
 #include <string.h>
 #include "user.h"
 #define cinq 50
@@ -45,10 +46,6 @@ listanomesptr cria_nomes(){
     return aux;
 }
 
-
-int check(){
-
-}
 
 
 nodeptr insere(nodeptr fnl,char *nome,char *morada,int day,int month,int year,char *telefone,char *local, char* pdi){
