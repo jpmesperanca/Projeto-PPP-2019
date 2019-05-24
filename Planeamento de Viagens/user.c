@@ -416,7 +416,7 @@ int alterauser(nodeptr userptr,nodeptr first){
     system("cls");
     if(strcmp(input,"\n")==0){
        system("cls");
-       return 6;
+       return 21;
     }
     else{
         input=strtok(input,"\n");
@@ -427,14 +427,15 @@ int alterauser(nodeptr userptr,nodeptr first){
             if (strcmp(input,aux->name)==0){                              /* Ve se o nome de utilizador ja existe*/
                 system("cls");
                 printf("\n\t  ###### Utilizador em uso ######\n");
-                return 6;
+                return 21;
             }
             aux=aux->next;
         }
-}
+    }
 
-userptr->name=input;
-return 5;
+    userptr->name=input;
+    system("cls");
+    return 2;
 }
 
 
@@ -447,7 +448,7 @@ int alteramorada(nodeptr userptr,nodeptr first){
     system("cls");
     if(strcmp(input,"\n")==0){
        system("cls");
-       return 7;
+       return 22;
     }
     else{
        input=strtok(input,"\n");
@@ -455,10 +456,9 @@ int alteramorada(nodeptr userptr,nodeptr first){
             return 2;
         else{
             userptr->adress=input;
-            return 5;
+            return 2;
         }
     }
-
 }
 
 
@@ -471,7 +471,7 @@ int alteradata(nodeptr userptr,nodeptr first){
         fflush(stdin);
         system("cls");
         printf("\n\t  //////// Data Invalida ///////\n");
-        return 8;
+        return 23;
     }
     fflush(stdin);
 
@@ -480,7 +480,7 @@ int alteradata(nodeptr userptr,nodeptr first){
         fflush(stdin);
         system("cls");
         printf("\n\t  //////// Data Invalida ///////\n");
-        return 8;
+        return 23;
     }
     fflush(stdin);
 
@@ -489,10 +489,13 @@ int alteradata(nodeptr userptr,nodeptr first){
         fflush(stdin);
         system("cls");
         printf("\n\t  //////// Data Invalida ///////\n");
-        return 8;
+        return 23;
     }
-    fflush(stdin);
-    return 5;
+    system("cls");
+    userptr->day=dia;
+    userptr->month=mes;
+    userptr->year=ano;
+    return 2;
 }
 
 
@@ -507,17 +510,40 @@ int alteraphone(nodeptr userptr,nodeptr first){
     if (strcmp(phone,"\n")==0){
         system("cls");
         printf("\n\t  //////// Telefone Invalido ///////\n");
+        return 24;
     }
     else{
         phone=strtok(phone,"\n");
         if (strcmp(phone,"quit")==0)
-                return NULL;
+                return 2;
         for (i=0;i<9;i++){
 
-            if (*phone+i<'0' || *phone+i>'9' || strlen(phone)<9){
+            if (*(phone+i)<'0' || *(phone+i)>'9' || strlen(phone)!=9){
                 system("cls");
                 printf("\n\t  //////// Telefone Invalido ///////\n");
+                return 24;
             }
         }
     }
+    userptr->phone=phone;
+    system("cls");
+    return 2;
+}
+
+
+void freeusers(nodeptr first){
+    nodeptr aux=first;
+    nodeptr aux2;
+    while (aux->next!=NULL){
+        free(aux->name);
+        free(aux->adress);
+        free(aux->local);
+        free(aux->pdi);
+        freenomes(aux->ptrlocal);
+        freenomes(aux->ptrpdi);
+        aux2=aux->next;
+        free(aux);
+        aux=aux2;
+    }
+    free(aux2);
 }
