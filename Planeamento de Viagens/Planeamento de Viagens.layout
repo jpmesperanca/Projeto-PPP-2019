@@ -4,7 +4,7 @@
 	<ActiveTarget name="Debug" />
 	<File name="locais.c" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="82" topLine="0" />
+			<Cursor1 position="6014" topLine="0" />
 		</Cursor>
 	</File>
 	<File name="locais.h" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -12,46 +12,36 @@
 			<Cursor1 position="735" topLine="0" />
 		</Cursor>
 	</File>
+	<File name="user.h" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="69" topLine="0" />
+		</Cursor>
+	</File>
 	<File name="main.c" open="1" top="1" tabpos="1" split="0" active="1" splitpos="0" zoom_1="-1" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="26326" topLine="771" />
+			<Cursor1 position="0" topLine="0" />
 		</Cursor>
 		<Folding>
-			<Collapse line="12" />
-			<Collapse line="18" />
-			<Collapse line="25" />
-			<Collapse line="28" />
+			<Collapse line="24" />
+			<Collapse line="27" />
+			<Collapse line="34" />
 			<Collapse line="35" />
-			<Collapse line="36" />
-			<Collapse line="49" />
-			<Collapse line="62" />
-			<Collapse line="73" />
-			<Collapse line="78" />
+			<Collapse line="72" />
+			<Collapse line="77" />
+			<Collapse line="82" />
 			<Collapse line="83" />
-			<Collapse line="84" />
-			<Collapse line="95" />
-			<Collapse line="101" />
-			<Collapse line="108" />
-			<Collapse line="116" />
-			<Collapse line="120" />
-			<Collapse line="133" />
-			<Collapse line="146" />
-			<Collapse line="161" />
-			<Collapse line="168" />
-			<Collapse line="177" />
-			<Collapse line="181" />
-			<Collapse line="183" />
-			<Collapse line="196" />
+			<Collapse line="100" />
+			<Collapse line="107" />
+			<Collapse line="115" />
+			<Collapse line="119" />
+			<Collapse line="132" />
+			<Collapse line="145" />
+			<Collapse line="195" />
 		</Folding>
 	</File>
 	<File name="user.c" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="-1" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1017" topLine="34" />
-		</Cursor>
-	</File>
-	<File name="user.h" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="69" topLine="0" />
+			<Cursor1 position="2403" topLine="0" />
 		</Cursor>
 	</File>
 </CodeBlocks_layout_file>

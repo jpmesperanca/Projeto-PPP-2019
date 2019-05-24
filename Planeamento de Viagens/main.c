@@ -1,4 +1,3 @@
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -6,13 +5,13 @@
 #include <locale.h>
 #include "user.h"
 #include "locais.h"
-#define cem 100
-#define cinq 50
-#define tele 10
+#define CEM 100
+#define CINQ 50
+#define TELE 11
 
 nodeptr login(nodeptr first,Local placesptr){
 
-    char *nome= malloc(cinq*sizeof(char));
+    char *nome= malloc(CINQ*sizeof(char));
     nodeptr aux;
 
 
@@ -21,7 +20,7 @@ nodeptr login(nodeptr first,Local placesptr){
 
         printf("\n...................... Login .....................\n.......... Escreva quit para regressar ...........\n\n");
         printf("Nome de Utilizador: ");
-        fgets(nome,cinq,stdin);
+        fgets(nome,CINQ,stdin);
         fflush(stdin);
         if(strcmp(nome,"\n")==0){
             system("cls");
@@ -49,9 +48,9 @@ nodeptr login(nodeptr first,Local placesptr){
 
 nodeptr regist(nodeptr first){
 
-    char *name= malloc(cinq*sizeof(char));
-    char *adress= malloc(cem*sizeof(char));
-    char *phone= malloc(tele*sizeof(char));
+    char *name= malloc(CINQ*sizeof(char));
+    char *adress= malloc(CEM*sizeof(char));
+    char *phone= malloc(TELE*sizeof(char));
     nodeptr aux;
     int num = 0;
     int dia,mes,ano;
@@ -68,7 +67,7 @@ nodeptr regist(nodeptr first){
 
         printf("Nome de Utilizador: ");
 
-        fgets(name,cinq,stdin);
+        fgets(name,CINQ,stdin);
         fflush(stdin);
 
         if (strcmp(name,"\n")==0){
@@ -97,7 +96,7 @@ nodeptr regist(nodeptr first){
         printf("Morada: ");
 
         num=1;
-        fgets(adress,cem,stdin);
+        fgets(adress,CEM,stdin);
         fflush(stdin);
         if (strcmp(adress,"\n")==0){
             system("cls");
@@ -164,7 +163,7 @@ nodeptr regist(nodeptr first){
         printf("Telefone: ");
 
         num=1;
-        fgets(phone,tele,stdin);
+        fgets(phone,TELE,stdin);
         fflush(stdin);
         if (strcmp(phone,"\n")==0){
             system("cls");
@@ -189,7 +188,7 @@ nodeptr regist(nodeptr first){
                     printf("\nMorada: %s",adress);
                     printf("\nData de Nascimento: %d/%d/%d\n",dia,mes,ano);
                     num=0;
-
+                    break;
                 }
             }
         }
@@ -301,7 +300,7 @@ int menualtera(nodeptr userptr,nodeptr first){
     printf("\n1 - Utilizador");
     printf("\n2 - Morada");
     printf("\n3 - Data de Nascimento");
-    printf("\n4 - Telefone");
+    printf("\n4 - TELEfone");
     printf("\n5 - Back");
     printf("\n.........................\n");
     printf("\nEscolha: ");
@@ -857,8 +856,8 @@ int viagem(nodeptr first,nodeptr user, Local placesptr){
     int percentagemlocais=0,percentagemhot=0,percentagempdi=0;
     double totalusers=contarpessoas(first);
     double totalpdi=contarpdis(placesptr);
-    char *helper1=malloc(cinq*sizeof(char));
-    char *helper2=malloc(cinq*sizeof(char));
+    char *helper1=malloc(CINQ*sizeof(char));
+    char *helper2=malloc(CINQ*sizeof(char));
     Local localaux=placesptr->abcnext;
     Pdi pdiaux;
     strcpy(helper1," ");
