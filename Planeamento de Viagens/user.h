@@ -8,6 +8,7 @@ typedef struct nomesnode*listanomesptr;
 typedef struct nomesnode{
 
     char* nome;
+    int hot;
     listanomesptr next;
 
 }listanomes_node;
@@ -15,10 +16,13 @@ typedef struct nomesnode{
 typedef struct lnode{
     char *name;
     char *adress;
-    char *date;
+    int day;
+    int month;
+    int year;
     char *phone;
     char *local;
     char *pdi;
+    int tripcheck;
     listanomesptr ptrlocal;
     listanomesptr ptrpdi;
     nodeptr next;
@@ -30,7 +34,7 @@ listanomesptr cria_nomes();
 
 int print(nodeptr);
 
-nodeptr insere(nodeptr ,char *,char *,char *,char *,char *, char *);
+nodeptr insere(nodeptr ,char *,char *,int, int ,int ,char *,char *, char *);
 
 void preferedfile(nodeptr ,Local );
 
