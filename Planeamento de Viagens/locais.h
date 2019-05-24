@@ -31,4 +31,10 @@ Local openlocal(char *);
 
 void filelocais(char *file,Local placesptr);
 
+void reorganiza_pop(Local,Local);
+
+void reorganiza_pop_p(Local,Pdi);
+
+void insere_pdi(Local, char*, char*, char*, int, int);
+
 #endif

@@ -341,6 +341,7 @@ int addlocais(nodeptr userptr, Local placesptr){
     prefcount++;
     }
 
+    reorganiza_pop(placesptr,localaux);
     fflush(stdin);
     system("cls");
     return 31;
@@ -429,6 +430,7 @@ int addpdis(nodeptr userptr, Local placesptr){
 
     }
 
+    reorganiza_pop_p(placesptr,pdiaux);
     fflush(stdin);
     system("cls");
     return 32;
@@ -454,26 +456,6 @@ int preferencias(nodeptr user, Local placesptr){
     }
     fflush(stdin);
     system("cls");
-
-    rewritelista(user,placesptr);
-    placesptr = reorganiza_pop(placesptr->abcnext);
-
-    Local localaux = placesptr->popnext;
-    Pdi pdiaux;
-
-    while(localaux!=NULL){
-
-    pdiaux=localaux->pontos->popnext;
-    printf("%s:\n",localaux->local);
-
-        while(pdiaux!=NULL){
-            printf("%s,",pdiaux->nome);
-            pdiaux = pdiaux->popnext;}
-
-    printf("\n");
-    localaux=localaux->popnext;
-    }
-
 
     switch (num){
             case 1:
@@ -688,7 +670,7 @@ int main(){
                 case 4:
                     num = viagem(first,userptr,placesptr);break;
                 case 100:
-                    printf("\nerro -  a funcao chegou ao fim!\n");num=0;break;
+                    printf("\nBugsplat -- a funcao chegou ao fim!\n");num=0;break;
 
 
         }

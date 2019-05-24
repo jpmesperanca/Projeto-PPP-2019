@@ -2,28 +2,18 @@
 #include <stdlib.h>
 #include <string.h>
 #include "locais.h"
-#define vinte5 25
-#define cem 100
-
-/*char *local;
-    pdi pontos;
-    local popnext;
-    local abcnext;
-
-    char *nome;
-    int prefered;
-    local sitio;
-    pdi next;
-*/
+#define VINTECINCO 25
+#define CINQ 50
+#define CEM 100
 
 Pdi cria_pdi(){
     Pdi aux;
     aux = (Pdi)malloc(sizeof(pdi_node));
 
     if (aux!=NULL){
-        aux->nome=malloc(vinte5*sizeof(char));
-        aux->descricao=malloc(vinte5*sizeof(char));
-        aux->horario=malloc(vinte5*sizeof(char));
+        aux->nome=malloc(VINTECINCO*sizeof(char));
+        aux->descricao=malloc(VINTECINCO*sizeof(char));
+        aux->horario=malloc(VINTECINCO*sizeof(char));
         aux->pop=0;
         aux->prefered=0;
         aux->popnext=NULL;
@@ -32,7 +22,7 @@ Pdi cria_pdi(){
     return aux;
 }
 
-Local insere_local(Local first, char* sitio, Pdi pontosptr, int popularidade,int numero){
+Local insere_local(Local first, char* sitio, Pdi pontosptr, int popularidade,int numero,int prefered){
 
     Local novo = cria_local();
     Local aux = first;
@@ -43,6 +33,8 @@ Local insere_local(Local first, char* sitio, Pdi pontosptr, int popularidade,int
 
     novo->abcnext = aux->abcnext;
     aux->abcnext = novo;
+
+    novo->prefered = prefered;
     novo->pontos = pontosptr;
     novo->pop = popularidade;
     novo->local = sitio;
@@ -61,58 +53,127 @@ void freelistapdis(Pdi ptr){
 
     Pdi aux = ptr->abcnext;
 
-    while(ptr != NULL){
+        while(ptr != NULL){
 
-        aux = ptr;
-        ptr = ptr->abcnext;
-        free(aux);
-    }
+            aux = ptr->abcnext;
+            free(ptr);
+            ptr = aux;
+        }
+}
+
+void freelocais(Local ptr){
+
+    Local aux = ptr->abcnext;
+
+        while(ptr != NULL){
+
+            aux = ptr->abcnext;
+            free(ptr);
+            ptr = aux;
+        }
 }
 
 void freelistalocais(Local ptr){
 
-    Local aux = ptr->abcnext;
+    Local aux2 = ptr;
+    Local aux= ptr->abcnext;
+    ptr=ptr->abcnext;
 
-    while(ptr != NULL){
 
-        aux = ptr;
-        freelistapdis(aux->pontos->abcnext);
-        ptr = ptr->abcnext;
-        free(aux);
+    while (aux != NULL){
+
+        freelistapdis(aux->pontos);
+        aux = aux->abcnext;
     }
+
+    freelocais(aux2);
 }
 
-Local rewritelocais(Local nova, Local inicial){
+void reorganiza_pop(Local inicial, Local alterado){
 
-    Local original = inicial;
-    Pdi ptr;
+    Local ant = inicial;
+    Local antabc = inicial;
+    Pdi novopdi;
+    char* localnovo = malloc(CINQ*sizeof(char));
+    int popnova, numeronovo,npdis;
 
-    while (original != NULL){
-        Local aux = insere_local(nova, original->local, cria_pdi(), original->pop,original->prefered);
-        ptr = original->pontos->abcnext;
-        while (ptr != NULL){
-            insere_pdi(aux,ptr->nome,ptr->descricao,ptr->horario,ptr->pop);
-            printf("--%s--",ptr->nome);
-            ptr = ptr->abcnext;
+    while(strcmp(antabc->abcnext->local, alterado->local)!= 0)
+        antabc = antabc->abcnext;
+
+    while(strcmp(ant->popnext->local, alterado->local)!= 0)
+        ant = ant->popnext;
+
+    ant->popnext = alterado->popnext;
+    antabc->abcnext = alterado->abcnext;
+
+    popnova = alterado->pop;
+    numeronovo = alterado->prefered;
+    npdis = alterado->pdinum;
+    strcpy(localnovo, alterado->local);
+    novopdi = alterado->pontos;
+
+    free(alterado);
+    insere_local(inicial,localnovo,novopdi,popnova,npdis,numeronovo);
+
+}
+
+void reorganiza_pop_p(Local inicial, Pdi alterado){
+
+    Pdi ant,antabc;
+    Local aux = inicial->abcnext;
+    char* nomenovo = malloc(CINQ*sizeof(char));
+    char* horarionovo = malloc(CINQ*sizeof(char));
+    char* descricaonova = malloc(CINQ*sizeof(char));
+    int popnova, numeronovo;
+    int helper = 0;
+
+    while(helper==0){
+        antabc = aux->pontos;
+        while(antabc->abcnext != NULL){
+            if (strcmp(antabc->abcnext->nome, alterado->nome) == 0){
+                helper = 1;
+                break;
+            }
+
+            antabc = antabc->abcnext;
         }
-        printf("pos pdi\n");
-        if (original != NULL)
-            original = original->abcnext;
+        if (helper == 1)
+            break;
+        aux = aux->abcnext;
     }
 
-    return nova;
+    helper = 0;
+    aux = inicial->popnext;
+
+    while(helper==0){
+        ant = aux->pontos;
+        while(ant->popnext != NULL){
+            if (strcmp(ant->popnext->nome, alterado->nome) == 0){
+                helper = 1;
+                break;
+            }
+            ant = ant->popnext;
+        }
+        if (helper == 1)
+            break;
+        aux = aux->popnext;
+    }
+
+    ant->popnext = alterado->popnext;
+    antabc->abcnext = alterado->abcnext;
+
+    popnova = alterado->pop;
+    numeronovo = alterado->prefered;
+    strcpy(nomenovo, alterado->nome);
+    strcpy(horarionovo,alterado->horario);
+    strcpy(descricaonova,alterado->descricao);
+
+    free(alterado);
+
+    insere_pdi(aux,nomenovo,descricaonova,horarionovo,popnova,numeronovo);
 }
 
-Local reorganiza_pop(Local inicial){
-
-    Local nova_lista = cria_local();
-    nova_lista = rewritelocais(nova_lista, inicial);
-    freelistalocais(inicial);
-
-    return nova_lista;
-}
-
-void insere_pdi(Local inicial, char* place, char* descricao, char* horario, int popularidade){
+void insere_pdi(Local inicial, char* place, char* descricao, char* horario, int popularidade, int prefered){
 
     Pdi first = inicial->pontos;
     Pdi novo = cria_pdi();
@@ -126,6 +187,7 @@ void insere_pdi(Local inicial, char* place, char* descricao, char* horario, int 
     novo->descricao = descricao;
     novo->horario = horario;
     novo->pop = popularidade;
+    novo->prefered = prefered;
 
     novo->abcnext = aux->abcnext;
     aux->abcnext = novo;
@@ -143,7 +205,7 @@ Local cria_local(){
     aux=(Local)malloc(sizeof(local_node));
 
     if (aux!=NULL){
-        aux->local=malloc(vinte5*sizeof(char));
+        aux->local=malloc(VINTECINCO*sizeof(char));
         aux->pop=0;
         aux->prefered=0;
         aux->pontos=NULL;
@@ -165,27 +227,27 @@ Local openlocal(char *file){
 
     while(fscanf(f, "%c\n", &etc) == 1){   /* SALTAR \N */
 
-        tudo = malloc(vinte5*sizeof(char));
-        sitio = malloc(vinte5*sizeof(char));
+        tudo = malloc(VINTECINCO*sizeof(char));
+        sitio = malloc(VINTECINCO*sizeof(char));
 
-        fgets(tudo, vinte5, f);
+        fgets(tudo, VINTECINCO, f);
         sscanf(tudo, "%d %[^,], %d", &numero, sitio,&pop);
 
         pdiptr=cria_pdi();
 
-        aux = insere_local(ptr, sitio, pdiptr, pop,numero);
+        aux = insere_local(ptr, sitio, pdiptr, pop,numero,0);
 
         for (i=0; i<numero; i++){
 
-            info=malloc(cem*sizeof(char));
-            place=malloc(vinte5*sizeof(char));
-            descricao=malloc(vinte5*sizeof(char));
-            horario=malloc(vinte5*sizeof(char));
+            info=malloc(CEM*sizeof(char));
+            place=malloc(VINTECINCO*sizeof(char));
+            descricao=malloc(VINTECINCO*sizeof(char));
+            horario=malloc(VINTECINCO*sizeof(char));
 
-            fgets(info,cem,f);
+            fgets(info,CEM,f);
             sscanf(info, "%[^,], %[^,], %[^,], %d",place,descricao,horario,&pop);
 
-            insere_pdi(aux,place,descricao,horario,pop);
+            insere_pdi(aux,place,descricao,horario,pop,0);
         }
     }
 
@@ -200,6 +262,7 @@ void filelocais(char *file,Local placesptr){
     FILE *f=fopen(file,"w");
 
     while (aux!=NULL){
+
         if (counter==0){
             fprintf(f,"\n");
             counter++;
