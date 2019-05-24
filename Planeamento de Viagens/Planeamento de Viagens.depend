@@ -1,9 +1,8 @@
 # depslib dependency file v1.0
-1558740267 source:c:\users\hp\desktop\universidade\projeto-ppp-2019\planeamento de viagens\main.c
+1558719025 source:c:\users\hp\desktop\universidade\projeto-ppp-2019\planeamento de viagens\main.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
-	<strings.h>
 	<locale.h>
 	"user.h"
 	"locais.h"
@@ -11,10 +10,9 @@
 1558713509 c:\users\hp\desktop\universidade\projeto-ppp-2019\planeamento de viagens\user.h
 	"locais.h"
 
-1558735906 source:c:\users\hp\desktop\universidade\projeto-ppp-2019\planeamento de viagens\user.c
+1558719565 source:c:\users\hp\desktop\universidade\projeto-ppp-2019\planeamento de viagens\user.c
 	<stdio.h>
 	<stdlib.h>
-	<strings.h>
 	<string.h>
 	"user.h"
 
@@ -46,14 +44,13 @@
 1558726779 c:\users\josé esperança\desktop\projeto ppp\planeamento de viagens\user.h
 	"locais.h"
 
-1558735906 c:\users\hp\desktop\universidade\projeto-ppp-2019\planeamento de viagens\locais.h
+1558709940 c:\users\hp\desktop\universidade\projeto-ppp-2019\planeamento de viagens\locais.h
 	"locais.h"
 
-1558740018 source:c:\users\hp\desktop\universidade\projeto-ppp-2019\planeamento de viagens\locais.c
+1558713530 source:c:\users\hp\desktop\universidade\projeto-ppp-2019\planeamento de viagens\locais.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
-	<strings.h>
 	"locais.h"
 
 1558727706 source:c:\users\josé esperança\desktop\projeto ppp\planeamento de viagens\main.c
