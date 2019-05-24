@@ -212,7 +212,7 @@ nodeptr menulogin(nodeptr first, Local placesptr){
         printf("\n.......................");
         printf("\n\t -Menu-");
         printf("\n1 - Login");
-        printf("\n2 - Register");
+        printf("\n2 - Registar");
         printf("\n.......................\n");
         printf("\nEscolha: ");
 
@@ -1002,7 +1002,7 @@ int main(){
     }while (userptr == NULL);
 
     printf("\n      -Logged in com sucesso-\n");
-    printf("          Welcome, %s",userptr->name);
+    printf("         Bem vindo, %s",userptr->name);
     while (num!=0){
         switch (num){
             case 1:
