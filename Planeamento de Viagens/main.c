@@ -46,6 +46,16 @@ nodeptr login(nodeptr first,Local placesptr){
 }
 
 
+void printreset(char *name,char *adress){
+    fflush(stdin);
+    system("cls");
+    printf("\n\t  //////// Data Invalida ///////\n");
+    printf("\n.......... Inscricao de Novo utilizador ..........\n.......... Escreva quit para regressar ...........\n\n");
+    printf("Nome de Utilizador: %s",name);
+    printf("\nMorada: %s\n",adress);
+}
+
+
 nodeptr regist(nodeptr first){
 
     char *name= malloc(CINQ*sizeof(char));
@@ -53,7 +63,10 @@ nodeptr regist(nodeptr first){
     char *phone= malloc(TELE*sizeof(char));
     nodeptr aux;
     int num = 0;
-    int dia,mes,ano;
+    char *dia=malloc(TELE*sizeof(char));
+    char *mes=malloc(TELE*sizeof(char));
+    char *ano=malloc(TELE*sizeof(char));
+    int day,month,year;
     int bisexto=4;
     int i=0;
 
@@ -117,43 +130,83 @@ nodeptr regist(nodeptr first){
         num=1;
         printf("Data de Nascimento: ");
         printf("\n\t Dia: ");
-        if (scanf("%d",&dia) == 0 || (dia < 1 || dia > 31)) {   /* Caso o Utilizador nao EscolhaEscolha uma das 2 opcoes */
-            fflush(stdin);
-            system("cls");
-            printf("\n\t  ###### Data Invalida ######\n");
-            printf("\n.......... Inscricao de Novo utilizador ..........\n.......... Escreva quit para regressar ...........\n\n");
-            printf("Nome de Utilizador: %s",name);
-            printf("\nMorada: %s\n",adress);
+        fgets(dia, 4, stdin);
+        if (strcmp(dia,"\n")==0){
+            printreset(name,adress);
             num = 0;
             continue;
         }
-        fflush(stdin);
+        else{
+            dia=strtok(dia,"\n");
+            for(i=0;i<strlen(dia);i++){
+                if (*(dia+i)<'0' || *(dia+i)>'~0'){
+                    printreset(name,adress);
+                    num=0;
 
+                }
+            }
+            if (num==0)continue;
+            day=atoi(dia);
+            if ((day < 1 || day > 31)) {   /* Caso o Utilizador nao EscolhaEscolha uma das 2 opcoes */
+                printreset(name,adress);
+                num = 0;
+                continue;
+            }
+        }
+
+        fflush(stdin);
         printf("\t Mes: ");
-        if (scanf("%d",&mes) == 0 || (mes < 1 || mes > 12) || (mes==4 && dia>30) || (mes==6 && dia>30) || (mes==8 && dia>30)|| (mes==11 && dia>30)|| (mes==2 && dia>29)) {   /* Caso o Utilizador nao EscolhaEscolha uma das 2 opcoes */
-            fflush(stdin);
-            system("cls");
-            printf("\n\t  ###### Data Invalida ######\n");
-            printf("\n.......... Inscricao de Novo utilizador ..........\n.......... Escreva quit para regressar ...........\n\n");
-            printf("Nome de Utilizador: %s",name);
-            printf("\nMorada: %s\n",adress);
+        fgets(mes, 4, stdin);
+        if (strcmp(mes,"\n")==0){
+            printreset(name,adress);
             num = 0;
             continue;
-        }
-        fflush(stdin);
 
+        }
+        else{
+            mes=strtok(mes,"\n");
+            for(i=0;i<strlen(mes);i++){
+                if (*(mes+i)<'0' || *(mes+i)>'9'){
+                    printreset(name,adress);
+                    num=0;
+                    continue;
+                }
+            }
+            if (num==0)continue;
+            month=atoi(mes);
+            if ((month < 1 || month > 12) || (month==4 && day>30) || (month==6 && day>30) || (month==8 && day>30)|| (month==11 && day>30)|| (month==2 && day>29)) {    /* Caso o Utilizador nao EscolhaEscolha uma das 2 opcoes */
+                printreset(name,adress);
+                num = 0;
+                continue;
+            }
+        }
+
+        fflush(stdin);
         printf("\t Ano: ");
-        if (scanf("%d",&ano) == 0 || (ano < 1888 || ano > 2010) || ((ano%bisexto)!=0 && dia==29 && mes==2)) {   /* Caso o Utilizador nao EscolhaEscolha uma das 2 opcoes */
-            fflush(stdin);
-            system("cls");
-            printf("\n\t  ###### Data Invalida ######\n");
-            printf("\n.......... Inscricao de Novo utilizador ..........\n.......... Escreva quit para regressar ...........\n\n");
-            printf("Nome de Utilizador: %s",name);
-            printf("\nMorada: %s\n",adress);
+        fgets(ano, 6, stdin);
+        if (strcmp(ano,"\n")==0){
+            printreset(name,adress);
+
             num = 0;
             continue;
         }
-        fflush(stdin);
+        else{
+            ano=strtok(ano,"\n");
+            for(i=0;i<strlen(ano);i++){
+                if (*(mes+i)<'0' || *(mes+i)>'9'){
+                    printreset(name,adress);
+                    num=0;
+                    continue;
+                }
+            }
+            if (num==0)continue;
+            year=atoi(ano);
+            if ((year < 1888 || year > 2010) || ((year%bisexto)!=0 && day==29 && month==2)) {   /* Caso o Utilizador nao EscolhaEscolha uma das 2 opcoes */
+                printreset(name,adress);
+                num = 0;
+                continue;
+            }
+        }
 
     }
 
@@ -197,7 +250,7 @@ nodeptr regist(nodeptr first){
             aux=aux->next;
     }
 
-    insere(aux,name,adress,dia,mes,ano,phone,"0/","0/");
+    insere(aux,name,adress,day,month,year,phone,"0/","0/");
 
     return aux;
 }
@@ -396,16 +449,16 @@ int addlocaisabc(nodeptr userptr, Local placesptr){
 
     while(localaux!=NULL){
         if (localaux->prefered==0)
-            printf("\n%d - %s",i++,localaux->local);
+            printf("\n%2d - %s",i++,localaux->local);
         else if (localaux->prefered==1)
-            printf("\n%d - %s *FAVORITO*",i++,localaux->local);
+            printf("\n%2d - %s *FAVORITO*",i++,localaux->local);
         localaux=localaux->abcnext;
     }
-    printf("\n\n %d - Back",i++);
+    printf("\n\n  0 - Back");
     printf("\n..................................\n");
     printf("\nEscolha: ");
 
-    if (scanf("%d",&num) == 0 || (num < 1 || num > i)){   /* Caso o Utilizador nao Escolha uma das opcoes */
+    if (scanf("%d",&num) == 0 || (num < 0 || num > i-1)){   /* Caso o Utilizador nao Escolha uma das opcoes */
 
         fflush(stdin);
         system("cls");
@@ -413,7 +466,7 @@ int addlocaisabc(nodeptr userptr, Local placesptr){
     }
 
 
-    if (num==i-1){              /* BACK OPTION */
+    if (num==0){              /* BACK OPTION */
 
         fflush(stdin);
         system("cls");
@@ -461,16 +514,16 @@ int addlocaispop(nodeptr userptr, Local placesptr){
 
     while(localaux!=NULL){
         if (localaux->prefered==0)
-            printf("\n%d - %s",i++,localaux->local);
+            printf("\n%2d - %s",i++,localaux->local);
         else if (localaux->prefered==1)
-            printf("\n%d - %s *FAVORITO*",i++,localaux->local);
+            printf("\n%2d - %s *FAVORITO*",i++,localaux->local);
         localaux=localaux->popnext;
     }
-    printf("\n\n %d - Back",i++);
+    printf("\n\n  0 - Back");
     printf("\n..................................\n");
     printf("\nEscolha: ");
 
-    if (scanf("%d",&num) == 0 || (num < 1 || num > i)){   /* Caso o Utilizador nao Escolha uma das opcoes */
+    if (scanf("%d",&num) == 0 || (num < 0 || num > i-1)){   /* Caso o Utilizador nao Escolha uma das opcoes */
 
         fflush(stdin);
         system("cls");
@@ -478,7 +531,7 @@ int addlocaispop(nodeptr userptr, Local placesptr){
     }
 
 
-    if (num==i-1){              /* BACK OPTION */
+    if (num==0){              /* BACK OPTION */
 
         fflush(stdin);
         system("cls");
@@ -581,18 +634,18 @@ int addpdisabc(nodeptr userptr, Local placesptr){
         printf("\n");
         localaux=localaux->abcnext;
     }
-    printf("\n\n %2d - Back",i++);
+    printf("\n\n 0 - Back");
     printf("\n..................................");
     printf("\nEscolha:");
 
-    if (scanf("%d",&num) == 0 || (num < 1 || num > i)){   /* Caso o Utilizador nao Escolha uma das opcoes */
+    if (scanf("%d",&num) == 0 || (num < 0 || num > i-1)){   /* Caso o Utilizador nao Escolha uma das opcoes */
 
         fflush(stdin);
         system("cls");
         return 322;
     }
 
-    if (num==i-1){              /* BACK OPTION */
+    if (num==0){              /* BACK OPTION */
         fflush(stdin);
         system("cls");
         return 32;
@@ -670,18 +723,18 @@ int addpdispop(nodeptr userptr, Local placesptr){
         printf("\n");
         localaux=localaux->popnext;
     }
-    printf("\n\n %2d - Back",i++);
+    printf("\n\n  0 - Back");
     printf("\n..................................");
     printf("\nEscolha:");
 
-    if (scanf("%d",&num) == 0 || (num < 1 || num > i)){   /* Caso o Utilizador nao Escolha uma das opcoes */
+    if (scanf("%d",&num) == 0 || (num < 0 || num > i-1)){   /* Caso o Utilizador nao Escolha uma das opcoes */
 
         fflush(stdin);
         system("cls");
         return 321;
     }
 
-    if (num==i-1){              /* BACK OPTION */
+    if (num==0){              /* BACK OPTION */
         fflush(stdin);
         system("cls");
         return 32;
@@ -1016,7 +1069,6 @@ int main(){
     int num = 1;
     Local placesptr;
     nodeptr first,userptr;
-    /*system("COLOR 2");*/
     setlocale(LC_ALL,"Portuguese");
     placesptr = openlocal("locais.txt");
 
