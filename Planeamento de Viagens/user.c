@@ -406,8 +406,9 @@ int alterauser(nodeptr userptr,nodeptr first){
     nodeptr aux=first;
     char *input=malloc(CINQ*sizeof(char));
 
+    printf("\n........... Altera nome de utilizador ............");
     printf("\n.......... Escreva quit para regressar ...........\n\n");
-    printf("\nNome de Utilizador: ");
+    printf("Novo Nome de Utilizador: ");
     fgets(input,CINQ,stdin);
     fflush(stdin);
     system("cls");
@@ -438,8 +439,9 @@ int alterauser(nodeptr userptr,nodeptr first){
 
 int alteramorada(nodeptr userptr,nodeptr first){
     char *input=malloc(CEM*sizeof(char));
+    printf("\n................. Altera morada ..................");
     printf("\n.......... Escreva quit para regressar ...........\n\n");
-    printf("\nMorada: ");
+    printf("Nova Morada: ");
     fgets(input,CEM,stdin);
     fflush(stdin);
     system("cls");
@@ -462,12 +464,14 @@ int alteramorada(nodeptr userptr,nodeptr first){
 int alteradata(nodeptr userptr,nodeptr first){
     int dia,mes,ano;
     int bisexto=4;
-    printf("Data de Nascimento: ");
+    printf("\n........... Altera data de nascimento ............");
+    printf("\n.......... Escreva quit para regressar ...........\n\n");
+    printf("Nova Data de Nascimento: ");
     printf("\n\t Dia: ");
     if (scanf("%d",&dia) == 0 || (dia < 1 || dia > 31)) {   /* Caso o Utilizador nao EscolhaEscolha uma das 2 opcoes */
         fflush(stdin);
         system("cls");
-        printf("\n\t  //////// Data Invalida ///////\n");
+        printf("\n\t  ###### Data Invalida ######\n");
         return 23;
     }
     fflush(stdin);
@@ -476,7 +480,7 @@ int alteradata(nodeptr userptr,nodeptr first){
     if (scanf("%d",&mes) == 0 || (mes < 1 || mes > 12) || (mes==4 && dia>30) || (mes==6 && dia>30) || (mes==8 && dia>30)|| (mes==11 && dia>30)|| (mes==2 && dia>29)) {   /* Caso o Utilizador nao EscolhaEscolha uma das 2 opcoes */
         fflush(stdin);
         system("cls");
-        printf("\n\t  //////// Data Invalida ///////\n");
+        printf("\n\t  ###### Data Invalida ######\n");
         return 23;
     }
     fflush(stdin);
@@ -485,7 +489,7 @@ int alteradata(nodeptr userptr,nodeptr first){
     if (scanf("%d",&ano) == 0 || (ano < 1888 || ano > 2010) || ((ano%bisexto)!=0 && dia==29 && mes==2)) {   /* Caso o Utilizador nao EscolhaEscolha uma das 2 opcoes */
         fflush(stdin);
         system("cls");
-        printf("\n\t  //////// Data Invalida ///////\n");
+        printf("\n\t  ###### Data Invalida ######n");
         return 23;
     }
     system("cls");
@@ -499,25 +503,28 @@ int alteradata(nodeptr userptr,nodeptr first){
 int alteraphone(nodeptr userptr,nodeptr first){
     char *phone=malloc(TELE*sizeof(char));
     int i=0;
-
+    printf("\n................ Altera telefone .................");
     printf("\n.......... Escreva quit para regressar ...........\n\n");
-    printf("TELEfone: ");
+    printf("Telefone: ");
     fgets(phone,TELE,stdin);
     fflush(stdin);
     if (strcmp(phone,"\n")==0){
         system("cls");
-        printf("\n\t  //////// TELEfone Invalido ///////\n");
+        printf("\n\t  ###### Telefone Invalido ######\n");
         return 24;
     }
     else{
         phone=strtok(phone,"\n");
-        if (strcmp(phone,"quit")==0)
+        if (strcmp(phone,"quit")==0){
+                system("cls");
                 return 2;
+        }
+
         for (i=0;i<9;i++){
 
             if (*(phone+i)<'0' || *(phone+i)>'9' || strlen(phone)!=9){
                 system("cls");
-                printf("\n\t  //////// TELEfone Invalido ///////\n");
+                printf("\n\t  ###### Telefone Invalido ######\n");
                 return 24;
             }
         }

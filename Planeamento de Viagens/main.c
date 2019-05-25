@@ -72,7 +72,7 @@ nodeptr regist(nodeptr first){
 
         if (strcmp(name,"\n")==0){
             system("cls");
-            printf("\n\t  //////// Utilizador invalido ///////\n");
+            printf("\n\t  ###### Utilizador invalido ######\n");
             num = 0;
         }
         else{
@@ -100,7 +100,7 @@ nodeptr regist(nodeptr first){
         fflush(stdin);
         if (strcmp(adress,"\n")==0){
             system("cls");
-            printf("\n\t  //////// Morada Invalida ///////\n");
+            printf("\n\t  ###### Morada Invalida ######\n");
             printf("\n.......... Inscricao de Novo utilizador ..........\n.......... Escreva quit para regressar ...........\n\n");
             printf("Nome de Utilizador: %\n",name);
             num = 0;
@@ -120,7 +120,7 @@ nodeptr regist(nodeptr first){
         if (scanf("%d",&dia) == 0 || (dia < 1 || dia > 31)) {   /* Caso o Utilizador nao EscolhaEscolha uma das 2 opcoes */
             fflush(stdin);
             system("cls");
-            printf("\n\t  //////// Data Invalida ///////\n");
+            printf("\n\t  ###### Data Invalida ######\n");
             printf("\n.......... Inscricao de Novo utilizador ..........\n.......... Escreva quit para regressar ...........\n\n");
             printf("Nome de Utilizador: %s",name);
             printf("\nMorada: %s\n",adress);
@@ -133,7 +133,7 @@ nodeptr regist(nodeptr first){
         if (scanf("%d",&mes) == 0 || (mes < 1 || mes > 12) || (mes==4 && dia>30) || (mes==6 && dia>30) || (mes==8 && dia>30)|| (mes==11 && dia>30)|| (mes==2 && dia>29)) {   /* Caso o Utilizador nao EscolhaEscolha uma das 2 opcoes */
             fflush(stdin);
             system("cls");
-            printf("\n\t  //////// Data Invalida ///////\n");
+            printf("\n\t  ###### Data Invalida ######\n");
             printf("\n.......... Inscricao de Novo utilizador ..........\n.......... Escreva quit para regressar ...........\n\n");
             printf("Nome de Utilizador: %s",name);
             printf("\nMorada: %s\n",adress);
@@ -146,7 +146,7 @@ nodeptr regist(nodeptr first){
         if (scanf("%d",&ano) == 0 || (ano < 1888 || ano > 2010) || ((ano%bisexto)!=0 && dia==29 && mes==2)) {   /* Caso o Utilizador nao EscolhaEscolha uma das 2 opcoes */
             fflush(stdin);
             system("cls");
-            printf("\n\t  //////// Data Invalida ///////\n");
+            printf("\n\t  ###### Data Invalida ######\n");
             printf("\n.......... Inscricao de Novo utilizador ..........\n.......... Escreva quit para regressar ...........\n\n");
             printf("Nome de Utilizador: %s",name);
             printf("\nMorada: %s\n",adress);
@@ -167,7 +167,7 @@ nodeptr regist(nodeptr first){
         fflush(stdin);
         if (strcmp(phone,"\n")==0){
             system("cls");
-            printf("\n\t  //////// Telefone Invalido ///////\n");
+            printf("\n\t  ###### Telefone Invalido ######\n");
             printf("\n.......... Inscricao de Novo utilizador ..........\n.......... Escreva quit para regressar ...........\n\n");
             printf("Nome de Utilizador: %s",name);
             printf("\nMorada: %s",adress);
@@ -182,7 +182,7 @@ nodeptr regist(nodeptr first){
 
                 if (*(phone+i)<'0' || *(phone+i)>'9' || strlen(phone)!=9){
                     system("cls");
-                    printf("\n\t  //////// Telefone Invalido ///////\n");
+                    printf("\n\t  ###### Telefone Invalido ######\n");
                     printf("\n.......... Inscricao de Novo utilizador ..........\n.......... Escreva quit para regressar ...........\n\n");
                     printf("Nome de Utilizador: %s",name);
                     printf("\nMorada: %s",adress);
@@ -300,7 +300,7 @@ int menualtera(nodeptr userptr,nodeptr first){
     printf("\n1 - Utilizador");
     printf("\n2 - Morada");
     printf("\n3 - Data de Nascimento");
-    printf("\n4 - TELEfone");
+    printf("\n4 - Telefone");
     printf("\n5 - Back");
     printf("\n.........................\n");
     printf("\nEscolha: ");
@@ -886,6 +886,9 @@ int viagem(nodeptr first,nodeptr user, Local placesptr){
 
     /* VIAGEM */
 
+    printf("\n......................................................................................................");
+    printf("\n\t\t\t\t\t\t-Viagem-\n");
+    printf("......................................................................................................\n\n");
     while (localcount!=count){
         if (localaux->prefered==1){
             printf("%d) %s\n",++localcount,localaux->local);
@@ -928,6 +931,7 @@ int viagem(nodeptr first,nodeptr user, Local placesptr){
                 }
                 pdiaux=pdiaux->popnext;
             }
+            printf("\n");
             pdicount=0;
         }
         localaux=localaux->abcnext;
@@ -936,15 +940,22 @@ int viagem(nodeptr first,nodeptr user, Local placesptr){
     }
 
     tripcheckreset(first);
-    printf("\n\n\tPercentagens Relacionadas com a Viagem\n\n");
-    printf("->%.1f %% dos utilizadores têm pelo menos 1 local favorito entre os incluídos na sua viagem\n",100*(double)percentagemlocais/totalusers);
-    printf("->%.1f %% dos utilizadores têm um dos pontos da viagem como Hot\n",100*(double)percentagemhot/totalusers);
-    printf("->%.1f %% de popularidade dos PDI escolhidos \n",100*(double)percentagempdi/totalpdi);
 
+    printf("\n......................................................................................................");
+    printf("\n\t\t\t\t-Avaliação da Viagem-\n");
+    printf("......................................................................................................\n\n");
+    printf("->%.1f %% dos utilizadores têm pelo menos 1 local favorito entre os incluídos na sua viagem\n\n",100*(double)percentagemlocais/totalusers);
+    printf("->%.1f %% dos utilizadores têm um dos pontos da viagem como Hot\n\n",100*(double)percentagemhot/totalusers);
+    if (totalpdi == 0)
+        printf("-> Não existem PDI favoritos\n");
+    else
+        printf("->%.1f %% de popularidade dos PDI escolhidos \n", 100*(double)percentagempdi/totalpdi);
+
+    printf("\n\n......................................................................................................\n");
     printf("\nDeseja Sair?\n");
-    printf("\n1)Sim (Logout)");
-    printf("\n2)Nao (Main Menu)");
-    printf("\nEscolha: ");
+    printf("\n1 - Nao (Main Menu)");
+    printf("\n2 - Sim (Logout)");
+    printf("\n\nEscolha: ");
 
     if (scanf("%d",&num) == 0 || (num < 1 || num > 2)){   /* Caso o Utilizador nao Escolha uma das 2 opcoes */
         fflush(stdin);
@@ -953,7 +964,7 @@ int viagem(nodeptr first,nodeptr user, Local placesptr){
         return 4;
     }
 
-    if (num==2){
+    if (num==1){
         fflush(stdin);
         system("cls");
         return 1;
