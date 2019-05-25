@@ -130,7 +130,9 @@ nodeptr regist(nodeptr first){
         num=1;
         printf("Data de Nascimento: ");
         printf("\n\t Dia: ");
-        fgets(dia, 4, stdin);
+        fgets(dia, 6, stdin);
+        if (strcmp(dia,"quit\n")==0)
+            return NULL;
         if (strcmp(dia,"\n")==0){
             printreset(name,adress);
             num = 0;
@@ -139,7 +141,7 @@ nodeptr regist(nodeptr first){
         else{
             dia=strtok(dia,"\n");
             for(i=0;i<strlen(dia);i++){
-                if (*(dia+i)<'0' || *(dia+i)>'~0'){
+                if (*(dia+i)<'0' || *(dia+i)>'9'){
                     printreset(name,adress);
                     num=0;
 
@@ -147,7 +149,7 @@ nodeptr regist(nodeptr first){
             }
             if (num==0)continue;
             day=atoi(dia);
-            if ((day < 1 || day > 31)) {   /* Caso o Utilizador nao EscolhaEscolha uma das 2 opcoes */
+            if ((day < 1 || day > 31)) {   /* Caso o Utilizador nao Escolha uma das 31 opcoes */
                 printreset(name,adress);
                 num = 0;
                 continue;
@@ -156,7 +158,9 @@ nodeptr regist(nodeptr first){
 
         fflush(stdin);
         printf("\t Mes: ");
-        fgets(mes, 4, stdin);
+        fgets(mes, 6, stdin);
+        if (strcmp(mes,"quit\n")==0)
+            return NULL;
         if (strcmp(mes,"\n")==0){
             printreset(name,adress);
             num = 0;
@@ -184,6 +188,8 @@ nodeptr regist(nodeptr first){
         fflush(stdin);
         printf("\t Ano: ");
         fgets(ano, 6, stdin);
+        if (strcmp(ano,"quit\n")==0)
+            return NULL;
         if (strcmp(ano,"\n")==0){
             printreset(name,adress);
 
@@ -193,7 +199,7 @@ nodeptr regist(nodeptr first){
         else{
             ano=strtok(ano,"\n");
             for(i=0;i<strlen(ano);i++){
-                if (*(mes+i)<'0' || *(mes+i)>'9'){
+                if (*(ano+i)<'0' || *(ano+i)>'9'){
                     printreset(name,adress);
                     num=0;
                     continue;
@@ -224,7 +230,7 @@ nodeptr regist(nodeptr first){
             printf("\n.......... Inscricao de Novo utilizador ..........\n.......... Escreva quit para regressar ...........\n\n");
             printf("Nome de Utilizador: %s",name);
             printf("\nMorada: %s",adress);
-            printf("\nData de Nascimento: %d/%d/%d\n",dia,mes,ano);
+            printf("\nData de Nascimento: %d/%d/%d\n",day,month,year);
             num = 0;
         }
         else{
@@ -239,7 +245,7 @@ nodeptr regist(nodeptr first){
                     printf("\n.......... Inscricao de Novo utilizador ..........\n.......... Escreva quit para regressar ...........\n\n");
                     printf("Nome de Utilizador: %s",name);
                     printf("\nMorada: %s",adress);
-                    printf("\nData de Nascimento: %d/%d/%d\n",dia,mes,ano);
+                    printf("\nData de Nascimento: %d/%d/%d\n",day,month,year);
                     num=0;
                     break;
                 }
@@ -1000,7 +1006,7 @@ int viagem(nodeptr first,nodeptr user, Local placesptr){
     printf("->%.1f %% dos utilizadores têm pelo menos 1 local favorito entre os incluídos na sua viagem\n\n",100*(double)percentagemlocais/totalusers);
     printf("->%.1f %% dos utilizadores têm um dos pontos da viagem como Hot\n\n",100*(double)percentagemhot/totalusers);
     if (totalpdi == 0)
-        printf("-> Não existem PDI favoritos\n");
+        printf("->Não existem PDI favoritos\n");
     else
         printf("->%.1f %% de popularidade dos PDI escolhidos \n", 100*(double)percentagempdi/totalpdi);
 
