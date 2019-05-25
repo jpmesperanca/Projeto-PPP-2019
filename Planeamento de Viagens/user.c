@@ -462,40 +462,100 @@ int alteramorada(nodeptr userptr,nodeptr first){
 
 
 int alteradata(nodeptr userptr,nodeptr first){
-    int dia,mes,ano;
+    char *dia=malloc(TELE*sizeof(char));
+    char *mes=malloc(TELE*sizeof(char));
+    char *ano=malloc(TELE*sizeof(char));
+    int day,month,year,i=0;
     int bisexto=4;
     printf("\n........... Altera data de nascimento ............");
     printf("\n.......... Escreva quit para regressar ...........\n\n");
-    printf("Nova Data de Nascimento: ");
+    printf("Data de Nascimento: ");
+
     printf("\n\t Dia: ");
-    if (scanf("%d",&dia) == 0 || (dia < 1 || dia > 31)) {   /* Caso o Utilizador nao EscolhaEscolha uma das 2 opcoes */
-        fflush(stdin);
+    fgets(dia, 6, stdin);
+
+    if (strcmp(dia,"quit\n")==0){
         system("cls");
-        printf("\n\t  ###### Data Invalida ######\n");
+        return 2;
+    }
+
+    if (strcmp(dia,"\n")==0){
+        system("cls");
         return 23;
     }
-    fflush(stdin);
+    else{
+        dia=strtok(dia,"\n");
+        for(i=0;i<strlen(dia);i++){
+            if (*(dia+i)<'0' || *(dia+i)>'9'){
+                return 23;
 
+            }
+        }
+        day=atoi(dia);
+        if ((day < 1 || day > 31)) {   /* Caso o Utilizador nao Escolha uma das 31 opcoes */
+            system("cls");
+            return 23;
+        }
+    }
+
+
+    fflush(stdin);
     printf("\t Mes: ");
-    if (scanf("%d",&mes) == 0 || (mes < 1 || mes > 12) || (mes==4 && dia>30) || (mes==6 && dia>30) || (mes==8 && dia>30)|| (mes==11 && dia>30)|| (mes==2 && dia>29)) {   /* Caso o Utilizador nao EscolhaEscolha uma das 2 opcoes */
-        fflush(stdin);
+    fgets(mes, 6, stdin);
+    if (strcmp(mes,"quit\n")==0){
         system("cls");
-        printf("\n\t  ###### Data Invalida ######\n");
+        return 2;
+    }
+    if (strcmp(mes,"\n")==0){
+        system("cls");
         return 23;
     }
-    fflush(stdin);
 
+    else{
+        mes=strtok(mes,"\n");
+        for(i=0;i<strlen(mes);i++){
+            if (*(mes+i)<'0' || *(mes+i)>'9'){
+                system("cls");
+                return 23;
+            }
+        }
+        month=atoi(mes);
+        if ((month < 1 || month > 12) || (month==4 && day>30) || (month==6 && day>30) || (month==8 && day>30)|| (month==11 && day>30)|| (month==2 && day>29)) {    /* Caso o Utilizador nao EscolhaEscolha uma das 2 opcoes */
+            system("cls");
+            return 23;
+        }
+    }
+
+
+    fflush(stdin);
     printf("\t Ano: ");
-    if (scanf("%d",&ano) == 0 || (ano < 1888 || ano > 2010) || ((ano%bisexto)!=0 && dia==29 && mes==2)) {   /* Caso o Utilizador nao EscolhaEscolha uma das 2 opcoes */
-        fflush(stdin);
+    fgets(ano, 6, stdin);
+    if (strcmp(ano,"quit\n")==0){
         system("cls");
-        printf("\n\t  ###### Data Invalida ######n");
+        return 2;
+    }
+    if (strcmp(ano,"\n")==0){
+        system("cls");
         return 23;
+    }
+    else{
+        ano=strtok(ano,"\n");
+        for(i=0;i<strlen(ano);i++){
+            if (*(ano+i)<'0' || *(ano+i)>'9'){
+                system("cls");
+                return 23;
+            }
+        }
+        year=atoi(ano);
+        if ((year < 1888 || year > 2010) || ((year%bisexto)!=0 && day==29 && month==2)) {   /* Caso o Utilizador nao EscolhaEscolha uma das 2 opcoes */
+            system("cls");
+            return 23;
+        }
     }
     system("cls");
-    userptr->day=dia;
-    userptr->month=mes;
-    userptr->year=ano;
+    userptr->day=day;
+    userptr->month=month;
+    userptr->year=year;
     return 2;
 }
 
